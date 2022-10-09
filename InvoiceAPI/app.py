@@ -6,13 +6,13 @@ import pdfkit as pdf
 
 app = Flask(__name__)
 cors = CORS(app)
-app.config["CORS_HEADERS"]= 'Content-Type'
+app.config["CORS_HEADERS"] = 'Content-Type'
+app.config["SECRET_KEY"] = 'ROYALAPPLIANCE2022!'
 
 app_conf = configparser.ConfigParser()
 app_conf.read("app.config")
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
 
 @app.route("/")
 def home():
@@ -51,6 +51,9 @@ def get_invoice_test():
         outf.write(html_string)
     
     pdf.from_file('InvoiceAPI/template/invoice_out.html','file.pdf')
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 
 
