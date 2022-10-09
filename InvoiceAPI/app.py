@@ -44,16 +44,17 @@ def connection_test():
 @cross_origin()
 def get_invoice_test():
     html_string =""
-    with open("InvoiceAPI\template\invoice.html","r") as f:
+    with open("InvoiceAPI/template/invoice.html","r") as f:
         html_string = f.read()
         html_string = html_string.replace("{{company_name}}",app_conf.get("client_info","name"))
     with open ("InvoiceAPI/template/invoice_out.html","w") as outf:
         outf.write(html_string)
     
-    pdf.from_file('InvoiceAPI/template/invoice_out.html','file.pdf')
+    pdf.from_file('InvoiceAPI/template/invoice_out.html','InvoiceAPI/pdf/file.pdf')
+    return jsonify("Finished")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host= "0.0.0.0",debug=True)
 
 
 
