@@ -6,13 +6,13 @@ import {
     View,
     Alert, Image
 }
-    from 'react-native';
+from 'react-native';
 
 
 const Login = () => {
 
-    const [email, onChangeEmail] = React.useState("");
-    const [password, onChangePassword] = React.useState("");
+    const [email, onChangeEmail] = React.useState(null);
+    const [password, onChangePassword] = React.useState(null);
 
     return (
         <View>
@@ -23,8 +23,9 @@ const Login = () => {
 
             <TextInput
                 style={styles.input}
-                onChangeEmail={onChangeEmail}
+                onChangeText={onChangeEmail}
                 value={email}
+
                 keyboardType={"email-address"}
                 placeholder={"Email"}
                 placeholderTextColor={'#fff'}
@@ -32,14 +33,16 @@ const Login = () => {
             />
             <TextInput
                 style={styles.input}
-                onChangePassword={onChangePassword}
+                onChangeText={onChangePassword}
                 value={password}
+
                 placeholder={"Password"}
                 placeholderTextColor={'#fff'}
             />
             <Button
                 title={"Login"}
-                onPress = {() => Alert.alert("PLACEHOLDER: Button Pressed")}
+                onPress = {() =>
+                        console.log(email + " " + password)}
             />
         </View>
     )
@@ -53,6 +56,7 @@ const styles = StyleSheet.create({
             borderWidth: 1,
             padding: 10,
             borderColor: '#fff',
+            color: '#fff',
         },
         image: {
             width: 300,

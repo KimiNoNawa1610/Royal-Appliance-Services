@@ -5,11 +5,12 @@ import Login from "./pages/Login.js"
 
 
 export default function App() {
-  //Routing is not in place, using this to test each different page manually
+  //Navigation is not in place, using this to test each different page manually
   return (
     <View style={styles.container}>
       <Login/>
       <StatusBar style="auto" />
+
     </View>
   );
 }
