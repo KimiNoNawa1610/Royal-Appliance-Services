@@ -47,6 +47,8 @@ def get_invoice_test():
     with open("InvoiceAPI/template/invoice.html","r") as f:
         html_string = f.read()
         html_string = html_string.replace("{{company_name}}",app_conf.get("client_info","name"))
+        html_string = html_string.replace("{{client}}","tester")
+        
     with open ("InvoiceAPI/template/invoice_out.html","w") as outf:
         outf.write(html_string)
     
