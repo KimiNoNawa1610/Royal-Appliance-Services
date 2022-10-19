@@ -19,7 +19,7 @@ def home():
     return f"home {request.method}"
 
 
-@app.route("/generate_invoice", methods=["GET","POST"])
+@app.route("/generate_invoice", methods=["POST"])
 @cross_origin()
 def generate_invoice():
     pass
@@ -47,6 +47,11 @@ def get_invoice_test():
     with open("InvoiceAPI/template/invoice.html","r") as f:
         html_string = f.read()
         html_string = html_string.replace("{{company_name}}",app_conf.get("client_info","name"))
+        html_string = html_string.replace("{{client}}","tester")
+        html_string = html_string.replace("{{company_name}}",app_conf.get("client_info","street_address"))
+        html_string = html_string.replace("{{company_name}}",app_conf.get("client_info","city_zipcode"))
+        html_string = html_string.replace("{{company_name}}",app_conf.get("client_info","phone"))
+        
     with open ("InvoiceAPI/template/invoice_out.html","w") as outf:
         outf.write(html_string)
     
