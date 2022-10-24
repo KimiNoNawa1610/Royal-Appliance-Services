@@ -5,7 +5,7 @@ import CreateJob from "./pages/CreateJob.js";
 import Login from "./pages/Login.js";
 import EditJob from "./pages/EditJob";
 
-/*
+/* Return JSON string for reference
 {
     "client": "NVIDIA",
     "rows":[
@@ -36,7 +36,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#27445C",
+    backgroundColor: "#223570",
     alignItems: "center",
     justifyContent: "center",
   },

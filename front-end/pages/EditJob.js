@@ -1,86 +1,63 @@
-import React, { useState, Componenet } from "react";
+import React, { useState } from "react";
 import {
-  Button,
   StyleSheet,
   TextInput,
   Text,
   View,
-  VirtualizedList,
+  SafeAreaView,
   Alert,
   StatusBar,
   Modal,
   Pressable,
+  FlatList,
 } from "react-native";
 
 import SelectList from "react-native-dropdown-select-list/index";
 
-
-const DATA = [
-  { detailTitle: "PH: PreExsiting_Detail_0" },
-  { detailTitle: "PH: PreExsiting_Detail_1" },
-  { detailTitle: "PH: PreExsiting_Detail_2" },
-  { detailTitle: "PH: PreExsiting_Detail_0" },
-  { detailTitle: "PH: PreExsiting_Detail_1" },
-  { detailTitle: "PH: PreExsiting_Detail_2" },
-  { detailTitle: "PH: PreExsiting_Detail_0" },
-
-  { detailTitle: "PH: PreExsiting_Detail_3" },
-];
+const DATA = {
+  client: "NVIDIA",
+  rows: [
+    {
+      item: "RTX 3080",
+      total: 320,
+      my_part: 30,
+      labor: 150,
+      tax: 30.5,
+      sell: 699,
+      shipping: 11,
+      paid_by: "cash",
+    },
+  ],
+  paid: 670,
+  note: "",
+};
+const parseRowsToMultJSONArray = (dataRows) => {
+  let returnArray = [];
+  let id = 0;
+  for (let keyName in dataRows) {
+    let newObj = {};
+    newObj.id = id;
+    newObj.name = keyName;
+    newObj.jobData = dataRows[keyName];
+    returnArray.push(newObj);
+    id++;
+  }
+  return returnArray;
+};
+let DATA_ROWS = parseRowsToMultJSONArray(DATA.rows[0]);
 
 const getPreData = () => {
-  /* Reference
-    Invoice =
-    {
-        id : {name : "value",
-              value : "value"
-        }
-    }
-        total
-        my_part
-        labor
-        tax
-        shipping
-        net
-        part_installed
-        client_sell
-        paid_by
-    }
-    */
   //TODO: Call to the backend to get pre-existing data on a {Job}
 };
-
-const getJobDetail = (data, index) => {
-  return data[index];
-};
-
-const getJobDetailCount = (data) => {
-  return data.length;
-};
-
-const JobDetail = ({ jobDetail }) => {
-  const [detail, onChangeDetail] = React.useState(jobDetail["detailTitle"]);
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Job Detail</Text>
-      <TextInput
-        style={styles.input}
-        value={detail}
-        onChangeText={onChangeDetail}
-        placeholderTextColor={"#fff"}
-      />
-    </View>
-  );
-};
-
 const AddJobDetailModal = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selected, setSelected] = React.useState("");
   let detailType = [
-    {key: '1', value: 'Part'},
-    {key: '2', value: 'Other Detail'}
+    { key: "1", value: "Part" },
+    { key: "2", value: "Other Detail" },
   ];
   return (
-    <View style={styles.centeredView}>
+    <SafeAreaView style={styles.centeredView}>
       <Modal
         animationType="slide"
         transparent={true}
@@ -90,21 +67,17 @@ const AddJobDetailModal = () => {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.centeredView}>
-
-
-          <View style={styles.modalView}>
+        <SafeAreaView style={styles.centeredView}>
+          <SafeAreaView style={styles.modalView}>
             <Text style={styles.modalText}>New Detail</Text>
             <SelectList
-                search = {false}
-                setSelected={setSelected}
-                data={detailType}
-                onsSelect={()=>alert(selected)}
+              search={false}
+              setSelected={setSelected}
+              data={detailType}
+              onsSelect={() => alert(selected)}
             />
             <Text style={styles.addJobDetailText}>Job Detail</Text>
-            <TextInput
-                style={styles.addJobDetailInput}
-            />
+            <TextInput style={styles.addJobDetailInput} />
 
             <Pressable
               style={[styles.button, styles.buttonClose]}
@@ -112,13 +85,9 @@ const AddJobDetailModal = () => {
             >
               <Text style={styles.textStyle}>Finish</Text>
             </Pressable>
-          </View>
-
-
-
-        </View>
+          </SafeAreaView>
+        </SafeAreaView>
       </Modal>
-
 
       <Pressable
         style={[styles.button, styles.buttonOpen]}
@@ -126,47 +95,71 @@ const AddJobDetailModal = () => {
       >
         <Text style={styles.textStyle}>Add New Detail</Text>
       </Pressable>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const EditJob = () => {
-  return (
-    <View>
-      <View name="Text" style={styles.title}>
-        <Text style={styles.bigText}>Edit Job</Text>
-      </View>
+  console.log(DATA_ROWS);
 
-      <View name="Pre-Existing Data" style={styles.existing}>
-        <VirtualizedList
-          data={DATA}
-          initialNumToRender={4}
-          renderItem={({ item }) => <JobDetail jobDetail={item} />}
-          keyExtractor={(item) => item.key}
-          getItem={getJobDetail}
-          getItemCount={getJobDetailCount}
+  const JobDetail = ({ item }) => {
+    let detail = item.jobData;
+    const onChangeDetail = (newDetail) => {
+      detail = newDetail;
+    };
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.text}>{item.name}</Text>
+        <TextInput
+          style={styles.input}
+          value={detail}
+          onChangeText={onChangeDetail}
+          placeholderTextColor={"#fff"}
         />
-      </View>
+      </SafeAreaView>
+    );
+  };
 
-      <View name="Data to Add">
+  return (
+    <SafeAreaView style={styles.whole}>
+      <SafeAreaView name="Text" style={styles.title}>
+        <Text style={styles.bigText}>Edit Job</Text>
+      </SafeAreaView>
+
+      <Text style={styles.text}>Client: {DATA.client}</Text>
+
+      <SafeAreaView name="Pre-Existing Data" style={styles.existing}>
+        <FlatList
+          data={DATA_ROWS}
+          renderItem={JobDetail}
+          keyExtractor={(item) => item.id}
+        />
+      </SafeAreaView>
+
+      <SafeAreaView name="Data to Add">
         <AddJobDetailModal />
-      </View>
-    </View>
+      </SafeAreaView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  whole: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight,
   },
   existing: {
     borderRadius: 5,
-    backgroundColor: "#163352",
-    padding: 15,
+    backgroundColor: "#172757",
+    justifyContent: "center",
+    alignItems: "center",
   },
   input: {
-    height: 40,
+    height: 20,
     margin: 12,
     borderWidth: 1,
     borderRadius: 5,
@@ -193,6 +186,7 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
+    flex: 1,
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
@@ -215,10 +209,10 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonOpen: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "royalblue",
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "royalblue",
   },
   textStyle: {
     color: "white",
@@ -229,13 +223,12 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "center",
   },
-  addJobDetailText:{
+  addJobDetailText: {
     paddingTop: 20,
   },
-  addJobDetailInput:{
-    paddingBottom: 20
-  }
-
+  addJobDetailInput: {
+    paddingBottom: 20,
+  },
 });
 
 export default EditJob;
