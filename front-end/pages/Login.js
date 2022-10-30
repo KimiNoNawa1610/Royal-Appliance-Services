@@ -9,8 +9,8 @@ import {
 } from "react-native";
 
 const Login = () => {
-  const [email, onChangeEmail] = React.useState(null);
-  const [password, onChangePassword] = React.useState(null);
+  const [email, onChangeEmail] = React.useState("");
+  const [password, onChangePassword] = React.useState("");
 
   return (
     <View>

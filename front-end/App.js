@@ -1,9 +1,11 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import CreateJob from "./pages/CreateJob.js";
 import Login from "./pages/Login.js";
 import EditJob from "./pages/EditJob";
+import ViewTechs from "./pages/ViewTechs";
+import {ApplicationProvider} from "@ui-kitten/components";
+import * as eva from "@eva-design/eva";
 
 /* Return JSON string for reference
 {
@@ -23,20 +25,19 @@ export default function App() {
     // <View style={styles.container}>
     //   <Login/>
     //   <StatusBar style="auto" />
-
     // </View>
-
+  <ApplicationProvider {...eva} theme={eva.light}>
     <View style={styles.container}>
-      <EditJob />
-      <StatusBar style="auto" />
+      <ViewTechs/>
     </View>
+  </ApplicationProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#223570",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
   },

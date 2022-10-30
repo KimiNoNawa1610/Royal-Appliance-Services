@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   TextInput,
@@ -46,18 +46,15 @@ const parseRowsToMultJSONArray = (dataRows) => {
 };
 let DATA_ROWS = parseRowsToMultJSONArray(DATA.rows[0]);
 
-const getPreData = () => {
-  //TODO: Call to the backend to get pre-existing data on a {Job}
-};
 const AddJobDetailModal = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = React.useState(false);
   const [selected, setSelected] = React.useState("");
   let detailType = [
     { key: "1", value: "Part" },
     { key: "2", value: "Other Detail" },
   ];
   return (
-    <SafeAreaView style={styles.centeredView}>
+    <View style={styles.centeredView}>
       <Modal
         animationType="slide"
         transparent={true}
@@ -67,17 +64,21 @@ const AddJobDetailModal = () => {
           setModalVisible(!modalVisible);
         }}
       >
-        <SafeAreaView style={styles.centeredView}>
-          <SafeAreaView style={styles.modalView}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
             <Text style={styles.modalText}>New Detail</Text>
             <SelectList
               search={false}
               setSelected={setSelected}
               data={detailType}
-              onsSelect={() => alert(selected)}
+              onSelect={() => alert(selected)}
+              boxStyles={{ borderRadius: 0 }}
+              dropdownStyles={{ flex: 1 }}
             />
             <Text style={styles.addJobDetailText}>Job Detail</Text>
-            <TextInput style={styles.addJobDetailInput} />
+            <View>
+              <TextInput multiline style={styles.addJobDetailInput} />
+            </View>
 
             <Pressable
               style={[styles.button, styles.buttonClose]}
@@ -85,17 +86,16 @@ const AddJobDetailModal = () => {
             >
               <Text style={styles.textStyle}>Finish</Text>
             </Pressable>
-          </SafeAreaView>
-        </SafeAreaView>
+          </View>
+        </View>
       </Modal>
-
       <Pressable
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
         <Text style={styles.textStyle}>Add New Detail</Text>
       </Pressable>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -108,38 +108,38 @@ const EditJob = () => {
       detail = newDetail;
     };
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <Text style={styles.text}>{item.name}</Text>
         <TextInput
           style={styles.input}
-          value={detail}
           onChangeText={onChangeDetail}
+          defaultValue={detail}
           placeholderTextColor={"#fff"}
         />
-      </SafeAreaView>
+      </View>
     );
   };
 
   return (
-    <SafeAreaView style={styles.whole}>
-      <SafeAreaView name="Text" style={styles.title}>
+    <View style={styles.whole}>
+      <View style={styles.title}>
         <Text style={styles.bigText}>Edit Job</Text>
-      </SafeAreaView>
+        <Text style={styles.text}>Client: {DATA.client}</Text>
+      </View>
 
-      <Text style={styles.text}>Client: {DATA.client}</Text>
-
-      <SafeAreaView name="Pre-Existing Data" style={styles.existing}>
+      <View style={styles.existing}>
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={DATA_ROWS}
           renderItem={JobDetail}
           keyExtractor={(item) => item.id}
         />
-      </SafeAreaView>
-
-      <SafeAreaView name="Data to Add">
-        <AddJobDetailModal />
-      </SafeAreaView>
-    </SafeAreaView>
+      </View>
+      <AddJobDetailModal />
+      <Pressable style={[styles.button, styles.saveButton]}>
+        <Text style={styles.textStyle}>Save</Text>
+      </Pressable>
+    </View>
   );
 };
 
@@ -151,25 +151,33 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    width: 300,
   },
   existing: {
     borderRadius: 5,
     backgroundColor: "#172757",
     justifyContent: "center",
     alignItems: "center",
+    maxHeight: 500,
+    width: 400,
+    paddingTop: 50,
+    paddingBottom: 50,
   },
   input: {
-    height: 20,
+    height: "30%",
+    width: "90%",
     margin: 12,
     borderWidth: 1,
     borderRadius: 5,
-    padding: 10,
     borderColor: "#fff",
     color: "#fff",
+    padding: 3,
   },
   title: {
     alignItems: "center",
     justifyContent: "center",
+    paddingBottom: 10,
+    paddingTop: 10,
   },
   text: {
     fontSize: 15,
@@ -180,21 +188,19 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   centeredView: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22,
+    marginTop: 40,
+    maxHeight: "80%",
   },
   modalView: {
-    flex: 1,
-    margin: 20,
+    marginTop: 200,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
     alignItems: "center",
     shadowColor: "#000",
-    width: 300,
-    height: 500,
+    width: 400,
+    height: 600,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -205,14 +211,18 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 20,
-    padding: 10,
     elevation: 2,
+    padding: 10,
+    marginTop: 10,
   },
   buttonOpen: {
     backgroundColor: "royalblue",
   },
   buttonClose: {
     backgroundColor: "royalblue",
+  },
+  saveButton: {
+    backgroundColor: "green",
   },
   textStyle: {
     color: "white",
@@ -221,13 +231,20 @@ const styles = StyleSheet.create({
   },
   modalText: {
     marginBottom: 15,
+    marginTop: 15,
     textAlign: "center",
   },
   addJobDetailText: {
-    paddingTop: 20,
+    marginTop: 10,
   },
+
   addJobDetailInput: {
-    paddingBottom: 20,
+    borderWidth: 2,
+    borderColor: "gray",
+    width: 250,
+    height: 150,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
