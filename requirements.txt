@@ -1,3 +1,0 @@
-wkhtmltopdf
-psycopg2
-pdfkit
