@@ -8,10 +8,9 @@ import {
     from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 
-const TechDashboard = () => {
-    const navigation = useNavigation();
-}
 export default function DashBoard(){
+    const navigation = useNavigation();
+
     return( 
     <View>
     <View style = {styles.centered}>
@@ -65,7 +64,6 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: "#ffc2c2",
     },
     press:{
     elevation: 8,

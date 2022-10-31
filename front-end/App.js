@@ -4,7 +4,7 @@ import CreateJob from "./pages/CreateJob.js";
 import Login from "./pages/Login.js";
 import EditJob from "./pages/EditJob";
 import ViewTechs from "./pages/ViewTechs";
-import {ApplicationProvider} from "@ui-kitten/components";
+import {ApplicationProvider, Layout} from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
 import TechDashboard from "./pages/TechDashboard.js";
 import { NavigationContainer } from '@react-navigation/native';
@@ -28,12 +28,11 @@ import StackNavigator from "./StackNavigator.js";
 export default function App()
 {
   return(
-    <View style={styles.centered}>
-    <NavigationContainer>
-      <StackNavigator/>
-      <StatusBar style = "auto"/>
-    </NavigationContainer>
-    </View>
+      <ApplicationProvider {...eva} theme={eva.dark}>
+          <NavigationContainer>
+            <StackNavigator/>
+          </NavigationContainer>
+      </ApplicationProvider>
   );
 }
 /*const Stack = createNativeStackNavigator();
@@ -63,7 +62,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   centered: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },

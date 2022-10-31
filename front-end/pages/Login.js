@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: "#fff",
     color: "#fff",
-    borderColor:"#d3d3d3"
   },
   image: {
     width: 300,
@@ -77,7 +76,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:  "#ffbf00",
   },
 });
 
