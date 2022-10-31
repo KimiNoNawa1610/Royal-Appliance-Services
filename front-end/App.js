@@ -1,11 +1,15 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
 import CreateJob from "./pages/CreateJob.js";
 import Login from "./pages/Login.js";
 import EditJob from "./pages/EditJob";
 import ViewTechs from "./pages/ViewTechs";
 import {ApplicationProvider} from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
+import TechDashboard from "./pages/TechDashboard.js";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import StackNavigator from "./StackNavigator.js";
 
 /* Return JSON string for reference
 {
@@ -19,20 +23,37 @@ import * as eva from "@eva-design/eva";
 }
  */
 
-export default function App() {
-  //Navigation is not in place, using this to test each different page manually
-  return (
-    // <View style={styles.container}>
-    //   <Login/>
-    //   <StatusBar style="auto" />
-    // </View>
-  <ApplicationProvider {...eva} theme={eva.light}>
-    <View style={styles.container}>
-      <ViewTechs/>
+
+
+export default function App()
+{
+  return(
+    <View style={styles.centered}>
+    <NavigationContainer>
+      <StackNavigator/>
+      <StatusBar style = "auto"/>
+    </NavigationContainer>
     </View>
-  </ApplicationProvider>
   );
 }
+/*const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    <ApplicationProvider {...eva} theme={eva.light}>
+    <View style={styles.centered}>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen name=" " component={Login} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    </View>
+    </ApplicationProvider>
+    );
+}
+*/
 
 const styles = StyleSheet.create({
   container: {
@@ -41,4 +62,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  centered: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
 });

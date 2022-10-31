@@ -7,13 +7,15 @@ import {
   Pressable,
   Text,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Login = () => {
   const [email, onChangeEmail] = React.useState("");
   const [password, onChangePassword] = React.useState("");
+  const navigation = useNavigation();
 
   return (
-    <View>
+    <View style={styles.centered}>
       <Image style={styles.image} source={require("../assets/royal.png")} />
 
       <TextInput
@@ -22,7 +24,7 @@ const Login = () => {
         value={email}
         keyboardType={"email-address"}
         placeholder={"Email"}
-        placeholderTextColor={"#fff"}
+        placeholderTextColor={"grey"}
       />
       <TextInput
         style={styles.input}
@@ -30,12 +32,13 @@ const Login = () => {
         value={password}
         secureTextEntry={true}
         placeholder={"Password"}
-        placeholderTextColor={"#fff"}
+        placeholderTextColor={"grey"}
       />
       <View style={{ alignItems: "center" }}>
         <Pressable
           style={styles.button}
-          onPress={() => console.log(email + " " + password)}
+          //onPress={() => console.log(email + " " + password)}
+          onPress = {()=>navigation.navigate("TechDashboard")}
         >
           <Text style={styles.buttonText}>Login</Text>
         </Pressable>
@@ -52,22 +55,29 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: "#fff",
     color: "#fff",
+    borderColor:"#d3d3d3"
   },
   image: {
     width: 300,
     height: 50,
   },
   button: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 40,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "royalblue",
+    backgroundColor: "#393f4d",
     elevation: 15,
     borderRadius: 5,
   },
   buttonText: {
     color: "#fff",
+  },
+  centered: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor:  "#ffbf00",
   },
 });
 
