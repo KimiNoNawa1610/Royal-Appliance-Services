@@ -13,6 +13,9 @@ export default function DashBoard(){
 
     return( 
     <View>
+    <h1>
+     Technician Test   
+    </h1> 
     <View style = {styles.centered}>
     <Image style={styles.image} source={require("../assets/royal.png")} />
     <View style= {styles.space}>

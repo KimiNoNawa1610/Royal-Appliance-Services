@@ -38,7 +38,8 @@ const Login = () => {
         <Pressable
           style={styles.button}
           //onPress={() => console.log(email + " " + password)}
-          onPress = {()=>navigation.navigate("TechDashboard")}
+          //onPress = {()=>navigation.navigate("TechDashboard")}
+          onPress = {()=>navigation.navigate("AdminDashboard")}
         >
           <Text style={styles.buttonText}>Login</Text>
         </Pressable>

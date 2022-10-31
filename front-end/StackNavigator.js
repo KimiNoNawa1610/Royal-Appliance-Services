@@ -6,6 +6,7 @@ import TechDashboard from "./pages/TechDashboard.js";
 import ViewTechs from "./pages/ViewTechs.js";
 import Login from "./pages/Login.js";
 import AdminDashboard from "./pages/AdminDashboard.js";
+import EmployeeGenerator from "./pages/EmployeeGenerator.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,8 @@ const StackNavigator = () =>{
             <Stack.Group>
                 <Stack.Screen name = "Login" component={Login}/>
                 <Stack.Screen name = "TechDashboard" component={TechDashboard}/>
+                <Stack.Screen name = "AdminDashboard" component={AdminDashboard}/>
+                <Stack.Screen name = "EmployeeGenerator" component={EmployeeGenerator}/>
             </Stack.Group>
         </Stack.Navigator>
     )

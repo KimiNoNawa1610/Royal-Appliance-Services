@@ -7,6 +7,7 @@ import ViewTechs from "./pages/ViewTechs";
 import {ApplicationProvider, Layout} from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
 import TechDashboard from "./pages/TechDashboard.js";
+import AdminDashboard from "./pages/AdminDashboard.js";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import StackNavigator from "./StackNavigator.js";
@@ -34,6 +35,13 @@ export default function App()
           </NavigationContainer>
       </ApplicationProvider>
   );
+
+  //   <View style={styles.container}>
+    //   <Text>Open up App.js to start working on your app!</Text>
+    //   {/* <AdminDashboard/> */}
+    //   <CreateJob/>
+    //   <StatusBar style="auto" />
+    // </View>
 }
 /*const Stack = createNativeStackNavigator();
 
