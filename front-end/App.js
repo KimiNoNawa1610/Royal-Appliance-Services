@@ -4,6 +4,7 @@ import { ApplicationProvider } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Login from "./pages/Login.js";
 import StackNavigator from "./StackNavigator.js";
 
 /* Return JSON string for reference
