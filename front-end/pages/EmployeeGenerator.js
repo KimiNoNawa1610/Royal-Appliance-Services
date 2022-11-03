@@ -16,7 +16,9 @@ const EmployeeGenerator = () => {
     const [employeePassword, onChangeEmployeePassword] = React.useState(null);
 
     return (
+    <View style={styles.centered}>  
         <View>
+            
             <h1
             style = {{
                 color:'black'      
@@ -24,6 +26,7 @@ const EmployeeGenerator = () => {
             > 
             Generate Employee Account
             </h1>
+            
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeEmployeeName}
@@ -40,31 +43,59 @@ const EmployeeGenerator = () => {
                 placeholder={"Password"}
                 placeholderTextColor={'#000'}
             />
-            
+            </View>
             <Button
+                style={styles.btn}
                 title={"Create Employee Account"}
                 onPress = {() =>
                         navigation.navigate("Login")}
                         // console.log(employeeName + employeePassword)}
             />
-        </View>
+            </View>  
+        
+         
     )
 }
 
+// const styles = StyleSheet.create({
+//     input: {
+//         height: 40,
+//         margin: 10,
+//         borderWidth: 1,
+//         padding: 10,
+//         borderColor: '#000',
+//         color: '#000',
+//     },
+//     image: {
+//         width: 300,
+//         height: 50,
+//     }
+// }
+// );
+
 const styles = StyleSheet.create({
     input: {
-        height: 40,
-        margin: 10,
-        borderWidth: 1,
-        padding: 10,
-        borderColor: '#000',
-        color: '#000',
+      height: 50,
+      margin: 10,
+      borderWidth: 1,
+      padding: 10,
+      borderColor: "#000",
+      color: "#000",
+    },
+    btn: {
+      height: 50,
+      //borderWidth: 1,
     },
     image: {
-        width: 300,
-        height: 50,
+      width: 300,
+      height: 50,
+    },
+    centered: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
     }
-}
-);
+
+  });
 
 export default EmployeeGenerator;

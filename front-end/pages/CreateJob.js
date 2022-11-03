@@ -88,20 +88,64 @@ const CreateJob = () => {
     )
 }
 
+// const styles = StyleSheet.create({
+//     input: {
+//         height: 40,
+//         margin: 10,
+//         borderWidth: 1,
+//         padding: 10,
+//         borderColor: '#000',
+//         color: '#000',
+//     },
+//     image: {
+//         width: 300,
+//         height: 50,
+//     }
+// }
+// );
+
 const styles = StyleSheet.create({
     input: {
-        height: 40,
-        margin: 10,
-        borderWidth: 1,
-        padding: 10,
-        borderColor: '#000',
-        color: '#000',
+      height: 40,
+      margin: 12,
+      borderWidth: 1,
+      padding: 10,
+      borderColor: "#fff",
+      color: "#fff",
     },
     image: {
-        width: 300,
-        height: 50,
+      width: 300,
+      height: 50,
+    },
+    centered: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    press:{
+    elevation: 8,
+    backgroundColor: "#393f4d",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    margin: 10,
+    width: 200
+
+    },
+    text:{
+        fontSize: 18,
+        color: "#fff",
+        alignSelf: "center",
+        textTransform: "uppercase",
+    },
+    space:{
+        margin:50,
+    },
+    icon:{
+        width: 20,
+        height: 20,
     }
-}
-);
+
+  });
 
 export default CreateJob;

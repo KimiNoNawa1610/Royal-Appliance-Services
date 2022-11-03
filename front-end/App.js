@@ -36,7 +36,7 @@ export default function App()
       </ApplicationProvider>
   );
 
-  //   <View style={styles.container}>
+    // <View styles={styles.container}>
     //   <Text>Open up App.js to start working on your app!</Text>
     //   {/* <AdminDashboard/> */}
     //   <CreateJob/>
