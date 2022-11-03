@@ -1,48 +1,39 @@
 import React from "react";
-import {
-  StyleSheet,
-  TextInput,
-  View,
-  Image,
-  Pressable,
-  Text,
-} from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Button, Divider, Input } from "@ui-kitten/components";
 
 const Login = () => {
-  const [email, onChangeEmail] = React.useState("");
-  const [password, onChangePassword] = React.useState("");
+  const emailRef = React.useRef();
+  const passwordRef = React.useRef();
   const navigation = useNavigation();
+
+  //emailRef.current.value
 
   return (
     <View style={styles.centered}>
       <Image style={styles.image} source={require("../assets/royal.png")} />
-
-      <TextInput
+      <Divider />
+      <Input
         style={styles.input}
-        onChangeText={onChangeEmail}
-        value={email}
+        ref={emailRef}
         keyboardType={"email-address"}
         placeholder={"Email"}
         placeholderTextColor={"grey"}
       />
-      <TextInput
+      <Input
         style={styles.input}
-        onChangeText={onChangePassword}
-        value={password}
+        ref={passwordRef}
         secureTextEntry={true}
         placeholder={"Password"}
         placeholderTextColor={"grey"}
       />
-      <View style={{ alignItems: "center" }}>
-        <Pressable
-          style={styles.button}
-          //onPress={() => console.log(email + " " + password)}
-          onPress = {()=>navigation.navigate("TechDashboard")}
-        >
-          <Text style={styles.buttonText}>Login</Text>
-        </Pressable>
-      </View>
+      <Button
+        onPress={() => navigation.navigate(`TechDashboard`)}
+        style={{ marginTop: 12, alignItems: "center" }}
+      >
+        Login
+      </Button>
     </View>
   );
 };
@@ -53,24 +44,12 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-    borderColor: "#fff",
-    color: "#fff",
+    width: 250,
+    borderColor: "grey",
   },
   image: {
     width: 300,
     height: 50,
-  },
-  button: {
-    width: 60,
-    height: 40,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#393f4d",
-    elevation: 15,
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: "#fff",
   },
   centered: {
     flex: 1,

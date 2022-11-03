@@ -1,14 +1,9 @@
 import React from "react";
-import { StatusBar, StyleSheet, Text, View } from "react-native";
-import CreateJob from "./pages/CreateJob.js";
-import Login from "./pages/Login.js";
-import EditJob from "./pages/EditJob";
-import ViewTechs from "./pages/ViewTechs";
-import {ApplicationProvider, Layout} from "@ui-kitten/components";
+import { StyleSheet } from "react-native";
+import { ApplicationProvider } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
-import TechDashboard from "./pages/TechDashboard.js";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import StackNavigator from "./StackNavigator.js";
 
 /* Return JSON string for reference
@@ -23,16 +18,13 @@ import StackNavigator from "./StackNavigator.js";
 }
  */
 
-
-
-export default function App()
-{
-  return(
-      <ApplicationProvider {...eva} theme={eva.dark}>
-          <NavigationContainer>
-            <StackNavigator/>
-          </NavigationContainer>
-      </ApplicationProvider>
+export default function App() {
+  return (
+    <ApplicationProvider {...eva} theme={eva.light}>
+      <NavigationContainer>
+        <StackNavigator />
+      </NavigationContainer>
+    </ApplicationProvider>
   );
 }
 /*const Stack = createNativeStackNavigator();
@@ -53,17 +45,3 @@ function App() {
     );
 }
 */
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  centered: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-});
