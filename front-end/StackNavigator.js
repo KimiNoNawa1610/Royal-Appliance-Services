@@ -13,8 +13,9 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Group>
-        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="ViewTech" component={ViewTechs} />
+
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="TechDashboard" component={TechDashboard} />
         <Stack.Screen name="EditTech" component={EditTech} />
         <Stack.Screen name="AdminDashboard" component={AdminDashboard} />

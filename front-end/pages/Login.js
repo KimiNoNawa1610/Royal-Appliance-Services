@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Divider, Input } from "@ui-kitten/components";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
 import { BASE_URL } from "../config";
 import axios from "axios";
@@ -11,9 +11,9 @@ const Login = () => {
   //const emailRef = React.useRef();
   //const passwordRef = React.useRef();
   //const navigation = useNavigation();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [seePassword, setSeePassword] = useState(true);
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
   const navigation = useNavigation();
 
   //emailRef.current.value
@@ -33,29 +33,34 @@ const Login = () => {
         style={styles.input}
         placeholder="Email"
         value={email}
-        onChangeText={text => setEmail(text)}
+        onChangeText={(text) => setEmail(text)}
       />
       <Input
-         style={styles.input}
-         placeholder="Password"
-         value={password}
-         secureTextEntry={seePassword}
-         onChangeText={text => setPassword(text)}
+        style={styles.input}
+        placeholder="Password"
+        value={password}
+        secureTextEntry={seePassword}
+        onChangeText={(text) => setPassword(text)}
       />
       <Button
-        onPress={() => {axios.post(BASE_URL+"/authentication/",{"email":email,"password":password})
-        .then(res =>{
-          AsyncStorage.setItem('AccessToken', res.data.token);
+        onPress={() => {
+          axios
+            .post(BASE_URL + "/authentication/", {
+              email: email,
+              password: password,
+            })
+            .then((res) => {
+              AsyncStorage.setItem("AccessToken", res.data.token);
 
-          if(res.data.isAmin){
-          console.log("Admin")
-          navigation.replace("AdminDashboard")
-        }
-        else{
-          console.log("Employee")
-          navigation.replace("TechDashboard")
-        }})
-      }}
+              if (res.data.isAdmin) {
+                console.log("Admin");
+                navigation.replace("AdminDashboard");
+              } else {
+                console.log("Employee");
+                navigation.replace("TechDashboard");
+              }
+            });
+        }}
         style={{ marginTop: 12, alignItems: "center" }}
       >
         Login
