@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Card, Layout, Text } from "@ui-kitten/components";
 import axios from "axios";
+import { BASE_URL } from "../config";
 import { useNavigation } from "@react-navigation/native";
 
 const ViewTechs = () => {
   const [techData, setTechData] = useState([]);
   const navigation = useNavigation();
+
   useEffect(() => {
     const getTechs = async () => {
       const response = await axios.get(
-        "http://192.168.0.155:5020/get_all_employees"
+        BASE_URL+"/get_all_employees"
       );
       setTechData(response.data);
     };
@@ -31,7 +33,6 @@ const ViewTechs = () => {
         <Card footer={Footer}>
           <Text style={styles.techName}>{item["name"]}</Text>
           <Text>Email: {item["email"]}</Text>
-          <Text>Password: {item["password"]}</Text>
         </Card>
       </View>
     );

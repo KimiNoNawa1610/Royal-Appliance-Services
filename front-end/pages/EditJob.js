@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
+import { BASE_URL } from "../config";
 import {
   Button,
   Card,
@@ -34,7 +35,7 @@ const EditJob = () => {
   useEffect(() => {
     const getInvoice = async () => {
       const response = await axios.get(
-        "http://localhost:5020/get_invoice/195623"
+        BASE_URL+"/get_invoice/195623"
       );
       setData(response.data);
       console.log(response);
@@ -51,7 +52,7 @@ const EditJob = () => {
         backdropStyle={styles.backdrop}
         onBackdropPress={() => setVisible(false)}
       >
-        >
+        
         <Card>
           <Text>Check Check</Text>
         </Card>
