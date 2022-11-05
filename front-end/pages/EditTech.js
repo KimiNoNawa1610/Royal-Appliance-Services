@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 import {
   Button,
-  Card,
   Input,
   Layout,
   Text,
@@ -11,26 +10,49 @@ import {
 } from "@ui-kitten/components";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
+import { BASE_URL } from "../config";
 
 const EditTech = ({ route }) => {
   const tech = route.params.item;
-  const techID = React.useRef(tech["employeeID"]);
-  const techName = React.useRef(tech["name"]);
-  const techEmail = React.useRef(tech["email"]);
-  const techPass = React.useRef(tech["password"]);
+  let [techID, setTechID] = useState(tech["employeeID"]);
+  let [techName, setTechName] = useState(tech["name"]);
+  let [techEmail, setTechEmail] = useState(tech["email"]);
+  let [techNewPass, setTechNewPass] = useState(null);
   const [isAdmin, setIsAdmin] = React.useState(tech["isAdmin"]);
+  const prevCryptPass = tech["password"];
   const navigation = useNavigation();
 
-  function onSave() {
-    const sendJSON = {
-      email: techEmail.current,
-      employeeID: techID.current,
-      isAdmin: isAdmin,
-      password: techPass.current,
-      name: techName.current,
-    };
+  const onSave = () => {
+    let sendJSON;
+    if (techNewPass) {
+      sendJSON = {
+        email: techEmail,
+        employeeID: techID,
+        isAdmin: isAdmin,
+        password: techNewPass,
+        name: techName,
+      };
+    } else {
+      sendJSON = {
+        email: techEmail,
+        employeeID: techID,
+        isAdmin: isAdmin,
+        password: prevCryptPass,
+        name: techName,
+      };
+    }
     console.log(sendJSON);
-  }
+
+    axios
+      .post(BASE_URL + `/delete_employee/${techID}`)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
+    axios
+      .post(BASE_URL + "/add_employee/", sendJSON)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   function onCheckedChange(isChecked) {
     setIsAdmin(isChecked);
@@ -41,24 +63,25 @@ const EditTech = ({ route }) => {
       <Text category={"h1"}>Edit Employee</Text>
       <Divider />
       <Input
-        ref={techID}
-        defaultValue={techID.current}
+        onChangeText={(text) => setTechID(text)}
+        defaultValue={tech["employeeID"]}
         keyboardType={"number-pad"}
         label={(evaProps) => <Text {...evaProps}>ID Number</Text>}
       />
       <Input
-        ref={techName}
-        defaultValue={techName.current}
+        onChangeText={(text) => setTechName(text)}
+        defaultValue={tech["name"]}
         label={(evaProps) => <Text {...evaProps}>Name</Text>}
       />
       <Input
+        onChangeText={(text) => setTechEmail(text)}
         keyboardType={"email-address"}
-        defaultValue={techEmail.current}
+        defaultValue={tech["email"]}
         label={(evaProps) => <Text {...evaProps}>Email</Text>}
       />
       <Input
-        defaultValue={techPass.current}
-        label={(evaProps) => <Text {...evaProps}>Password</Text>}
+        onChangeText={(text) => setTechNewPass(text)}
+        label={(evaProps) => <Text {...evaProps}>New Password</Text>}
       />
       <Toggle
         checked={isAdmin}
