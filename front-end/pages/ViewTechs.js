@@ -4,6 +4,7 @@ import { Button, Card, Layout, Text } from "@ui-kitten/components";
 import axios from "axios";
 import { BASE_URL } from "../config";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ViewTechs = () => {
   const [techData, setTechData] = useState([]);
@@ -11,10 +12,11 @@ const ViewTechs = () => {
 
   useEffect(() => {
     const getTechs = async () => {
-      const response = await axios.get(
-        BASE_URL+"/get_all_employees"
-      );
-      setTechData(response.data);
+      const response = axios.get(
+        BASE_URL+"/get_all_employees/",{headers:{'token':AsyncStorage.getItem("AccessToken")}}
+      ).then(res => {
+        console.log(res)
+      })
     };
     getTechs();
   }, []);

@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./pages/Login.js";
 import StackNavigator from "./StackNavigator.js";
+import FlashMessage from "react-native-flash-message";
 
 /* Return JSON string for reference
 {
@@ -25,6 +26,7 @@ export default function App() {
       <NavigationContainer>
         <StackNavigator />
       </NavigationContainer>
+      <FlashMessage position="top" /> 
     </ApplicationProvider>
   );
 }
