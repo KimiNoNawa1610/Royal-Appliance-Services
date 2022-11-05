@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
 import { BASE_URL } from "../config";
 import axios from "axios";
+import { showMessage } from "react-native-flash-message";
 
 const Login = () => {
   //const emailRef = React.useRef();
@@ -43,23 +44,35 @@ const Login = () => {
         onChangeText={(text) => setPassword(text)}
       />
       <Button
-        onPress={() => {
-          axios
-            .post(BASE_URL + "/authentication/", {
-              email: email,
-              password: password,
-            })
-            .then((res) => {
-              AsyncStorage.setItem("AccessToken", res.data.token);
-
-              if (res.data.isAdmin) {
-                console.log("Admin");
-                navigation.replace("AdminDashboard");
-              } else {
-                console.log("Employee");
-                navigation.replace("TechDashboard");
+        onPress={async () => {
+          axios.post(BASE_URL + "/authentication/", { "email": email, "password": password })
+            .then(res => {
+              console.log(res.data)
+              
+              if (res.data != false) {
+                AsyncStorage.setItem('AccessToken', res.data.token);
+                if (res.data.isAdmin) {
+                  console.log("Admin")
+                  navigation.navigate("AdminDashboard")
+                }
+                else {
+                  console.log("Employee")
+                  navigation.navigate("TechDashboard")
+                }
+                showMessage({
+                  message: "Login Successful",
+                  backgroundColor:"green",
+                  type: "success",
+                });
               }
-            });
+              else{
+                showMessage({
+                  message: "Incorrect email or password! Please try again ",
+                  backgroundColor:"red",
+                  type: "error",
+                });
+              }
+            })
         }}
         style={{ marginTop: 12, alignItems: "center" }}
       >
