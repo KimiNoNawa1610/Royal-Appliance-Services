@@ -24,7 +24,7 @@ export default function App() {
   return (
     <ApplicationProvider {...eva} theme={eva.light}>
       <NavigationContainer>
-        <StackNavigator />
+        <StackNavigator/>
       </NavigationContainer>
       <FlashMessage position="top" /> 
     </ApplicationProvider>
