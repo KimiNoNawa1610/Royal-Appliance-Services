@@ -7,15 +7,15 @@ import ViewTechs from "./pages/ViewTechs.js";
 import AdminDashboard from "./pages/AdminDashboard.js";
 import EditTech from "./pages/EditTech";
 import Login from "./pages/Login.js";
+
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: true }}>
       <Stack.Group>
-        <Stack.Screen name="ViewTech" component={ViewTechs} />
-
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="ViewTech" component={ViewTechs} />
         <Stack.Screen name="TechDashboard" component={TechDashboard} />
         <Stack.Screen name="EditTech" component={EditTech} />
         <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
