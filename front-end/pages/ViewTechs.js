@@ -13,9 +13,10 @@ const ViewTechs = () => {
   useEffect(() => {
     const getTechs = async () => {
       const response = await axios.get(
-        BASE_URL+"/get_all_employees/",{headers:{'token':await AsyncStorage.getItem("token")}}
+        BASE_URL+"/get_all_employees/",{headers:{'token':await AsyncStorage.getItem("AccessToken")}}
       );
       setTechData(response.data);
+      console.log(techData)
     };
     getTechs();
   }, []);

@@ -12,6 +12,7 @@ import {
   Select,
 } from "@ui-kitten/components";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 /* Sample Return Data
 {
@@ -35,7 +36,7 @@ const EditJob = () => {
   useEffect(() => {
     const getInvoice = async () => {
       const response = await axios.get(
-        BASE_URL+"/get_invoice/195623"
+        BASE_URL+"/get_all_invoices/", {headers:{"token": await AsyncStorage.getItem("AccessToken")}}
       );
       setData(response.data);
       console.log(response);
@@ -45,7 +46,6 @@ const EditJob = () => {
 
   return (
     <Layout>
-      <Text>Edit Job</Text>
       <Divider />
       <Modal
         visible={visible}
@@ -54,8 +54,11 @@ const EditJob = () => {
       >
         
         <Card>
+          
           <Text>Check Check</Text>
+
         </Card>
+
         <Button onPress={() => setVisible(false)}>Done</Button>
       </Modal>
 

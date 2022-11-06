@@ -46,11 +46,13 @@ const Login = () => {
       <Button
         onPress={async () => {
           axios.post(BASE_URL + "/authentication/", { "email": email, "password": password })
-            .then(res => {
+            .then(async res => {
               console.log(res.data)
               
               if (res.data != false) {
                 AsyncStorage.setItem('AccessToken', res.data.token);
+                var token = await AsyncStorage.getItem('AccessToken')
+                console.log(token)
                 if (res.data.isAdmin) {
                   console.log("Admin")
                   navigation.navigate("AdminDashboard")
@@ -74,6 +76,7 @@ const Login = () => {
               }
             })
         }}
+
         style={{ marginTop: 12, alignItems: "center" }}
       >
         Login

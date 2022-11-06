@@ -24,7 +24,7 @@ const CreateJob = () => {
         <View>
             <h1
             style = {{
-                color:'white'      
+                color:'black'      
             }}
             > 
             Create a New Job
@@ -35,7 +35,7 @@ const CreateJob = () => {
                 value={customerName}
 
                 placeholder={"Customer Name"}
-                placeholderTextColor={'#fff'}
+                placeholderTextColor={'black'}
             />
             <TextInput
                 style={styles.input}
@@ -43,7 +43,7 @@ const CreateJob = () => {
                 value={address}
 
                 placeholder={"Customer Address"}
-                placeholderTextColor={'#fff'}
+                placeholderTextColor={'black'}
             />
             <TextInput
                 style={styles.input}
@@ -51,7 +51,7 @@ const CreateJob = () => {
                 value={phoneNumber}
 
                 placeholder={"Customer Phone Number"}
-                placeholderTextColor={'#fff'}
+                placeholderTextColor={'black'}
             />
             <TextInput
                 style={styles.input}
@@ -59,7 +59,7 @@ const CreateJob = () => {
                 value={notes}
 
                 placeholder={"Notes"}
-                placeholderTextColor={'#fff'}
+                placeholderTextColor={'black'}
             />
              <TextInput
                 style={styles.input}
@@ -67,7 +67,7 @@ const CreateJob = () => {
                 value={type}
 
                 placeholder={"Brand/Type of Appliance"}
-                placeholderTextColor={'#fff'}
+                placeholderTextColor={'black'}
             />
             <TextInput
                 style={styles.input}
@@ -75,10 +75,10 @@ const CreateJob = () => {
                 value={problem}
 
                 placeholder={"Problem with Appliance"}
-                placeholderTextColor={'#fff'}
+                placeholderTextColor={'black'}
             />
             <Button
-                title={"Create Job"}
+                title={"Assign New Job"}
                 onPress = {() =>
                         console.log(customerName + " " 
                         + address + " " + phoneNumber + " " + notes
@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
         margin: 10,
         borderWidth: 1,
         padding: 10,
-        borderColor: '#fff',
-        color: '#fff',
+        borderColor: 'black',
+        color: 'black',
     },
     image: {
         width: 300,

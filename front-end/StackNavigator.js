@@ -7,6 +7,8 @@ import ViewTechs from "./pages/ViewTechs.js";
 import AdminDashboard from "./pages/AdminDashboard.js";
 import EditTech from "./pages/EditTech";
 import Login from "./pages/Login.js";
+import CreateJob from "./pages/CreateJob.js";
+import EditJob from "./pages/EditJob.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +19,8 @@ const StackNavigator = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="ViewTech" component={ViewTechs} />
         <Stack.Screen name="TechDashboard" component={TechDashboard} />
+        <Stack.Screen name="CreateJob" component={CreateJob} />
+        <Stack.Screen name="EditJob" component={EditJob} />
         <Stack.Screen name="EditTech" component={EditTech} />
         <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
       </Stack.Group>

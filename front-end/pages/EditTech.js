@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import { BASE_URL } from "../config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EditTech = ({ route }) => {
   const tech = route.params.item;
@@ -22,7 +23,7 @@ const EditTech = ({ route }) => {
   const prevCryptPass = tech["password"];
   const navigation = useNavigation();
 
-  const onSave = () => {
+  const onSave = async () => {
     let sendJSON;
     if (techNewPass) {
       sendJSON = {
@@ -44,12 +45,12 @@ const EditTech = ({ route }) => {
     console.log(sendJSON);
 
     axios
-      .post(BASE_URL + `/delete_employee/${techID}`)
+      .post(BASE_URL + `/delete_employee/${techID}`,{headers:{"token": await AsyncStorage.getItem("AccessToken")}})
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
     axios
-      .post(BASE_URL + "/add_employee/", sendJSON)
+      .post(BASE_URL + "/add_employee/",{headers:{"token": await AsyncStorage.getItem("AccessToken")}} ,sendJSON)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
