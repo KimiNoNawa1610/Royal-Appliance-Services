@@ -45,12 +45,7 @@ const EditTech = ({ route }) => {
     console.log(sendJSON);
 
     axios
-      .post(BASE_URL + `/delete_employee/${techID}`,{headers:{"token": await AsyncStorage.getItem("AccessToken")}})
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-
-    axios
-      .post(BASE_URL + "/add_employee/",{headers:{"token": await AsyncStorage.getItem("AccessToken")}} ,sendJSON)
+      .post(BASE_URL + "/add_employee/",{headers:{'token':await AsyncStorage.getItem("AccessToken")}} ,sendJSON)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
