@@ -18,7 +18,7 @@ const StackNavigator = () => {
     <Stack.Navigator screenOptions={{ headerShown: true }}>
       <Stack.Group>
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="ViewTech" component={ViewTechs} />
+        <Stack.Screen name="ViewTechs" component={ViewTechs} />
         <Stack.Screen name="TechDashboard" component={TechDashboard} />
         <Stack.Screen name="CreateJob" component={CreateJob} />
         <Stack.Screen name="EditJob" component={EditJob} />
