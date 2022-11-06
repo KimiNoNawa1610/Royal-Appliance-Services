@@ -5,7 +5,8 @@ import restProvider from 'ra-data-simple-rest'
 import { BASE_URL } from '../config';
 import ViewTechs from './ViewTechs';
 import { useNavigation } from "@react-navigation/native";
-import { Button, StyleSheet, TextInput, View, Text, Alert, SafeAreaView } from "react-native";
+import { Button, StyleSheet, TextInput, View, Text, Alert, SafeAreaView,
+         Pressable,Image } from "react-native";
 
 const Separator = () => (
   <View style={styles.separator} />
@@ -64,3 +65,4 @@ const styles = StyleSheet.create({
 
 
 export default AdminDashboard;
+

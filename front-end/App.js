@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./pages/Login.js";
 import StackNavigator from "./StackNavigator.js";
 import FlashMessage from "react-native-flash-message";
+import AdminDashboard from "./pages/AdminDashboard.js";
 
 /* Return JSON string for reference
 {

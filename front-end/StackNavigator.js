@@ -9,6 +9,7 @@ import EditTech from "./pages/EditTech";
 import Login from "./pages/Login.js";
 import CreateJob from "./pages/CreateJob.js";
 import EditJob from "./pages/EditJob.js";
+import EmployeeGenerator from "./pages/EmployeeGenerator.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ const StackNavigator = () => {
         <Stack.Screen name="EditJob" component={EditJob} />
         <Stack.Screen name="EditTech" component={EditTech} />
         <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
+        {/* <Stack.Screen name = "EmployeeGenerator" component={EmployeeGenerator}/> */}
       </Stack.Group>
     </Stack.Navigator>
   );
