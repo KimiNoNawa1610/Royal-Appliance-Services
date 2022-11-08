@@ -26,21 +26,21 @@ const EditTech = ({ route }) => {
   const onSave = async () => {
     let sendJSON;
     if (techNewPass) {
-      sendJSON = {
+      sendJSON = [{
         email: techEmail,
         employeeID: techID,
         isAdmin: isAdmin,
         password: techNewPass,
         name: techName,
-      };
+      }];
     } else {
-      sendJSON = {
+      sendJSON = [{
         email: techEmail,
         employeeID: techID,
         isAdmin: isAdmin,
         password: prevCryptPass,
         name: techName,
-      };
+      }];
     }
     console.log(sendJSON);
 
@@ -88,7 +88,7 @@ const EditTech = ({ route }) => {
         Is Admin: {isAdmin}
       </Toggle>
       <Divider />
-      <Button status={"success"} onPress={ ()=>{onSave}}>
+      <Button status={"success"} onPress={ onSave}>
         Save
       </Button>
       <Button
