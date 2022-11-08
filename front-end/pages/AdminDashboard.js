@@ -17,7 +17,9 @@ const AdminDashboard = () => {
 
   return (
     <SafeAreaView>
-    <View></View>
+    <View>
+      
+    </View>
     <Separator/>
     <View style={styles.container}>
       <View  style={styles.buttonContainer}>
