@@ -6,9 +6,9 @@ import { BASE_URL } from "../config";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ViewTechs = () => {
+const ViewTechs = ({navigation}) => {
   const [techData, setTechData] = useState([]);
-  const navigation = useNavigation();
+  //const navigation = useNavigation();
 
   useEffect(() => {
     const getTechs = async () => {

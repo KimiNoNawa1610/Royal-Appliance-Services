@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-    Button,
     StyleSheet,
     TextInput,
-    View,
+    View,Text,
     Alert}
     from 'react-native';
+import { Button } from "@ui-kitten/components";
 
 const CreateJob = () => {
 
@@ -21,14 +21,10 @@ const CreateJob = () => {
     const [problem, onChangeProblem] = React.useState(null);
 
     return (
-        <View>
-            <h1
-            style = {{
-                color:'black'      
-            }}
-            > 
-            Create a New Job
-            </h1>
+        <View style = {styles.centered}>
+            <Text style = {{
+                color:'black', fontSize:20, padding: 15     
+            }}>   Create a New Job</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeCustomerName}
@@ -79,28 +75,35 @@ const CreateJob = () => {
             />
             <Button
                 title={"Assign New Job"}
+                style={{ marginTop: 12, alignItems: "center" }}
                 onPress = {() =>
                         console.log(customerName + " " 
                         + address + " " + phoneNumber + " " + notes
                         + type + " " + problem)}
-            />
-        </View>
+            >
+ Assign New Job </Button>
+    </View>
     )
 }
 
 const styles = StyleSheet.create({
     input: {
         height: 40,
-        margin: 10,
+        margin: 12,
         borderWidth: 1,
         padding: 10,
-        borderColor: 'black',
-        color: 'black',
+        width: 250,
+        borderColor: "grey",
     },
     image: {
         width: 300,
         height: 50,
-    }
+    },
+    centered: {
+        //flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      },
 }
 );
 

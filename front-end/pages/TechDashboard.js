@@ -4,8 +4,8 @@ import { Button, Layout, Card,Text} from '@ui-kitten/components';
 import { useNavigation } from "@react-navigation/native";
 
 
-export default function DashBoard() {
-  const navigation = useNavigation();
+export default function TechDashBoard({navigation}) {
+  //const navigation = useNavigation();
 
   return (
     <Layout style={styles.center} level='1'>
@@ -24,7 +24,7 @@ export default function DashBoard() {
     </Button>
 
     <Button style={styles.button} status='warning'>
-      Completed
+     <Text>Completed</Text>
     </Button>
 
   </Layout>
@@ -40,7 +40,12 @@ const styles = StyleSheet.create({
     alignItems:'stretch'
   },
   button: {
+    flex:1,
+    justifyContent:'center',
+    alignItems: 'center',
     margin: 2,
+    height: 30,
+    width:80,
   },
   controlContainer: {
     borderRadius: 4,

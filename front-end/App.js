@@ -1,13 +1,17 @@
 import React from "react";
+import 'react-native-gesture-handler';
 import { StyleSheet } from "react-native";
 import { ApplicationProvider } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Login from "./pages/Login.js";
-import StackNavigator from "./StackNavigator.js";
 import FlashMessage from "react-native-flash-message";
-import AdminDashboard from "./pages/AdminDashboard.js";
+import ViewTechs from "./pages/ViewTechs.js";
+import TechDashBoard from "./pages/TechDashboard.js";
+import CreateJob from "./pages/CreateJob.js";
+import Login from "./pages/Login.js";
+import {createDrawerNavigator} from "@react-navigation/drawer"
+
+
 
 /* Return JSON string for reference
 {
@@ -20,12 +24,19 @@ import AdminDashboard from "./pages/AdminDashboard.js";
     "note":""
 }
  */
+const Drawer = createDrawerNavigator()
 
 export default function App() {
   return (
     <ApplicationProvider {...eva} theme={eva.light}>
       <NavigationContainer>
-        <StackNavigator/>
+        <Drawer.Navigator initialRouteName = "TechDashBoard">
+          <Drawer.Screen name="Login" component={Login}/>
+          <Drawer.Screen name = "DashBoard" component = {TechDashBoard}/>
+          <Drawer.Screen name = "My Employee" component = {ViewTechs}/>
+          <Drawer.Screen name = "Create Job" component={CreateJob}/>
+          <Drawer.Screen name = "Invoices" component={TechDashBoard}/>
+        </Drawer.Navigator>
       </NavigationContainer>
       <FlashMessage position="top" /> 
     </ApplicationProvider>
