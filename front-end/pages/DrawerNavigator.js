@@ -23,7 +23,6 @@ const DrawerContent = ({ navigation, state }) => (
 const DrawerNavigator = () => {
   return (
     <Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-      <Screen name="Login" component={Login} />
       <Screen name="DashBoard" component={TechDashBoard} />
       <Screen name="My Employees" component={ViewTechs} />
       <Screen name="Create Job" component={CreateJob} />

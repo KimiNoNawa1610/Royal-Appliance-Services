@@ -45,38 +45,39 @@ const Login = () => {
       />
       <Button
         onPress={async () => {
-          axios.post(BASE_URL + "/authentication/", { "email": email, "password": password })
-            .then(async res => {
-              console.log(res.data)
-              
+          axios
+            .post(BASE_URL + "/authentication/", {
+              email: email,
+              password: password,
+            })
+            .then(async (res) => {
+              console.log(res.data);
+
               if (res.data != false) {
-                AsyncStorage.setItem('AccessToken', res.data.token);
-                var token = await AsyncStorage.getItem('AccessToken')
-                console.log(token)
+                AsyncStorage.setItem("AccessToken", res.data.token);
+                var token = await AsyncStorage.getItem("AccessToken");
+                console.log(token);
                 if (res.data.isAdmin) {
-                  console.log("Admin")
-                  navigation.navigate("AdminDashboard")
-                }
-                else {
-                  console.log("Employee")
-                  navigation.navigate("TechDashboard")
+                  console.log("Admin");
+                  navigation.navigate("Drawer");
+                } else {
+                  console.log("Employee");
+                  navigation.navigate("Drawer");
                 }
                 showMessage({
                   message: "Login Successful",
-                  backgroundColor:"green",
+                  backgroundColor: "green",
                   type: "success",
                 });
-              }
-              else{
+              } else {
                 showMessage({
                   message: "Incorrect email or password! Please try again ",
-                  backgroundColor:"red",
+                  backgroundColor: "red",
                   type: "error",
                 });
               }
-            })
+            });
         }}
-
         style={{ marginTop: 12, alignItems: "center" }}
       >
         Login

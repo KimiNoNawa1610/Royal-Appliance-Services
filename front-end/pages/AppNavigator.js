@@ -5,10 +5,12 @@ const { Navigator, Screen } = createStackNavigator();
 import React from "react";
 import EditTech from "./EditTech";
 import ViewTechs from "./ViewTechs";
+import Login from "./Login";
 export const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Navigator headerMode="none">
+      <Navigator headerShown="true">
+        <Screen name={"Login"} component={Login}></Screen>
         <Screen name={"Drawer"} component={DrawerNavigator} />
         <Screen name={"EditTech"} component={EditTech} />
       </Navigator>
