@@ -1,58 +1,49 @@
-import React from 'react';
-import { StyleSheet, View,Image} from 'react-native';
-import { Button, Layout, Card,Text} from '@ui-kitten/components';
+import React from "react";
+import { StyleSheet, View, Image } from "react-native";
+import { Button, Layout, Card, Text } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
 
-
-export default function TechDashBoard({navigation}) {
+export default function TechDashBoard({ navigation }) {
   //const navigation = useNavigation();
 
   return (
-    <Layout style={styles.center} level='1'>
-        <Image style={styles.image} source={require("../assets/royal.png")} />
-      
- <Layout style={styles.container} level='2'> 
-  <Button style={styles.button} status='primary'>
-      Today
-    </Button> 
-    <Button style={styles.button} status='success'>
-      Tomorrow
-    </Button>
+    <Layout style={styles.center} level="1">
+      <Image style={styles.image} source={require("../assets/royal.png")} />
 
-    <Button style={styles.button} status='info'>
-      Future
-    </Button>
+      <Layout style={styles.container} level="2">
+        <Button status="primary">Today</Button>
+        <Button status="success">Tomorrow</Button>
 
-    <Button style={styles.button} status='warning'>
-     <Text>Completed</Text>
-    </Button>
+        <Button status="info">Future</Button>
 
-  </Layout>
-  </Layout>
-
+        <Button status="warning">
+          <Text>Completed</Text>
+        </Button>
+      </Layout>
+    </Layout>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems:'stretch'
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "stretch",
   },
   button: {
-    flex:1,
-    justifyContent:'center',
-    alignItems: 'center',
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     margin: 2,
     height: 30,
-    width:80,
+    width: 80,
   },
   controlContainer: {
     borderRadius: 4,
     margin: 2,
     padding: 6,
-    justifyContent: 'center',
-    backgroundColor: '#3366FF',
+    justifyContent: "center",
+    backgroundColor: "#3366FF",
   },
   image: {
     width: 300,
@@ -61,7 +52,7 @@ const styles = StyleSheet.create({
   center: {
     flex: 1,
     alignItems: "center",
-  }
+  },
 });
 
 /*

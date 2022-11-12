@@ -45,10 +45,11 @@ const EditTech = ({ route }) => {
     console.log(sendJSON);
 
     axios
-      .post(BASE_URL + "/add_employee/",sendJSON,{headers:{'token':await AsyncStorage.getItem("AccessToken")}} )
+      .post(BASE_URL + "/add_employee/", sendJSON, {
+        headers: { token: await AsyncStorage.getItem("AccessToken") },
+      })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-    
   };
 
   function onCheckedChange(isChecked) {
@@ -59,7 +60,8 @@ const EditTech = ({ route }) => {
     <Layout style={styles.page}>
       <Text category={"h1"}>Edit Employee</Text>
       <Divider />
-      <Input disabled={true}
+      <Input
+        disabled={true}
         onChangeText={(text) => setTechID(text)}
         defaultValue={tech["employeeID"]}
         keyboardType={"number-pad"}
@@ -92,7 +94,7 @@ const EditTech = ({ route }) => {
         Save
       </Button>
       <Button
-        onPress={() => navigation.navigate("ViewTechs")}
+        onPress={() => navigation.navigate("Drawer")}
         appearance={"ghost"}
       >
         Back
