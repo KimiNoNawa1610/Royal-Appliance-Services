@@ -9,19 +9,17 @@ import {
   Toggle,
 } from "@ui-kitten/components";
 import axios from "axios";
-import { useNavigation } from "@react-navigation/native";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const EditTech = ({ route }) => {
-  const tech = route.params.item;
+const EditTech = ({ item, setVisible }) => {
+  const tech = item;
   let [techID, setTechID] = useState(tech["employeeID"]);
   let [techName, setTechName] = useState(tech["name"]);
   let [techEmail, setTechEmail] = useState(tech["email"]);
   let [techNewPass, setTechNewPass] = useState(null);
   const [isAdmin, setIsAdmin] = React.useState(tech["isAdmin"]);
   const prevCryptPass = tech["password"];
-  const navigation = useNavigation();
 
   const onSave = async () => {
     let sendJSON;
@@ -93,10 +91,7 @@ const EditTech = ({ route }) => {
       <Button status={"success"} onPress={onSave}>
         Save
       </Button>
-      <Button
-        onPress={() => navigation.navigate("Drawer")}
-        appearance={"ghost"}
-      >
+      <Button onPress={() => setVisible(false)} appearance={"ghost"}>
         Back
       </Button>
     </Layout>

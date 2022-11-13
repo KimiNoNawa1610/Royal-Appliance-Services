@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { Button, Card, Layout, Text } from "@ui-kitten/components";
+import { Button, Card, Layout, Modal, Text } from "@ui-kitten/components";
 import axios from "axios";
 import { BASE_URL } from "../config";
-import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import EditTech from "./EditTech";
 
 const ViewTechs = () => {
   const [techData, setTechData] = useState([]);
-  const navigation = useNavigation();
+  const [visible, setVisible] = useState(false);
+  const [modalData, setModalData] = useState();
 
   useEffect(() => {
     const getTechs = async () => {
@@ -19,19 +20,26 @@ const ViewTechs = () => {
       console.log(techData);
     };
     getTechs();
-  }, []);
+  }, [visible]);
 
   const TechRender = ({ item }) => {
+    const handleEditPress = () => {
+      setModalData(item);
+      setVisible(true);
+    };
+
     const Footer = () => {
-      return (
-        <Button onPress={() => navigation.navigate("EditTech", { item })}>
-          Edit
-        </Button>
-      );
+      return <Button onPress={handleEditPress}>Edit</Button>;
     };
 
     return (
       <View style={styles.techContainer}>
+        <Modal
+          visible={visible}
+          backdropStyle={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}
+        >
+          <EditTech item={modalData} setVisible={setVisible} />
+        </Modal>
         <Card footer={Footer}>
           <Text style={styles.techName}>{item["name"]}</Text>
           <Text>Email: {item["email"]}</Text>

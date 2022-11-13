@@ -12,7 +12,6 @@ const DrawerContent = ({ navigation, state }) => (
     selectedIndex={new IndexPath(state.index)}
     onSelect={(index) => navigation.navigate(state.routeNames[index.row])}
   >
-    <DrawerItem title="Login" />
     <DrawerItem title="Dashboard" />
     <DrawerItem title="My Employees" />
     <DrawerItem title="Create Job" />
