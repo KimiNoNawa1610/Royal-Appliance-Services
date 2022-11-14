@@ -3,14 +3,14 @@ import AdminDrawerNavigator from "./AdminDrawerNavigator";
 import TechDrawerNavigator from "./TechDrawerNavigator";
 import { createStackNavigator } from "@react-navigation/stack";
 const { Navigator, Screen } = createStackNavigator();
-import CreateInvoice from "./CreateInvoice";
+import EditableInvoice from "./EditableInvoice";
 import React from "react";
 import Login from "./Login";
 export const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Navigator headerShown="true">
-        <Screen name={"Create Invoice"} component={CreateInvoice}></Screen>
+        <Screen name={"Editable Invoice"} component={EditableInvoice}></Screen>
         <Screen name={"Login"} component={Login}></Screen>
         <Screen name={"AdminDrawer"} component={AdminDrawerNavigator} />
         <Screen name={"TechDrawer"} component={TechDrawerNavigator} />
