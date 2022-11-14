@@ -1,5 +1,5 @@
 import Login from "./Login";
-import TechDashBoard from "./TechDashboard";
+import AdminDashBoard from "./AdminDashBoard";
 import ViewTechs from "./ViewTechs";
 import CreateJob from "./CreateJob";
 import React from "react";
@@ -19,15 +19,15 @@ const DrawerContent = ({ navigation, state }) => (
   </Drawer>
 );
 
-const DrawerNavigator = () => {
+const AdminDrawerNavigator = () => {
   return (
     <Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-      <Screen name="DashBoard" component={TechDashBoard} />
+      <Screen name="DashBoard" component={AdminDashBoard} />
       <Screen name="My Employees" component={ViewTechs} />
       <Screen name="Create Job" component={CreateJob} />
-      <Screen name="Invoices" component={TechDashBoard} />
+      <Screen name="Invoices" component={AdminDashBoard} />
     </Navigator>
   );
 };
 
-export default DrawerNavigator;
+export default AdminDrawerNavigator;
