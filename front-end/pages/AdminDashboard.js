@@ -75,7 +75,7 @@ const AdminDashboard = () => {
           onSelect={nextDate => setSelectedDate(nextDate)}
           // date={date}
           // onSelect={nextDate => setDate(nextDate)}
-          renderDay={DayCell} 
+          //renderDay={DayCell} 
           />
         <Separator/>  
       </View>

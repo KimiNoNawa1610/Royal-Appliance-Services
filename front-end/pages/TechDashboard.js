@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, Image } from "react-native";
 import { Button, Layout, Card, Text } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
+//import { getJobs} from "./apiCaller.js";
 
 export default function TechDashBoard({ navigation }) {
   //const navigation = useNavigation();
@@ -19,6 +20,11 @@ export default function TechDashBoard({ navigation }) {
         <Button status="warning">
           <Text>Completed</Text>
         </Button>
+      </Layout>
+
+      <Layout level="3">
+
+
       </Layout>
     </Layout>
   );
