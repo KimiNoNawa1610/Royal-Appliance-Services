@@ -1,4 +1,3 @@
-
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Admin, Resource } from 'react-admin'
@@ -6,158 +5,143 @@ import restProvider from 'ra-data-simple-rest'
 import { BASE_URL } from '../config';
 import ViewTechs from './ViewTechs';
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, TextInput, View, Alert, SafeAreaView, Pressable,Image} from "react-native";
+import { Button, StyleSheet, TextInput, View, Text, Alert, SafeAreaView,
+         Pressable,Image } from "react-native";
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import { Button, Layout, Card, Text, Calendar as Calendar2 } from "@ui-kitten/components";
 
-const now = new Date();
-const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-//const date = new Date();
 
 const Separator = () => (
   <View style={styles.separator} />
 );
 
-const DayCell = ({date}, style) => {
-  // if ({date}==now) {
-  //   return( <View
-  //     style={[styles.dayContainer, style.container]}>
-  //     <Text style={[style.text, "color=red"]}>{`${date.getDate()}*`}</Text>
-  //   </View>);
-  // }
-  // else{
-  //   return(<View></View>);
-  // }
-  if ({date}===now) {
-  (<View
-      style={[styles.dayContainer, style.container]}>
-      <Text style={[style.text, "color=red"]}>{`${date.getDate()}*`}</Text>
-    </View>)
-  }
-};
-
 const AdminDashboard = () => {
   const navigation = useNavigation();
-  //const [date, setDate] = React.useState(null);
-  const [ selectedDate, setSelectedDate ] = React.useState(date);
-  const componentRef = React.createRef();
-
-  const scrollToSelected = () => {
-    if (componentRef.current) {
-        componentRef.current.scrollToDate(selectedDate);
-    }
-    /* */
-  };
-
-  const scrollToToday = () => {
-    if (componentRef.current) {
-      componentRef.current.scrollToToday();
-    }
-  };
+  const [date, setDate] = React.useState(new Date());
 
   return (
-    <Layout style={styles.container} level='1'>
+    // <SafeAreaView>
+    <SafeAreaView style ={styles.pageContainer}>
+      {/* All components are within the calendar container */}
 
-      <Button style={styles.topButton1} onPress={scrollToToday}>Scroll to Today</Button>
-      {/* this opens a modal that shows info */}
-      <Button style={styles.topButton2} onPress={scrollToSelected}>View Selected Date</Button>
+      <View style ={styles.componentContainer}>
+        <View style ={styles.TopHalf}>
+          <View style={styles.topHalfLeft}>
+            <CalendarList
+              style ={styles.calendarCustom}
+              pastScrollRange={5}
+              futureScrollRange={5}
+              scrollEnabled={true}
+              showScrollIndicator={true}
+              /*//You can pass functions like this
+              dayComponent={({date, state}) => {
+                return (
+                  <View>
+                    <Text style={{textAlign: 'center', color: state === 'disabled' ? 'gray' : 'black'}}>{date.day}</Text>
+                  </View>
+                );
+              }}*/
+              >
+            </CalendarList>
+          </View>  
+          <View style={styles.topHalfRight}>
+            <Agenda/>
+          </View>
+        </View>
 
-      <View style={styles.calendarContainer}>
-        <Text
-          category='h6'
-          style={styles.text}>
-          Selected date: {selectedDate.toLocaleDateString()}
-        </Text>
+        <Separator/>
 
-        <Calendar2
-          ref={componentRef}
-          date={selectedDate}
-          onSelect={nextDate => setSelectedDate(nextDate)}
-          // date={date}
-          // onSelect={nextDate => setDate(nextDate)}
-          renderDay={DayCell} 
-          />
-        <Separator/>  
-      </View>
-        
-      <Layout style={styles.buttonContainer} level='2'>
-        <Button style={styles.button} status="primary" onPress={async ()=>{navigation.navigate("EmployeeGenerator")}}>
-          Create Employee Account</Button>
-      
-        <Button style={styles.button} status="primary" onPress={async ()=>{navigation.navigate("ViewTechs")}}>
-          View Techs</Button>
+        <View style={styles.buttonSetContainer}>
+          <View  style={styles.buttonContainer}>
+            <Button title="Create Employee Account" onPress={async ()=>{navigation.navigate("EmployeeGenerator")}}/>
+          </View>
+          <View  style={styles.buttonContainer}>
+            <Button title="View Techs" onPress={async ()=>{navigation.navigate("ViewTechs")}}/>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button title="Create Job" onPress={async ()=>{ navigation.navigate("CreateJob")}}/>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button title="Edit Job" onPress={async ()=>{ navigation.navigate("EditJob")}}/>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button title="Logout" onPress={async ()=>{AsyncStorage.removeItem("AccessToken"); navigation.navigate("Login")}}/>
+          </View>
+        </View>
+      </View>  
+    </SafeAreaView>
+  )
+}
 
-        {/* this navigates to adminalljobs */}
-        <Button style={styles.button} status="primary" onPress={async ()=>{navigation.navigate("ViewTechs")}}>
-          View All Jobs</Button>  
-      
-        <Button style={styles.button} status="primary" onPress={async ()=>{ navigation.navigate("CreateJob")}}>
-          Create Job</Button>
-      
-        <Button style={styles.button} status="primary" onPress={async ()=>{ navigation.navigate("EditJob")}}>
-          Edit Job</Button>
-
-        <Button style={styles.button} status="primary" onPress={async ()=>{AsyncStorage.removeItem("AccessToken"); navigation.navigate("Login")}}>
-        Logout</Button>   
-      </Layout>
-    </Layout>
-    
-  );
-};
-
+//const calenderStyles = 
 const styles = StyleSheet.create({
-  container: {
+  pageContainer: {
+    //display: 'flex',
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    //alignItems: "center",
-    justifyContent: "center",
     flex: 1,
+    //padding:50,
   },
-  calendarContainer: {
-    margin: 2,
-    //alignItems: "center",
+  componentContainer: {
+    flex: 1,
+    padding: 50,
+    flexWrap: 'wrap',
+  },
+  TopHalf: {
+    //display: 'flex',
+    flex: 1,
+    flexDirection: "row",
+  },
+  topHalfLeft: {
+    flex: 0.75,
+  },
+  topHalfRight: {
+    flex: 0.25,
+  },
+  /*Note for Olena:
+      This calendar has its own library methods.
+      Some regular ones might not work. See doc here:
+      https://github.com/wix/react-native-calendars
+  */
+  calendarCustom: {
+    borderColor: 'gray',
+    //calendarWidth: 100,
+    //calendarWidth:100,
+    //flexShrink: 0.5,
+    //expandShrinkCalendar: 1,
+    overflow:'hidden',
+    //flex: 0,
+
+    //calander ignores container.
+
   },
   separator: {
-    marginVertical: 4,
+    marginVertical: 15,
     borderBottomColor: '#737373',
     borderBottomWidth: StyleSheet.hairlineWidth,
+    //flex: 1,
   },
-  text: {
-    marginVertical: 4,
-  },
-  center: {
-    flex: 1,
-    alignItems: "center",
+  buttonSetContainer: {
+    flex: .10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    //display: 'flex',
+    //width: 'parent',
   },
   buttonContainer: {
-    flexDirection: 'column',
-  },
-  button: {
-    marginVertical: 2,
-  },
-  topButton1: {
-    marginVertical: 4,
-    // marginRight:4,
-  },
-  topButton2: {
-    marginVertical: 4,
-    marginLeft:4,
-  },
-  value: {
-    fontSize: 12,
-    fontWeight: '400',
-    color: 'red',
-  },
-  dayContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    aspectRatio: 1,
+    marginHorizontal: 30,
   },
-  text: {
-    // color: 'red',
+  title: {
+    textAlign: 'center',
+    marginVertical: 8,
   },
+  // centered: {
+  //   flex: 1,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  // },
 });
 
 
 export default AdminDashboard;
+
