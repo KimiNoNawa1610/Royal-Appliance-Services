@@ -18,13 +18,23 @@ const Separator = () => (
   <View style={styles.separator} />
 );
 
-const DayCell = ({date}, style) => (
-    <View
+const DayCell = ({date}, style) => {
+  // if ({date}==now) {
+  //   return( <View
+  //     style={[styles.dayContainer, style.container]}>
+  //     <Text style={[style.text, "color=red"]}>{`${date.getDate()}*`}</Text>
+  //   </View>);
+  // }
+  // else{
+  //   return(<View></View>);
+  // }
+  if ({date}===now) {
+  (<View
       style={[styles.dayContainer, style.container]}>
       <Text style={[style.text, "color=red"]}>{`${date.getDate()}*`}</Text>
-    </View>
-  
-);
+    </View>)
+  }
+};
 
 const AdminDashboard = () => {
   const navigation = useNavigation();
