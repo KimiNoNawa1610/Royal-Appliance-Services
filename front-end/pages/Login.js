@@ -59,10 +59,10 @@ const Login = () => {
                 console.log(token);
                 if (res.data.isAdmin) {
                   console.log("Admin");
-                  navigation.navigate("AdminDrawer");
+                  navigation.navigate("Drawer");
                 } else {
                   console.log("Employee");
-                  navigation.navigate("TechDrawer");
+                  navigation.navigate("Drawer");
                 }
                 showMessage({
                   message: "Login Successful",
