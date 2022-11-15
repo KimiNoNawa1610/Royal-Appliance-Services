@@ -147,7 +147,7 @@ const CreateJob = () => {
               headers: { token: await AsyncStorage.getItem("AccessToken") },
             })
             .then((res) => {
-              console.log(res)
+              //console.log(res)
               showMessage({
                 message: res.data,
                 backgroundColor: "green",

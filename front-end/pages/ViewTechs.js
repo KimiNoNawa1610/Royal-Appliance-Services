@@ -48,6 +48,7 @@ const ViewTechs = () => {
     );
   };
 
+
   return (
     <Layout style={styles.page}>
       <Layout>

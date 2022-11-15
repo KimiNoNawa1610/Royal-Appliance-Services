@@ -1,5 +1,5 @@
 import React from "react";
-import TechDashBoard from "./TechDashboard";
+import AddTech from "./AddTech";
 import ViewTechs from "./ViewTechs";
 import CreateJob from "./CreateJob";
 import AdminDashboard from "./AdminDashboard"
@@ -16,6 +16,7 @@ const DrawerContent = ({ navigation, state }) => (
     <DrawerItem title="Dashboard" />
     <DrawerItem title="My Employees" />
     <DrawerItem title="Create Job" />
+    <DrawerItem title="Add Employee" />
   </Drawer>
 );
 
@@ -25,6 +26,7 @@ const AdminDrawerNavigator = () => {
       <Screen name="DashBoard" component={AdminDashboard} />
       <Screen name="My Employees" component={ViewTechs} />
       <Screen name="Create Job" component={CreateJob} />
+      <Screen name="Add Employee" component={AddTech} />
     </Navigator>
   );
 };
