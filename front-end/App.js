@@ -11,7 +11,6 @@ import TechDashBoard from "./pages/TechDashboard.js";
 import CreateJob from "./pages/CreateJob.js";
 import Login from "./pages/Login.js";
 import EditTech from "./pages/EditTech";
-import DrawerNavigator from "./pages/DrawerNavigator";
 import { AppNavigator } from "./pages/AppNavigator";
 
 const Drawer = createDrawerNavigator();

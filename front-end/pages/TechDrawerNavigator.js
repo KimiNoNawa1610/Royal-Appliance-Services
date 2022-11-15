@@ -13,21 +13,16 @@ const DrawerContent = ({ navigation, state }) => (
     onSelect={(index) => navigation.navigate(state.routeNames[index.row])}
   >
     <DrawerItem title="Dashboard" />
-    <DrawerItem title="My Employees" />
-    <DrawerItem title="Create Job" />
-    <DrawerItem title="Invoices" />
   </Drawer>
 );
 
-const DrawerNavigator = () => {
+const TechDrawerNavigator = () => {
   return (
     <Navigator drawerContent={(props) => <DrawerContent {...props} />}>
       <Screen name="DashBoard" component={TechDashBoard} />
-      <Screen name="My Employees" component={ViewTechs} />
-      <Screen name="Create Job" component={CreateJob} />
-      <Screen name="Invoices" component={TechDashBoard} />
+
     </Navigator>
   );
 };
 
-export default DrawerNavigator;
+export default TechDrawerNavigator;
