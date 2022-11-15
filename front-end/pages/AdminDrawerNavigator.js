@@ -1,5 +1,5 @@
 import Login from "./Login";
-import AdminDashBoard from "./AdminDashBoard";
+import AdminDashBoard from "./AdminDashboard";
 import ViewTechs from "./ViewTechs";
 import CreateJob from "./CreateJob";
 import React from "react";
