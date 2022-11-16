@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Image } from "react-native";
 import { Button, Layout, Card, Text } from "@ui-kitten/components";
-import { useNavigation } from "@react-navigation/native";
+import ViewJobs from "./ViewJobs";
 //import { getJobs} from "./apiCaller.js";
 
 export default function TechDashBoard() {
@@ -12,7 +12,9 @@ export default function TechDashBoard() {
       <Image style={styles.image} source={require("../assets/royal.png")} />
 
       <Layout style={styles.container} level="2">
+
         <Button status="primary">Today</Button>
+        
         <Button status="success">Tomorrow</Button>
 
         <Button status="info">Future</Button>
@@ -20,11 +22,13 @@ export default function TechDashBoard() {
         <Button status="warning">
           <Text>Completed</Text>
         </Button>
+
       </Layout>
 
       <Layout level="3">
-
-
+        <View>
+          <ViewJobs start="2022-10-1" end="2022-12-15"/>
+        </View>
       </Layout>
     </Layout>
   );

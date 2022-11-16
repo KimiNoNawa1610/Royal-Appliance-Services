@@ -142,7 +142,7 @@ const CreateJob = () => {
         title={"Assign New Job"}
         style={{ marginTop: 12, alignItems: "center" }}
         onPress={async () => {
-          let des = notes + "\n" + type + "\n" + problem;
+          let des = "Note: "+notes + "\nBrand/Type: " + type + "\nProblem: " + problem;
           let start = `${dateStart.getFullYear()}-${dateStart.getMonth() + 1}-${dateStart.getDate()}`
           let end = `${dateEnd.getFullYear()}-${dateEnd.getMonth() + 1}-${dateEnd.getDate()}`
           //console.log(tech, client, start, end)

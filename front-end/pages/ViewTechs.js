@@ -29,7 +29,7 @@ const ViewTechs = () => {
     };
 
     const Footer = () => {
-      return <Button onPress={handleEditPress}>Edit</Button>;
+      return <Button onPress={handleEditPress}>EDIT</Button>;
     };
 
     return (
@@ -40,7 +40,7 @@ const ViewTechs = () => {
         >
           <EditTech item={modalData} setVisible={setVisible} />
         </Modal>
-        <Card footer={Footer}>
+        <Card style={styles.card_template} footer={Footer}>
           <Text style={styles.techName}>{item["name"]}</Text>
           <Text>Email: {item["email"]}</Text>
         </Card>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   techName: {
-    fontSize: 30,
+    fontSize: 20,
   },
   titleLayout: {
     marginBottom: 20,
@@ -81,6 +81,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 100,
     paddingHorizontal: 30,
+  },
+  card_template:{
+    width: 350,
+    boxShadow: "10px 10px 17px -12px rgba(0,0,0,0.75)",
+    marginBottom: 20
   },
 });
 export default ViewTechs;

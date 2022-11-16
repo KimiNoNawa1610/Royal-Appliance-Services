@@ -61,8 +61,10 @@ const Login = () => {
                   console.log("Admin");
                   navigation.navigate("AdminDrawer");
                 } else {
+                  AsyncStorage.setItem("name", res.data.name);
                   console.log("Employee");
                   navigation.navigate("TechDrawer");
+                  console.log(await AsyncStorage.getItem("name"))
                 }
                 showMessage({
                   message: "Login Successful",
