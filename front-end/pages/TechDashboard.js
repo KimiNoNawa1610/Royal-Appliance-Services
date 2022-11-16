@@ -4,7 +4,7 @@ import { Button, Layout, Card, Text } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
 //import { getJobs} from "./apiCaller.js";
 
-export default function TechDashBoard({ navigation }) {
+export default function TechDashBoard() {
   //const navigation = useNavigation();
 
   return (

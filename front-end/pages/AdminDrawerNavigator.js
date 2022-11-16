@@ -3,8 +3,9 @@ import AddTech from "./AddTech";
 import ViewTechs from "./ViewTechs";
 import CreateJob from "./CreateJob";
 import AdminDashboard from "./AdminDashboard"
+import AddClient from "./AddClient";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Drawer, DrawerItem, IndexPath } from "@ui-kitten/components";
 
 const { Navigator, Screen } = createDrawerNavigator();
@@ -17,6 +18,8 @@ const DrawerContent = ({ navigation, state }) => (
     <DrawerItem title="My Employees" />
     <DrawerItem title="Create Job" />
     <DrawerItem title="Add Employee" />
+    <DrawerItem title="Add Client" />
+    <DrawerItem title="Logout" onPress={() => {AsyncStorage.removeItem("AccessToken"); navigation.navigate("Login")}} />
   </Drawer>
 );
 
@@ -27,6 +30,7 @@ const AdminDrawerNavigator = () => {
       <Screen name="My Employees" component={ViewTechs} />
       <Screen name="Create Job" component={CreateJob} />
       <Screen name="Add Employee" component={AddTech} />
+      <Screen name="Add Client" component={AddClient} />
     </Navigator>
   );
 };

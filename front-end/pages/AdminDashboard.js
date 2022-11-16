@@ -79,27 +79,6 @@ const AdminDashboard = () => {
           />
         <Separator/>  
       </View>
-        
-      <Layout style={styles.buttonContainer} level='2'>
-        <Button style={styles.button} status="primary" onPress={async ()=>{navigation.navigate("EmployeeGenerator")}}>
-          Create Employee Account</Button>
-      
-        <Button style={styles.button} status="primary" onPress={async ()=>{navigation.navigate("ViewTechs")}}>
-          View Techs</Button>
-
-        {/* this navigates to adminalljobs */}
-        <Button style={styles.button} status="primary" onPress={async ()=>{navigation.navigate("ViewTechs")}}>
-          View All Jobs</Button>  
-      
-        <Button style={styles.button} status="primary" onPress={async ()=>{ navigation.navigate("CreateJob")}}>
-          Create Job</Button>
-      
-        <Button style={styles.button} status="primary" onPress={async ()=>{ navigation.navigate("EditJob")}}>
-          Edit Job</Button>
-
-        <Button style={styles.button} status="primary" onPress={async ()=>{AsyncStorage.removeItem("AccessToken"); navigation.navigate("Login")}}>
-        Logout</Button>   
-      </Layout>
     </Layout>
     
   );

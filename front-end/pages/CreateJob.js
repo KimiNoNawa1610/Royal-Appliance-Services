@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { Button, Input, Datepicker } from "@ui-kitten/components";
 import axios from "axios";
+import { useIsFocused } from "@react-navigation/native";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { showMessage } from "react-native-flash-message";
 
 const CreateJob = () => {
+  const isFocused = useIsFocused();
   // const [email, onChangeEmail] = React.useState(null);
   // const [password, onChangePassword] = React.useState(null);
 
@@ -29,7 +31,7 @@ const CreateJob = () => {
 
   const [tech, setTech] = useState(null);
 
-  useEffect(() => { getCE(); }, []);
+  useEffect(() => { if(isFocused){ getCE();} }, [isFocused]);
 
   const getCE = async () => {
     const token1 = await AsyncStorage.getItem("AccessToken");
@@ -87,26 +89,28 @@ const CreateJob = () => {
         setValue={setclient}
         setItems={asetItems}
       />
-
+      <Text>Note</Text>
       <Input
         style={styles.input}
         onChangeText={onChangeNotes}
         value={notes}
-        placeholder={"Notes"}
+        placeholder={""}
         placeholderTextColor={"black"}
       />
+      <Text>Brand/Type of Appliance</Text>
       <Input
         style={styles.input}
         onChangeText={onChangeType}
         value={type}
-        placeholder={"Brand/Type of Appliance"}
+        placeholder={""}
         placeholderTextColor={"black"}
       />
+      <Text>Problem</Text>
       <Input
         style={styles.input}
         onChangeText={onChangeProblem}
         value={problem}
-        placeholder={"Problem with Appliance"}
+        placeholder={""}
         placeholderTextColor={"black"}
       />
       <Text>Employee</Text>
@@ -138,23 +142,32 @@ const CreateJob = () => {
         title={"Assign New Job"}
         style={{ marginTop: 12, alignItems: "center" }}
         onPress={async () => {
-          let des = notes +"\n"+ type + "\n" + problem;
+          let des = notes + "\n" + type + "\n" + problem;
           let start = `${dateStart.getFullYear()}-${dateStart.getMonth() + 1}-${dateStart.getDate()}`
           let end = `${dateEnd.getFullYear()}-${dateEnd.getMonth() + 1}-${dateEnd.getDate()}`
           //console.log(tech, client, start, end)
           axios
-            .post(BASE_URL + "/assign_job/"+client+"/"+tech, {dateStart:start,dateEnd:end,description:des},{
+            .post(BASE_URL + "/assign_job/" + client + "/" + tech, { dateStart: start, dateEnd: end, description: des }, {
               headers: { token: await AsyncStorage.getItem("AccessToken") },
             })
             .then((res) => {
               //console.log(res)
-              showMessage({
-                message: res.data,
-                backgroundColor: "green",
-                type: "success",
-              });
+              if (res.status == 200) {
+                showMessage({
+                  message: res.data,
+                  backgroundColor: "green",
+                  type: "success",
+                })
+              }
+              else {
+                showMessage({
+                  message: res.data,
+                  backgroundColor: "red",
+                  type: "error",
+                })
+              };
 
-              
+
             })
             .catch((err) => console.log(err));
 

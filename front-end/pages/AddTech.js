@@ -43,11 +43,23 @@ const AddTech = () => {
       .post(BASE_URL + "/add_employee/", sendJSON, {
         headers: { token: await AsyncStorage.getItem("AccessToken") },
       })
-      .then((res) => {showMessage({
-        message: res.data,
-        backgroundColor: "green",
-        type: "success",
-      });})
+      .then((res) => {
+        if (res.status == 200) {
+          showMessage({
+            message: res.data,
+            backgroundColor: "green",
+            type: "success",
+          })
+        }
+        else {
+          showMessage({
+            message: res.data,
+            backgroundColor: "red",
+            type: "error",
+          })
+        }
+        ;
+      })
       .catch((err) => console.log(err));
   };
 
