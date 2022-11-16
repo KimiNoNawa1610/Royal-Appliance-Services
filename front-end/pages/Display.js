@@ -8,38 +8,16 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { showMessage } from "react-native-flash-message";
 import axios from "axios";
 
-
-const test = [
-  {
-      "clientID": 2,
-      "dateEnd": "Tue, 15 Nov 2022 00:00:00 GMT",
-      "dateStart": "Tue, 15 Nov 2022 00:00:00 GMT",
-      "description": "das\nadas\nzxc",
-      "employeeID": 3,
-      "isCompleted": false,
-      "jobID": 14
-  }
-]
-
-
 //The dynamic display
 const Display = ({navigation}) => {
   const [selectedId, setSelectedId] = useState(null);
   const [jobs, setJobs] = useState("");
-  //HERE
-  // let field1 = {clientID: []}
-  // let field2 = {dateStart: []}
-  // let field3 = {dateEnd: []}
-  // let field4 = {description: []}
-  // let field5 = {isCompleted: []}
-  // let field6 = {jobID: []}
-
+ 
   let fields = {jobs: []}
   useEffect(() => { getJobs(); }, []);
 
   const getJobs = async() => {
     const token1 = await AsyncStorage.getItem("AccessToken");
-    
     axios.get(BASE_URL + "/get_jobs/3/2022-11-01/2022-11-16", {
       headers: {token: token1}})
       .then((res) => {
@@ -55,19 +33,20 @@ const Display = ({navigation}) => {
   }
 
   const [jobItems, setJobItems] = useState(fields.jobs);
+  console.log("jobItems: ", jobItems);
 
   //Define and Format the Item element here
-const Item = ({ item, onPress, backgroundColor}) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-    <Text style={[styles.title]}>{item.title}</Text>
-    <Text>Client ID#: {item.clientID}</Text>
-    <Text>dateStart: {item.dateStart}</Text>
-    <Text>dateEnd: {item.dateEnd}</Text>
-    <Text>description: {item.description}</Text>
-    <Text>isCompleted: {item.isCompleted}</Text>
-    <Text>Job ID#: {item.jobID}</Text>
-  </TouchableOpacity>
-);
+  const Item = ({ item, onPress, backgroundColor}) => (
+    <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
+      <Text style={[styles.title]}>{item.title}</Text>
+      <Text>Client ID#: {item.clientID}</Text>
+      <Text>dateStart: {item.dateStart}</Text>
+      <Text>dateEnd: {item.dateEnd}</Text>
+      <Text>description: {item.description}</Text>
+      <Text>isCompleted: {item.isCompleted}</Text>
+      <Text>Job ID#: {item.jobID}</Text>
+    </TouchableOpacity>
+  );
   //assign attributes to Item element once data passes in
   const renderItem = ({ item }) => {
     //bgColor: affects when pressed
@@ -78,7 +57,7 @@ const Item = ({ item, onPress, backgroundColor}) => (
       <Item
         item={item}
         onPress={() => setSelectedId(item.jobID)}
-        //backgroundColor={{ backgroundColor }}
+        backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />
     );
@@ -95,12 +74,6 @@ const Item = ({ item, onPress, backgroundColor}) => (
     </SafeAreaView>
   );
 };
-
-
-
-
-
-
 
 const styles = StyleSheet.create({
   container: {
