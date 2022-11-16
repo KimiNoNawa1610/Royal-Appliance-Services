@@ -1,51 +1,62 @@
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { getJobs} from "../apiCaller.js";
+//import { getJobs} from "../apiCaller.js";
+import { BASE_URL } from "../config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import DropDownPicker from 'react-native-dropdown-picker';
+import { showMessage } from "react-native-flash-message";
+import axios from "axios";
 
-const DATA = [
+
+const test = [
   {
-    "id": "1",
-    "title": "First Job",
-    "address": "Sonoma, Irvine",
-    "when": "Wed, Nov 09",
-    "time": "5pm",
-    "installation":"Microwave",
-    "notes":"call before you come in"
-  },
-  {
-    "id": "2",
-    "title": "Second Job",
-    "address": "Sonoma, Irvine",
-    "when": "Wed, Nov 09",
-    "time": "5pm",
-    "installation":"Microwave",
-    "notes":"call before you come in"
-  },
-  {
-    "id": "3",
-    "title": "Third Job",
-    "address": "Sonoma, Irvine",
-    "when": "Wed, Nov 09",
-    "time": "5pm",
-    "installation":"Microwave",
-    "notes":"call before you come in"
+      "clientID": 2,
+      "dateEnd": "Tue, 15 Nov 2022 00:00:00 GMT",
+      "dateStart": "Tue, 15 Nov 2022 00:00:00 GMT",
+      "description": "das\nadas\nzxc",
+      "employeeID": 3,
+      "isCompleted": false,
+      "jobID": 14
+  }
+]
+
+
+//The dynamic display
+const Display = ({navigation}) => {
+  const [selectedId, setSelectedId] = useState(null);
+  const [jobs, setJobs] = useState("");
+  //HERE
+  // let field1 = {clientID: []}
+  // let field2 = {dateStart: []}
+  // let field3 = {dateEnd: []}
+  // let field4 = {description: []}
+  // let field5 = {isCompleted: []}
+  // let field6 = {jobID: []}
+
+  let fields = {jobs: []}
+  useEffect(() => { getJobs(); }, []);
+
+  const getJobs = async() => {
+    const token1 = await AsyncStorage.getItem("AccessToken");
     
-  },
-];
+    axios.get(BASE_URL + "/get_jobs/3/2022-11-01/2022-11-16", {
+      headers: {token: token1}})
+      .then((res) => {
+        for (let i = 0; i < res.data.length; i++) {
+          //console.log(res1.data[i].name, res1.data[i].employeeID)
+          fields.jobs.push({ jobID: res.data[i].jobID, clientID: res.data[i].clientID,
+            description: res.data[i].description, isCompleted: res.data[i].isCompleted, 
+            dateStart: res.data[i].dateStart, dateEnd: res.data[i].dateEnd})
+        }
+        console.log(fields.jobs)
+      }) 
+      .catch((err) => console.log(err));
+  }
 
+  const [jobItems, setJobItems] = useState(fields.jobs);
 
-// const Item = ({ item, onPress, backgroundColor, textColor }) => (
-//   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-//     <Text style={[styles.title, textColor]}>{item.title}</Text>
-//     <Text>Job ID#: {item.id}</Text>
-//     <Text>Address: {item.address}</Text>
-//     <Text>{item.when} @ {item.time} </Text>
-//     <Text>{item.installation}</Text>
-//     <Text>{item.notes}</Text>
-//   </TouchableOpacity>
-// );
-
+  //Define and Format the Item element here
 const Item = ({ item, onPress, backgroundColor}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
     <Text style={[styles.title]}>{item.title}</Text>
@@ -57,65 +68,7 @@ const Item = ({ item, onPress, backgroundColor}) => (
     <Text>Job ID#: {item.jobID}</Text>
   </TouchableOpacity>
 );
-
-// const Display = ({navigation}) => {
-//   const [selectedId, setSelectedId] = useState(null);
-// //   const navigation = useNavigation();
-//  // const [jobs, setJobs] = useState([]);
-
-//   useEffect(() => {
-//     getJobs()
-//       .then((result) => {
-//         setJobs(result);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   }, []);
-
-//   const renderItem = ({ item }) => {
-//     //bgColor: affects when pressed
-//     const backgroundColor = item.id === selectedId ? "white" : "white";
-//     const color = item.id === selectedId ? 'black' : 'black';
-
-//     return (
-//       <Item
-//         item={item}
-//         onPress={() => setSelectedId(item.id)}
-//         backgroundColor={{ backgroundColor }}
-//         textColor={{ color }}
-//       />
-//     );
-//   };
-
-//   return (
-//     <SafeAreaView style={styles.container}>
-//       <FlatList
-//         data={DATA}
-//         renderItem={renderItem}
-//         keyExtractor={(item) => item.id}
-//         extraData={selectedId}
-//       ></FlatList>
-//     </SafeAreaView>
-//   );
-// };
-
-//The dynamic display
-const Display = ({navigation}) => {
-  const [selectedId, setSelectedId] = useState(null);
-//   const navigation = useNavigation();
-  const [jobs, setJobs] = useState([]);
-
-  useEffect(() => {
-    getJobs()
-      .then((result) => {
-        setJobs(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
+  //assign attributes to Item element once data passes in
   const renderItem = ({ item }) => {
     //bgColor: affects when pressed
     const backgroundColor = item.jobID === selectedId ? "white" : "white";
@@ -125,7 +78,7 @@ const Display = ({navigation}) => {
       <Item
         item={item}
         onPress={() => setSelectedId(item.jobID)}
-        backgroundColor={{ backgroundColor }}
+        //backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />
     );
@@ -134,7 +87,7 @@ const Display = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={jobs}
+        data={jobItems}
         renderItem={renderItem}
         keyExtractor={(item) => item.jobID}
         extraData={selectedId}
@@ -142,6 +95,8 @@ const Display = ({navigation}) => {
     </SafeAreaView>
   );
 };
+
+
 
 
 
