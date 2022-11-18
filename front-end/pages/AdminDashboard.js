@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Admin, Resource } from 'react-admin'
 import restProvider from 'ra-data-simple-rest'
@@ -8,7 +7,8 @@ import ViewTechs from './ViewTechs';
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, TextInput, View, Alert, SafeAreaView, Pressable,Image} from "react-native";
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import { Button, Layout, Card, Text, Calendar as Calendar2 } from "@ui-kitten/components";
+import { Button, Layout, Card, Text, Calendar as Calendar2, Modal } from "@ui-kitten/components";
+import AdminViewJobs from "../components/AdminViewJobs";
 
 const now = new Date();
 const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -18,35 +18,41 @@ const Separator = () => (
   <View style={styles.separator} />
 );
 
-const DayCell = ({date}, style) => {
-  // if ({date}==now) {
-  //   return( <View
-  //     style={[styles.dayContainer, style.container]}>
-  //     <Text style={[style.text, "color=red"]}>{`${date.getDate()}*`}</Text>
-  //   </View>);
-  // }
-  // else{
-  //   return(<View></View>);
-  // }
-  if ({date}===now) {
-  (<View
-      style={[styles.dayContainer, style.container]}>
-      <Text style={[style.text, "color=red"]}>{`${date.getDate()}*`}</Text>
-    </View>)
-  }
-};
+// const DayCell = ({date}, style) => {
+//   // if ({date}==now) {
+//   //   return( <View
+//   //     style={[styles.dayContainer, style.container]}>
+//   //     <Text style={[style.text, "color=red"]}>{`${date.getDate()}*`}</Text>
+//   //   </View>);
+//   // }
+//   // else{
+//   //   return(<View></View>);
+//   // }
+//   if ({date}===now) {
+//   (<View
+//       style={[styles.dayContainer, style.container]}>
+//       <Text style={[style.text, "color=red"]}>{`${date.getDate()}*`}</Text>
+//     </View>)
+//   }
+// };
 
 const AdminDashboard = () => {
   const navigation = useNavigation();
   //const [date, setDate] = React.useState(null);
   const [ selectedDate, setSelectedDate ] = React.useState(date);
   const componentRef = React.createRef();
+  const [visible, setJobVisible] = useState(false);
+  const [modalData, setModalData] = useState();
+  
+
 
   const scrollToSelected = () => {
-    if (componentRef.current) {
-        componentRef.current.scrollToDate(selectedDate);
-    }
-    /* */
+    // if (componentRef.current) {
+    //     componentRef.current.scrollToDate(selectedDate);
+    // }
+    /*
+     */
+      setJobVisible(true);
   };
 
   const scrollToToday = () => {
@@ -79,6 +85,11 @@ const AdminDashboard = () => {
           />
         <Separator/>  
       </View>
+      <Modal
+        visible={visible}
+        >
+          <AdminViewJobs start="2022-10-1" end="2022-12-15" setJobVisible={setJobVisible}/>
+      </Modal>
     </Layout>
     
   );

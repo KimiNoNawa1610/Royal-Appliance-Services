@@ -18,7 +18,7 @@ const Display = ({navigation}) => {
 
   const getJobs = async() => {
     const token1 = await AsyncStorage.getItem("AccessToken");
-    axios.get(BASE_URL + "/get_jobs/3/2022-11-01/2022-11-16", {
+    axios.get(BASE_URL + "/get_all_jobs_withoutdate", {
       headers: {token: token1}})
       .then((res) => {
         for (let i = 0; i < res.data.length; i++) {
