@@ -9,49 +9,79 @@ import { StyleSheet, TextInput, View, Alert, SafeAreaView, Pressable,Image} from
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import { Button, Layout, Card, Text, Calendar as Calendar2, Modal } from "@ui-kitten/components";
 import AdminViewJobs from "../components/AdminViewJobs";
+import axios from "axios";
 
-const now = new Date();
-const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-//const date = new Date();
 
 const Separator = () => (
   <View style={styles.separator} />
 );
 
-// const DayCell = ({date}, style) => {
-//   // if ({date}==now) {
-//   //   return( <View
-//   //     style={[styles.dayContainer, style.container]}>
-//   //     <Text style={[style.text, "color=red"]}>{`${date.getDate()}*`}</Text>
-//   //   </View>);
-//   // }
-//   // else{
-//   //   return(<View></View>);
-//   // }
-//   if ({date}===now) {
-//   (<View
-//       style={[styles.dayContainer, style.container]}>
-//       <Text style={[style.text, "color=red"]}>{`${date.getDate()}*`}</Text>
-//     </View>)
-//   }
-// };
-
 const AdminDashboard = () => {
   const navigation = useNavigation();
+  const now = new Date();
+  const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   //const [date, setDate] = React.useState(null);
   const [ selectedDate, setSelectedDate ] = React.useState(date);
   const componentRef = React.createRef();
   const [visible, setJobVisible] = useState(false);
-  const [modalData, setModalData] = useState();
-  
+  const [workDays, setWorkDays] = useState([]);
 
+  //Retrieve all jobs to mark on the calendar WIP
+  useEffect(() => {
+    const getAllJobs = async () => {
+      const token1 = await AsyncStorage.getItem("AccessToken");
+      axios
+          .get(BASE_URL + "/get_all_jobs_withoutdate", {
+            headers: { token: token1 },
+          })
+          .then((res) => {
+              //console.log(res.data)
+              //setWorkDays(res.data) 
+              //console.log(workDays[0])
+              let dayList = []
+              for (var i = 0; i < res.data.length; i++){
+                    //console.log("index: " + i);
+                    //split into objects
+                    var obj = res.data[i];
+                    //console.log(obj["dateStart"]);
+                    var value = obj["dateStart"];
+                    // dayList.push(new Date(value).getFullYear() + "-" + new Date(value).getMonth() + "-" + new Date(value).getDate());
+                    //console.log(value + "end")
+                    dayList.push(new Date(value).toISOString().split('T')[0]);
+                    //console.log(dayList)
+                    
+                  }
+                  
+                  setWorkDays(dayList)
+                  console.log("START" +workDays)
+                  //console.log(value)
+          })
+          .catch((err) => console.log(err));
+      }
+      getAllJobs();
+        //console.log(selectedDate);
+      }, []);
+    
+  const DayCell = ({ date }, style) => {
+    for(let i = 0; workDays.length; i++){
+      if(workDays[i] === date.toISOString().split('T')[0]){
+        return(
+        <View
+          style={[styles.dayContainer, style.container]}>
+          <Text style={[style.text,styles.textDay]}>{`${date.getDate()}`}</Text>
+        </View>);
+      }
+      else{
+        return(
+          <View
+            style={[styles.dayContainer, style.container]}>
+            <Text style={[style.text]}>{`${date.getDate()}`}</Text>
+          </View>);
+      }
+    }
+  }
 
   const scrollToSelected = () => {
-    // if (componentRef.current) {
-    //     componentRef.current.scrollToDate(selectedDate);
-    // }
-    /*
-     */
       setJobVisible(true);
   };
 
@@ -67,8 +97,8 @@ const AdminDashboard = () => {
       <Button style={styles.topButton1} onPress={scrollToToday}>Scroll to Today</Button>
       {/* this opens a modal that shows info */}
       <Button style={styles.topButton2} onPress={scrollToSelected}>View Selected Date</Button>
-
       <View style={styles.calendarContainer}>
+      <Separator/>  
         <Text
           category='h6'
           style={styles.text}>
@@ -77,18 +107,19 @@ const AdminDashboard = () => {
 
         <Calendar2
           ref={componentRef}
+          // date={selectedDate}
+          // onSelect={nextDate => setSelectedDate(nextDate)}
+          // renderDay={DayCell} 
           date={selectedDate}
           onSelect={nextDate => setSelectedDate(nextDate)}
-          // date={date}
-          // onSelect={nextDate => setDate(nextDate)}
-          //renderDay={DayCell} 
+          renderDay={DayCell}
           />
         <Separator/>  
       </View>
       <Modal
         visible={visible}
         >
-          <AdminViewJobs start="2022-10-1" end="2022-12-15" setJobVisible={setJobVisible}/>
+          <AdminViewJobs start={selectedDate.toISOString().split('T')[0]} end={selectedDate.toISOString().split('T')[0]} setJobVisible={setJobVisible}/>
       </Modal>
     </Layout>
     
@@ -144,10 +175,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     aspectRatio: 1,
   },
-  text: {
-    // color: 'red',
+  textDay: {
+    color: '#00F9E4',
   },
 });
-
 
 export default AdminDashboard;

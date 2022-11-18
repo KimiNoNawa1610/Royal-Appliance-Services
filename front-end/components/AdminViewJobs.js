@@ -11,34 +11,22 @@ const AdminViewJobs = ({ start, end, setJobVisible }) => {
     const [visible, setVisible] = useState(false);
     const [modalData, setModalData] = useState();
 
+    //only retreives all jobs on selected day
     useEffect(() => {
-        const getJobs = async () => {
-            const token1 = await AsyncStorage.getItem("AccessToken");
-            const name = await AsyncStorage.getItem("name")
-            //console.log(token1)
-            axios
-                .get(BASE_URL + "/get_employee_id/" + name, {
-                    headers: { token: token1 },
-                })
-                .then((res1) => {
-                    console.log(res1.data)
-                    const id = res1.data.employeeID
-
-                    //console.log(token1)
-                    axios
-                        .get(BASE_URL + "/get_jobs/" + id.toString() + "/" + start + "/" + end, {
-                            headers: { token: token1 },
-                        })
-                        .then((res2) => {
-                            console.log(res2.data)
-                            setjobData(res2.data)
-                        })
-                        .catch((err) => console.log(err));
-                })
-                .catch((err) => console.log(err));
-        }
-        getJobs();
-    }, [visible]);
+      const getJobs = async () => {
+          const token1 = await AsyncStorage.getItem("AccessToken");
+          axios
+              .get(BASE_URL + "/get_all_jobs/" + start + "/" + end, {
+                headers: { token: token1 },
+              })
+              .then((res1) => {
+                  console.log(res1.data)
+                  setjobData(res1.data)
+              })
+              .catch((err) => console.log(err));
+      }
+      getJobs();
+  }, [visible]);
 
     const TechRender = ({ item }) => {
         const handleEditPress = () => {
