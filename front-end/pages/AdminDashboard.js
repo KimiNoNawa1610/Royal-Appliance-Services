@@ -25,6 +25,7 @@ const AdminDashboard = () => {
   const componentRef = React.createRef();
   const [visible, setJobVisible] = useState(false);
   const [workDays, setWorkDays] = useState([]);
+  //let dynamic = workDays.map((x) => x);
 
   //Retrieve all jobs to mark on the calendar WIP
   useEffect(() => {
@@ -49,11 +50,13 @@ const AdminDashboard = () => {
                     //console.log(value + "end")
                     dayList.push(new Date(value).toISOString().split('T')[0]);
                     //console.log(dayList)
-                    
                   }
-                  
+                  dayList = dayList.sort(function(a, b) { return (a).localeCompare(b); });
+                  //console.log("LIST " + dayList)
                   setWorkDays(dayList)
-                  console.log("START" +workDays)
+                  console.log("START " +workDays)
+                  //workDays.shift();
+                  //console.log("START " +workDays)
                   //console.log(value)
           })
           .catch((err) => console.log(err));
@@ -62,24 +65,125 @@ const AdminDashboard = () => {
         //console.log(selectedDate);
       }, []);
     
+  // const DayCell = ({ date }, style) => {
+  //   if(workDays.length > 0){
+  //     if(date.toISOString().split('T')[0] === workDays[0]){
+  //       workDays.shift();
+  //     return(
+  //       <View
+  //         style={[styles.dayContainer, style.container]}>
+  //         <Text style={[style.text,styles.textDay]}>{`${date.getDate()}`}</Text>
+  //       </View>
+  //     );
+  //     }
+  //   else {
+  //     return(
+  //     <View
+  //         style={[styles.dayContainer, style.container]}>
+  //         <Text style={[style.text]}>{`${date.getDate()}`}</Text>
+  //       </View>);
+  //   }  
+  //   }
+  // }
+  // const DayCell = ({ date }, style) => {
+  //   let dynamic = workDays.map((x) => x);
+    
+  //     if(dynamic.length > 0){
+  //       for (var i = 0; i < dynamic.length; i++){
+  //         if(date.toISOString().split('T')[0] === dynamic[i]){
+  //           dynamic.shift(dynamic.indexOf(i), 1);
+  //           console.log(dynamic[i]);
+  //           console.log(date.toISOString().split('T')[0] );
+  //         return(
+  //           <View
+  //             style={[styles.dayContainer, style.container]}>
+  //             <Text style={[style.text,styles.textDay]}>{`${date.getDate()}`}</Text>
+  //           </View>
+  //         );
+  //         }
+  //         else {
+  //           return(
+  //             <View
+  //                 style={[styles.dayContainer, style.container]}>
+  //                 <Text style={[style.text]}>{`${date.getDate()}`}</Text>
+  //               </View>);
+  //         }
+  //       }
+  //     }
+  //     else {
+  //       return(
+  //       <View
+  //           style={[styles.dayContainer, style.container]}>
+  //           <Text style={[style.text]}>{`${date.getDate()}`}</Text>
+  //         </View>);
+  //     }  
+      
+  // }
   const DayCell = ({ date }, style) => {
-    for(let i = 0; workDays.length; i++){
-      if(workDays[i] === date.toISOString().split('T')[0]){
-        return(
-        <View
-          style={[styles.dayContainer, style.container]}>
-          <Text style={[style.text,styles.textDay]}>{`${date.getDate()}`}</Text>
-        </View>);
-      }
-      else{
+    let dynamic = workDays.map((x) => x);
+      if(dynamic.length != 0){
+        for (var i = 0; i < dynamic.length; i++){
+          if(date.toISOString().split('T')[0] === dynamic[i]){
+            dynamic.shift(dynamic.indexOf(i), 1);
+            //console.log(dynamic[i]);
+            console.log(date.toISOString().split('T')[0] );
+            return(
+              <View
+                style={[styles.dayContainer, style.container]}>
+                <Text style={[style.text,styles.textDay]}>{`${date.getDate()}`}</Text>
+              </View>
+            );
+          }
+          if(date.toISOString().split('T')[0] > dynamic[i]  ){
+            dynamic.shift(dynamic.indexOf(i), 1);
+            console.log(dynamic[i]);
+            //console.log(date.toISOString().split('T')[0] );
+          // return(
+          //   <View
+          //     style={[styles.dayContainer, style.container]}>
+          //     <Text style={[style.text]}>{`${date.getDate()}`}</Text>
+          //   </View>
+          // );
+          }
+          else {
+            return(
+              <View
+                  style={[styles.dayContainer, style.container]}>
+                  <Text style={[style.text]}>{`${date.getDate()}`}</Text>
+                </View>);
+          }
+        }
         return(
           <View
+              style={[styles.dayContainer, style.container]}>
+              <Text style={[style.text]}>{`${date.getDate()}`}</Text>
+            </View>);
+      }
+      else {
+        return(
+        <View
             style={[styles.dayContainer, style.container]}>
             <Text style={[style.text]}>{`${date.getDate()}`}</Text>
           </View>);
-      }
-    }
+      }  
+      
   }
+    // for(let i = 0; workDays.length; i++){
+    //   console.log("infinite");
+    //   if(workDays[i] === date.toISOString().split('T')[0]){
+    //     <View
+    //       style={[styles.dayContainer, style.container]}>
+    //       <Text style={[style.text,styles.textDay]}>{`${date.getDate()}`}</Text>
+    //     </View>
+    //   }
+
+  //   <View
+  //   style={[styles.dayContainer, style.container]}>
+  //   <Text style={[style.text]}>{`${date.getDate()}`}</Text>
+  // </View>
+    
+    // }
+  
 
   const scrollToSelected = () => {
       setJobVisible(true);
