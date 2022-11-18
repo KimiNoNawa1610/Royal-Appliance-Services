@@ -126,7 +126,7 @@ const AdminDashboard = () => {
           if(date.toISOString().split('T')[0] === dynamic[i]){
             dynamic.shift(dynamic.indexOf(i), 1);
             //console.log(dynamic[i]);
-            console.log(date.toISOString().split('T')[0] );
+            //console.log(date.toISOString().split('T')[0] );
             return(
               <View
                 style={[styles.dayContainer, style.container]}>

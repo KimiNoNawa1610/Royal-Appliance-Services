@@ -54,9 +54,9 @@ const AdminViewJobs = ({ start, end, setJobVisible }) => {
                     <Text>{new Date(item["dateEnd"]).getMonth() + "-" +
                         new Date(item["dateEnd"]).getDate() + "-" + new Date(item["dateEnd"]).getFullYear()}</Text>
                 </Card>
-                <Button onPress={() => setJobVisible(false)} appearance={"ghost"}>
+                {/* <Button onPress={() => setJobVisible(false)} appearance={"ghost"}>
                   Back
-                </Button>
+                </Button> */}
             </View>
         );
     };
@@ -69,6 +69,9 @@ const AdminViewJobs = ({ start, end, setJobVisible }) => {
                     {jobData.map((item, i) => (
                         <TechRender key={i} item={item}></TechRender>
                     ))}
+                    <Button onPress={() => setJobVisible(false)} appearance={"ghost"}>
+                  Back
+                </Button>
                 </>
             </Layout>
         </Layout>
@@ -94,7 +97,8 @@ const styles = StyleSheet.create({
     page: {
         justifyContent: "center",
         alignItems: "center",
-        paddingTop: 100,
+        //paddingTop: 100,
+        flex: 1,
         paddingHorizontal: 30,
     },
     card_template:{
