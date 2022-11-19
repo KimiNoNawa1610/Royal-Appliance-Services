@@ -53,18 +53,18 @@ const Login = () => {
             .then(async (res) => {
               console.log(res.data);
 
-              if (res.data != false) {
-                AsyncStorage.setItem("AccessToken", res.data.token);
-                var token = await AsyncStorage.getItem("AccessToken");
+              if (res.data !== false) {
+                await AsyncStorage.setItem("AccessToken", res.data.token);
+                const token = await AsyncStorage.getItem("AccessToken");
                 console.log(token);
                 if (res.data.isAdmin) {
                   console.log("Admin");
                   navigation.navigate("AdminDrawer");
                 } else {
-                  AsyncStorage.setItem("name", res.data.name);
+                  await AsyncStorage.setItem("name", res.data.name);
                   console.log("Employee");
                   navigation.navigate("TechDrawer");
-                  console.log(await AsyncStorage.getItem("name"))
+                  console.log(await AsyncStorage.getItem("name"));
                 }
                 showMessage({
                   message: "Login Successful",

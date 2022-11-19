@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { Button, Card, Layout, Modal, Text } from "@ui-kitten/components";
+import {
+  Button,
+  Card,
+  Divider,
+  Layout,
+  List,
+  ListItem,
+  Modal,
+  Text,
+} from "@ui-kitten/components";
 import axios from "axios";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -29,46 +38,51 @@ const ViewTechs = () => {
     };
 
     const Footer = () => {
-      return <Button onPress={handleEditPress}>EDIT</Button>;
+      return <Button onPress={handleEditPress}>Edit</Button>;
     };
 
     return (
-      <View style={styles.techContainer}>
-        <Modal
-          visible={visible}
-          backdropStyle={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}
-        >
-          <EditTech item={modalData} setVisible={setVisible} />
-        </Modal>
-        <Card style={styles.card_template} footer={Footer}>
-          <Text style={styles.techName}>{item["name"]}</Text>
-          <Text>Email: {item["email"]}</Text>
-        </Card>
-      </View>
+      <ListItem>
+        <Layout style={styles.techContainer}>
+          <Card footer={Footer}>
+            <Text style={styles.techName}>{item["name"]}</Text>
+            <Text>Email: {item["email"]}</Text>
+          </Card>
+        </Layout>
+      </ListItem>
     );
   };
 
-
   return (
     <Layout style={styles.page}>
-      <Layout>
-        <>
-          {techData.map((item, i) => (
-            <TechRender key={i} item={item}></TechRender>
-          ))}
-        </>
-      </Layout>
+      <Modal
+        visible={visible}
+        backdropStyle={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
+      >
+        <EditTech item={modalData} setVisible={setVisible} />
+      </Modal>
+      <List
+        data={techData}
+        renderItem={TechRender}
+        keyExtractor={(item) => item.employeeID}
+        ItemSeparatorComponent={Divider}
+      ></List>
     </Layout>
   );
 };
+// <>
+//   {techData.map((item, i) => (
+//       <TechRender key={i} item={item}></TechRender>
+//   ))}
+// </>
 
 const styles = StyleSheet.create({
   techContainer: {
-    flex: 1,
+    width: "100%",
     marginBottom: 5,
   },
   techName: {
-    fontSize: 20,
+    fontSize: 30,
   },
   titleLayout: {
     marginBottom: 20,
@@ -81,11 +95,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 100,
     paddingHorizontal: 30,
-  },
-  card_template:{
-    width: 350,
-    boxShadow: "10px 10px 17px -12px rgba(0,0,0,0.75)",
-    marginBottom: 20
   },
 });
 export default ViewTechs;
