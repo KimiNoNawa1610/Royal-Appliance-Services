@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Linking, Platform } from "react-native";
 import {
   Button,
   Input,
@@ -16,6 +16,21 @@ import { showMessage } from "react-native-flash-message";
 const ViewJobDetail = ({ item, setVisible }) => {
   const job = item;
   const [isFinished, setIsFinished] = useState(job["isCompleted"]);
+  
+  const oMap = async (address) => {
+    const destination = encodeURIComponent(address);  
+    const provider = Platform.OS === 'ios' ? 'apple' : 'google'
+    const link = `http://maps.${provider}.com/?daddr=${destination}`;
+
+    try {
+        const supported = await Linking.canOpenURL(link);
+
+        if (supported) Linking.openURL(link);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
   const onSave = async () => {
     axios
@@ -57,7 +72,7 @@ const ViewJobDetail = ({ item, setVisible }) => {
       <Text style={{ fontWeight: "bold" }}>DESCRIPTION:</Text>
       <Text>{job["description"]}</Text>
       <Text style={{ fontWeight: "bold" }}>ADDRESS:</Text>
-      <Text>{job["address"]}</Text>
+      <Text style={{color:"blue"}} onPress={()=>oMap(job["address"])}>{job["address"]}</Text>
       <Divider />
       <Text style={{ fontWeight: "bold" }}>Start TIME: </Text>
       <Text>{new Date(job["dateStart"]).getMonth() + "-" +
