@@ -9,9 +9,6 @@ import axios from "axios";
 import { showMessage } from "react-native-flash-message";
 
 const Login = () => {
-  //const emailRef = React.useRef();
-  //const passwordRef = React.useRef();
-  //const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [seePassword, setSeePassword] = useState(true);
   const [password, setPassword] = useState("");
@@ -31,10 +28,12 @@ const Login = () => {
       <Image style={styles.image} source={require("../assets/royal.png")} />
       <Divider />
       <Input
+        autofocus
         style={styles.input}
         placeholder="Email"
         value={email}
         onChangeText={(text) => setEmail(text)}
+        keyboardType={"email-address"}
       />
       <Input
         style={styles.input}

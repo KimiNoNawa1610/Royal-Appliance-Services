@@ -13,10 +13,10 @@ import axios from "axios";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const AddTech = () => {
-  let [techName, setTechName] = useState("");
-  let [techEmail, setTechEmail] = useState("");
-  let [techNewPass, setTechNewPass] = useState("");
+const AddTech = ({ setAddEmpVisible }) => {
+  const [techName, setTechName] = useState("");
+  const [techEmail, setTechEmail] = useState("");
+  const [techNewPass, setTechNewPass] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const prevCryptPass = "";
 
@@ -44,28 +44,31 @@ const AddTech = () => {
         headers: { token: await AsyncStorage.getItem("AccessToken") },
       })
       .then((res) => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           showMessage({
             message: res.data,
             backgroundColor: "green",
             type: "success",
-          })
-        }
-        else {
+          });
+        } else {
           showMessage({
             message: res.data,
             backgroundColor: "red",
             type: "error",
-          })
+          });
         }
-        ;
       })
+      .then(setAddEmpVisible(false))
       .catch((err) => console.log(err));
   };
 
   function onCheckedChange(isChecked) {
     setIsAdmin(isChecked);
   }
+
+  const onExit = () => {
+    setAddEmpVisible(false);
+  };
 
   return (
     <Layout style={styles.page}>
@@ -92,12 +95,18 @@ const AddTech = () => {
         onChange={onCheckedChange}
         style={{ marginTop: 15 }}
       >
-        Is Admin: {isAdmin}
+        Is Admin
       </Toggle>
       <Divider />
-      <Button status={"success"} onPress={onSave}>
-        Save
-      </Button>
+      <Layout>
+        <Button status={"success"} onPress={onSave}>
+          Save
+        </Button>
+        <Divider />
+        <Button status={"success"} appearance="outline" onPress={onExit}>
+          Exit
+        </Button>
+      </Layout>
     </Layout>
   );
 };

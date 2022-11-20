@@ -1,27 +1,23 @@
 import React from "react";
 import "react-native-gesture-handler";
-import { ApplicationProvider } from "@ui-kitten/components";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
 import FlashMessage from "react-native-flash-message";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ViewTechs from "./pages/ViewTechs.js";
-import TechDashBoard from "./pages/TechDashboard.js";
-import CreateJob from "./pages/CreateJob.js";
-import Login from "./pages/Login.js";
-import EditTech from "./pages/EditTech";
 import { AppNavigator } from "./pages/AppNavigator";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { EvaIconsPack } from "@ui-kitten/eva-icons";
 
-const Drawer = createDrawerNavigator();
-
-const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <ApplicationProvider {...eva} theme={eva.light}>
-      <AppNavigator></AppNavigator>
-      <FlashMessage position="top" />
-    </ApplicationProvider>
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <SafeAreaProvider>
+          <AppNavigator></AppNavigator>
+          <FlashMessage position="top" />
+        </SafeAreaProvider>
+      </ApplicationProvider>
+    </>
   );
 }
 /*const Stack = createNativeStackNavigator();

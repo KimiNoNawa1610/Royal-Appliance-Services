@@ -21,31 +21,32 @@ const EditTech = ({ item, setVisible }) => {
   let [techNewPass, setTechNewPass] = useState(null);
   const [isAdmin, setIsAdmin] = React.useState(tech["isAdmin"]);
   const prevCryptPass = tech["password"];
-  
+
   const onDelete = async () => {
     axios
-      .post(BASE_URL + "/delete_employee/"+techID.toString(),{}, {headers: { token: await AsyncStorage.getItem("AccessToken") }})
+      .post(
+        BASE_URL + "/delete_employee/" + techID.toString(),
+        {},
+        { headers: { token: await AsyncStorage.getItem("AccessToken") } }
+      )
       .then((res) => {
-        console.log(res)
-        if (res.status == 200) {
+        console.log(res);
+        if (res.status === 200) {
           showMessage({
             message: res.data,
             backgroundColor: "green",
             type: "success",
-          })
-        }
-        else {
+          });
+        } else {
           showMessage({
             message: res.data,
             backgroundColor: "red",
             type: "error",
-          })
+          });
         }
-        ;
       })
       .catch((err) => console.log(err));
-
-  }
+  };
 
   const onSave = async () => {
     let sendJSON;
@@ -73,21 +74,19 @@ const EditTech = ({ item, setVisible }) => {
         headers: { token: await AsyncStorage.getItem("AccessToken") },
       })
       .then((res) => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           showMessage({
             message: res.data,
             backgroundColor: "green",
             type: "success",
-          })
-        }
-        else {
+          });
+        } else {
           showMessage({
             message: res.data,
             backgroundColor: "red",
             type: "error",
-          })
+          });
         }
-        ;
       })
       .catch((err) => console.log(err));
   };
@@ -127,7 +126,7 @@ const EditTech = ({ item, setVisible }) => {
         onChange={onCheckedChange}
         style={{ marginTop: 15 }}
       >
-        Is Admin: {isAdmin}
+        Is Admin
       </Toggle>
       <Divider />
       <Button status={"success"} onPress={onDelete}>
