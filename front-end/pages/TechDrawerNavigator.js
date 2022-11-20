@@ -12,7 +12,6 @@ const DrawerContent = ({ navigation, state }) => (
     onSelect={(index) => navigation.navigate(state.routeNames[index.row])}
   >
     <DrawerItem title="Dashboard" />
-    <DrawerItem title="Display" />
     <DrawerItem title="Logout" onPress={() => {AsyncStorage.removeItem("AccessToken"); navigation.navigate("Login")}} />
   </Drawer>
 );
@@ -21,8 +20,6 @@ const TechDrawerNavigator = () => {
   return (
     <Navigator drawerContent={(props) => <DrawerContent {...props} />}>
       <Screen name="DashBoard" component={TechDashBoard} />
-      <Screen name="Display" component={Display} />
-
     </Navigator>
   );
 };
