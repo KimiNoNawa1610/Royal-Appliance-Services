@@ -14,13 +14,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 
 const ViewJobDetail = ({ item, setVisible }) => {
-  console.log(item)
   const job = item;
   const [isFinished, setIsFinished] = useState(job["isCompleted"]);
 
   const onSave = async () => {
     axios
-      .post(BASE_URL + "/job_is_finished/"+job["jobID"].toString(), {}, {
+      .post(BASE_URL + "/job_is_finished/"+job["jobID"].toString()+"/"+isFinished.toString(), {}, {
         headers: { token: await AsyncStorage.getItem("AccessToken") },
       })
       .then((res) => {
