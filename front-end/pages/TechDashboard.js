@@ -1,11 +1,12 @@
-import React from "react";
-import { StyleSheet, View, Image } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Image, ScrollView } from "react-native";
 import { Button, Layout, Card, Text } from "@ui-kitten/components";
 import ViewJobs from "./ViewJobs";
 //import { getJobs} from "./apiCaller.js";
 
 export default function TechDashBoard() {
   //const navigation = useNavigation();
+  const[active,setActive] = useState("Today")
 
   return (
     <Layout style={styles.center} level="1">
@@ -13,22 +14,23 @@ export default function TechDashBoard() {
 
       <Layout style={styles.container} level="2">
 
-        <Button status="primary">Today</Button>
-        
-        <Button status="success">Tomorrow</Button>
+        <Button status="warning" onPress={()=>setActive("Past")}>Past</Button>
 
-        <Button status="info">Future</Button>
+        <Button status="primary" onPress={()=>setActive("Today")}>Today</Button>
 
-        <Button status="warning">
-          <Text>Completed</Text>
-        </Button>
+        <Button status="info" onPress={()=>setActive("Future")}>Future</Button>
+
+        <Button status="success"  onPress={()=>setActive("Completed")}>Completed</Button>
 
       </Layout>
 
-      <Layout level="3">
-        <View>
-          <ViewJobs start="2022-10-1" end="2022-12-15"/>
-        </View>
+      <Layout level="2">
+      
+          {active === "Today" && <ViewJobs start={`${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`} end={`${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()+1}`} iscompleted={false}/>}
+          {active === "Past" && <ViewJobs start={`${new Date().getFullYear()}-${new Date().getMonth()+1-1}-${new Date().getDate()}`} end={`${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()-1}`} iscompleted={"None"}/>}
+          {active === "Future" && <ViewJobs start={`${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()+1}`} end={`${new Date().getFullYear()}-${new Date().getMonth()+2}-${new Date().getDate()}`} iscompleted={false}/>}
+          {active === "Completed" && <ViewJobs start={`${new Date().getFullYear()}-${new Date().getMonth()+1-1}-${new Date().getDate()}`} end={`${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`} iscompleted={true}/>}
+  
       </Layout>
     </Layout>
   );
