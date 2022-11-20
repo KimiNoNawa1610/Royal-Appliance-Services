@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import {
   Button,
   Card,
@@ -55,6 +55,7 @@ const ViewTechs = () => {
 
   return (
     <Layout style={styles.page}>
+      <ScrollView>
       <Modal
         visible={visible}
         backdropStyle={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
@@ -67,6 +68,7 @@ const ViewTechs = () => {
         keyExtractor={(item) => item.employeeID}
         ItemSeparatorComponent={Divider}
       ></List>
+      </ScrollView>
     </Layout>
   );
 };
