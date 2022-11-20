@@ -143,8 +143,8 @@ const CreateJob = () => {
         style={{ marginTop: 12, alignItems: "center" }}
         onPress={async () => {
           let des = "Note: "+notes + "\nBrand/Type: " + type + "\nProblem: " + problem;
-          let start = `${dateStart.getFullYear()}-${dateStart.getMonth() + 1}-${dateStart.getDate()}`
-          let end = `${dateEnd.getFullYear()}-${dateEnd.getMonth() + 1}-${dateEnd.getDate()}`
+          let start = `${dateStart.getFullYear()}-${dateStart.getMonth()+1}-${dateStart.getDate()}`
+          let end = `${dateEnd.getFullYear()}-${dateEnd.getMonth()+1}-${dateEnd.getDate()}`
           //console.log(tech, client, start, end)
           axios
             .post(BASE_URL + "/assign_job/" + client + "/" + tech, { dateStart: start, dateEnd: end, description: des }, {
