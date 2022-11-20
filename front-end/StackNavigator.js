@@ -1,6 +1,4 @@
 import React from "react";
-import { View, Text } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TechDashboard from "./pages/TechDashboard.js";
 import ViewTechs from "./pages/ViewTechs.js";
@@ -9,7 +7,6 @@ import EditTech from "./pages/EditTech";
 import Login from "./pages/Login.js";
 import CreateJob from "./pages/CreateJob.js";
 import EditJob from "./pages/EditJob.js";
-import EmployeeGenerator from "./pages/EmployeeGenerator.js";
 
 const Stack = createNativeStackNavigator();
 
