@@ -24,13 +24,11 @@ export default function TechDashBoard() {
 
       </Layout>
 
-      <Layout level="2">
-      
+      <Layout level="3">
           {active === "Today" && <ViewJobs start={`${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`} end={`${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()+1}`} iscompleted={false}/>}
           {active === "Past" && <ViewJobs start={`${new Date().getFullYear()}-${new Date().getMonth()+1-1}-${new Date().getDate()}`} end={`${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()-1}`} iscompleted={"None"}/>}
           {active === "Future" && <ViewJobs start={`${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()+1}`} end={`${new Date().getFullYear()}-${new Date().getMonth()+2}-${new Date().getDate()}`} iscompleted={false}/>}
           {active === "Completed" && <ViewJobs start={`${new Date().getFullYear()}-${new Date().getMonth()+1-1}-${new Date().getDate()}`} end={`${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`} iscompleted={true}/>}
-  
       </Layout>
     </Layout>
   );

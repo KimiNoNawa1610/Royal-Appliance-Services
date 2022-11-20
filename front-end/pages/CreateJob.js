@@ -88,6 +88,7 @@ const CreateJob = () => {
         setOpen={asetOpen}
         setValue={setclient}
         setItems={asetItems}
+        searchable={true}
       />
       <Text>Note</Text>
       <Input
@@ -122,6 +123,8 @@ const CreateJob = () => {
         setOpen={bsetOpen}
         setValue={setTech}
         setItems={bsetItems}
+        searchable={true}
+
       />
 
       <Text>Start Date</Text>
@@ -170,8 +173,6 @@ const CreateJob = () => {
 
             })
             .catch((err) => console.log(err));
-
-
 
         }
         }
