@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import { Button, Card, Layout, Modal, Text } from "@ui-kitten/components";
 import axios from "axios";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ViewJobDetail from "./ViewJobDetail";
+import { DrawerContentScrollView } from "@react-navigation/drawer";
 
-const ViewJobs = ({ start, end }) => {
+const ViewJobs = ({ start, end, iscompleted }) => {
     const [jobData, setjobData] = useState([]);
     const [visible, setVisible] = useState(false);
     const [modalData, setModalData] = useState();
-
+    const finish ={true:"Completed",false:"Incompleted"}
     useEffect(() => {
         const getJobs = async () => {
+            console.log(start)
+            console.log(end)
             const token1 = await AsyncStorage.getItem("AccessToken");
             const name = await AsyncStorage.getItem("name")
             //console.log(token1)
@@ -26,7 +29,7 @@ const ViewJobs = ({ start, end }) => {
 
                     //console.log(token1)
                     axios
-                        .get(BASE_URL + "/get_jobs/" + id.toString() + "/" + start + "/" + end, {
+                        .get(BASE_URL + "/get_jobs/" + id.toString() + "/" + start + "/" + end+"/"+iscompleted.toString(), {
                             headers: { token: token1 },
                         })
                         .then((res2) => {
@@ -52,6 +55,7 @@ const ViewJobs = ({ start, end }) => {
 
         return (
             <View style={styles.techContainer}>
+                <ScrollView>
                 <Modal
                     visible={visible}
                     backdropStyle={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}>
@@ -59,17 +63,18 @@ const ViewJobs = ({ start, end }) => {
                 </Modal>
 
                 <Card style={styles.card_template} footer={Footer}>
-                    <Text style={styles.techName}>{item["name"]}</Text>
+                    <View style={styles.header}><Text style={styles.techName}>{item["name"]}</Text><Text style={item["isCompleted"] ? styles.finish_condition : styles.unfinish_condition}>{finish[item["isCompleted"]]}</Text></View>
+                    
                     <Text style={{fontWeight: "bold"}}>DESCRIPTION:</Text>
                     <Text>{item["description"].split("\n",1)}</Text>
                     <Text style={{fontWeight: "bold"}}>END TIME: </Text>
                     <Text>{new Date(item["dateEnd"]).getMonth() + "-" +
                         new Date(item["dateEnd"]).getDate() + "-" + new Date(item["dateEnd"]).getFullYear()}</Text>
                 </Card>
+                </ScrollView>
             </View>
         );
     };
-
 
     return (
         <Layout style={styles.page}>
@@ -92,7 +97,21 @@ const styles = StyleSheet.create({
     techName: {
         fontSize: 20,
         color:"#ff8c00",
-        fontWeight:"bold"
+        fontWeight:"bold",
+    },
+    finish_condition: {
+        fontSize: 20,
+        color:"#00ee8d",
+        fontWeight:"bold",
+    },
+    unfinish_condition: {
+        fontSize: 20,
+        color:"#ff726f",
+        fontWeight:"bold",
+    },
+    header:{
+        flexDirection:"row",
+        justifyContent:'space-between'
     },
     titleLayout: {
         marginBottom: 20,
@@ -109,7 +128,7 @@ const styles = StyleSheet.create({
     card_template:{
         width: 350,
         boxShadow: "10px 10px 17px -12px rgba(0,0,0,0.75)",
-        marginBottom: 20
+        marginBottom: 20,
       },
 });
 export default ViewJobs;
