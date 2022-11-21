@@ -56,7 +56,7 @@ const DrawerContent = ({ navigation, state }) => {
 const AdminDrawerNavigator = () => {
   return (
     <Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-      <Screen name="DashBoard" component={AdminDashboard} />
+      <Screen name="Dashboard" component={AdminDashboard} />
       <Screen name="My Employees" component={ViewTechs} />
       <Screen name="Create Job" component={CreateJob} />
       <Screen name="Add Client" component={AddClient} />

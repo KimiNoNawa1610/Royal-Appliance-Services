@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import {
   Button,
   Input,
@@ -129,14 +129,17 @@ const EditTech = ({ item, setVisible }) => {
         Is Admin
       </Toggle>
       <Divider />
-      <Button status={"success"} onPress={onDelete}>
-        Delete
-      </Button>
-      <Button status={"success"} onPress={onSave}>
-        Save
-      </Button>
-      <Button onPress={() => setVisible(false)} appearance={"ghost"}>
-        Back
+      <View style={styles.buttons}>
+        <Button status={"success"} onPress={onSave}>
+          Save
+        </Button>
+        <Button onPress={() => setVisible(false)} appearance={"ghost"}>
+          Back
+        </Button>
+        <Divider />
+      </View>
+      <Button status={"danger"} onPress={onDelete} style={{ marginTop: 50 }}>
+        Delete Employee
       </Button>
     </Layout>
   );
@@ -148,6 +151,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 100,
     paddingHorizontal: 30,
+  },
+  buttons: {
+    paddingTop: 20,
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  exitButton: {
+    marginLeft: "30%",
   },
 });
 

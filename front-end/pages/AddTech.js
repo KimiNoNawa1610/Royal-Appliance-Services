@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { showMessage } from "react-native-flash-message";
 import {
   Button,
@@ -71,52 +71,62 @@ const AddTech = ({ setAddEmpVisible }) => {
   };
 
   return (
-    <Layout style={styles.page}>
-      <Text category={"h1"}>Add Employee</Text>
-      <Divider />
-      <Input
-        onChangeText={(text) => setTechName(text)}
-        defaultValue={techName}
-        label={(evaProps) => <Text {...evaProps}>Name</Text>}
-      />
-      <Input
-        onChangeText={(text) => setTechEmail(text)}
-        keyboardType={"email-address"}
-        defaultValue={techEmail}
-        label={(evaProps) => <Text {...evaProps}>Email</Text>}
-      />
-      <Input
-        onChangeText={(text) => setTechNewPass(text)}
-        defaultValue={techNewPass}
-        label={(evaProps) => <Text {...evaProps}>Password</Text>}
-      />
-      <Toggle
-        checked={isAdmin}
-        onChange={onCheckedChange}
-        style={{ marginTop: 15 }}
-      >
-        Is Admin
-      </Toggle>
-      <Divider />
-      <Layout>
+    <Layout>
+      <Layout style={styles.page}>
+        <Text category={"h1"}>Add Employee</Text>
+        <Divider />
+        <Input
+          onChangeText={(text) => setTechName(text)}
+          defaultValue={techName}
+          label={(evaProps) => <Text {...evaProps}>Name</Text>}
+        />
+        <Input
+          onChangeText={(text) => setTechEmail(text)}
+          keyboardType={"email-address"}
+          defaultValue={techEmail}
+          label={(evaProps) => <Text {...evaProps}>Email</Text>}
+        />
+        <Input
+          onChangeText={(text) => setTechNewPass(text)}
+          defaultValue={techNewPass}
+          label={(evaProps) => <Text {...evaProps}>Password</Text>}
+        />
+        <Toggle
+          checked={isAdmin}
+          onChange={onCheckedChange}
+          style={{ marginTop: 15 }}
+        >
+          Is Admin
+        </Toggle>
+      </Layout>
+
+      <View style={styles.buttons}>
         <Button status={"success"} onPress={onSave}>
           Save
         </Button>
-        <Divider />
-        <Button status={"success"} appearance="outline" onPress={onExit}>
+        <Button style={styles.exitButton} appearance={"ghost"} onPress={onExit}>
           Exit
         </Button>
-      </Layout>
+      </View>
     </Layout>
   );
 };
 
 const styles = StyleSheet.create({
   page: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     paddingTop: 100,
     paddingHorizontal: 30,
+  },
+  buttons: {
+    paddingTop: 20,
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  exitButton: {
+    marginLeft: "30%",
   },
 });
 

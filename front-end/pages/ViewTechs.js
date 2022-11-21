@@ -87,6 +87,7 @@ const ViewTechs = () => {
       </Modal>
 
       <Button
+        status={"success"}
         onPress={handleAddTech}
         accessoryRight={<Icon name={"person-add-outline"} />}
       >
