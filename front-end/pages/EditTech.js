@@ -7,6 +7,7 @@ import {
   Text,
   Divider,
   Toggle,
+  Icon,
 } from "@ui-kitten/components";
 import axios from "axios";
 import { BASE_URL } from "../config";
@@ -96,16 +97,38 @@ const EditTech = ({ item, setVisible }) => {
   }
 
   return (
-    <Layout style={styles.page}>
-      <Text category={"h1"}>Edit Employee</Text>
+    <View style={styles.page}>
+      <View style={{ flexDirection: "row" }}>
+        <Text category={"h1"}>Edit Employee </Text>
+        <Button
+          accessoryRight={<Icon name={"close-outline"} />}
+          appearance={"ghost"}
+          style={{ width: "5%" }}
+          onPress={() => setVisible(false)}
+        ></Button>
+      </View>
+
+      <View style={{ flexDirection: "row" }}>
+        <Input
+          style={{ width: "60%" }}
+          disabled={true}
+          onChangeText={(text) => setTechID(text)}
+          defaultValue={tech["employeeID"]}
+          keyboardType={"number-pad"}
+          label={(evaProps) => <Text {...evaProps}>ID Number</Text>}
+        />
+        <View style={{ width: "5%" }}></View>
+        <Toggle
+          checked={isAdmin}
+          onChange={onCheckedChange}
+          style={{ marginTop: 15, width: "35%" }}
+        >
+          Admin
+        </Toggle>
+      </View>
+
       <Divider />
-      <Input
-        disabled={true}
-        onChangeText={(text) => setTechID(text)}
-        defaultValue={tech["employeeID"]}
-        keyboardType={"number-pad"}
-        label={(evaProps) => <Text {...evaProps}>ID Number</Text>}
-      />
+
       <Input
         onChangeText={(text) => setTechName(text)}
         defaultValue={tech["name"]}
@@ -121,36 +144,38 @@ const EditTech = ({ item, setVisible }) => {
         onChangeText={(text) => setTechNewPass(text)}
         label={(evaProps) => <Text {...evaProps}>New Password</Text>}
       />
-      <Toggle
-        checked={isAdmin}
-        onChange={onCheckedChange}
-        style={{ marginTop: 15 }}
-      >
-        Is Admin
-      </Toggle>
+
       <Divider />
       <View style={styles.buttons}>
         <Button status={"success"} onPress={onSave}>
           Save
         </Button>
-        <Button onPress={() => setVisible(false)} appearance={"ghost"}>
-          Back
-        </Button>
+
         <Divider />
       </View>
-      <Button status={"danger"} onPress={onDelete} style={{ marginTop: 50 }}>
+      <Button status={"danger"} onPress={onDelete} style={{ marginTop: 150 }}>
         Delete Employee
       </Button>
-    </Layout>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   page: {
-    justifyContent: "center",
+    backgroundColor: "white",
+    paddingBottom: 400,
+    marginTop: "65%",
+    borderRadius: 20,
+    padding: 35,
     alignItems: "center",
-    paddingTop: 100,
-    paddingHorizontal: 30,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   buttons: {
     paddingTop: 20,

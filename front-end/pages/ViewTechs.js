@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Modal, View } from "react-native";
 import {
   Button,
   Card,
@@ -8,7 +8,6 @@ import {
   Layout,
   List,
   ListItem,
-  Modal,
   Text,
 } from "@ui-kitten/components";
 import axios from "axios";
@@ -69,36 +68,31 @@ const ViewTechs = () => {
 
   return (
     <Layout style={styles.page}>
-      <Modal
-        visible={visible}
-        backdropStyle={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
-      >
-        <EditTech item={modalData} setVisible={setVisible} />
-      </Modal>
-
-      <Modal
-        visible={addEmpVisible}
-        backdropStyle={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
-      >
-        <AddTech
-          setAddEmpVisible={setAddEmpVisible}
-          addEmpVisible={addEmpVisible}
-        />
-      </Modal>
-
-      <Button
-        status={"success"}
-        onPress={handleAddTech}
-        accessoryRight={<Icon name={"person-add-outline"} />}
-      >
-        Add Technician
-      </Button>
       <List
         data={techData}
         renderItem={TechRender}
         keyExtractor={(item) => item.employeeID}
         ItemSeparatorComponent={Divider}
       ></List>
+
+      <Modal visible={visible} animationType="slide" transparent={true}>
+        <EditTech item={modalData} setVisible={setVisible} />
+      </Modal>
+
+      <Modal visible={addEmpVisible} animationType="slide" transparent={true}>
+        <AddTech
+          setAddEmpVisible={setAddEmpVisible}
+          addEmpVisible={addEmpVisible}
+        />
+      </Modal>
+      <Button
+        style={{ position: "absolute", right: 10, top: 5 }}
+        status={"success"}
+        onPress={handleAddTech}
+        accessoryRight={<Icon name={"person-add-outline"} />}
+      >
+        {""}
+      </Button>
     </Layout>
   );
 };
@@ -118,9 +112,6 @@ const styles = StyleSheet.create({
     fontSize: 40,
   },
   page: {
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: "5%",
     paddingHorizontal: 30,
   },
 });

@@ -32,9 +32,30 @@ const InvoiceCreation = () => {
   //Example for parts JSON
   // [ {  quantity: 100, part_material, "Part /  Material", cost: 100.20 }, ..., { }  ]
 
-  const handleSend = () => {
+  const handleSend = async () => {
     sendJSON["part_rows"] = partsJSON;
     console.log(sendJSON);
+
+    axios
+      .post(BASE_URL + "/invoice_creation", sendJSON, {
+        headers: { token: await AsyncStorage.getItem("AccessToken") },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          showMessage({
+            message: res.data,
+            backgroundColor: "green",
+            type: "success",
+          });
+        } else {
+          showMessage({
+            message: res.data,
+            backgroundColor: "red",
+            type: "success",
+          });
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleSelectCardType = (index) => {
@@ -44,7 +65,7 @@ const InvoiceCreation = () => {
 
   const AllPartsAndMaterials = () => {
     return (
-      <View>
+      <Layout>
         <View style={{ flexDirection: "row", flex: 1 }}>
           <Input
             style={{ width: "15%" }}
@@ -178,13 +199,13 @@ const InvoiceCreation = () => {
             onChangeText={(text) => (partsJSON[6]["cost"] = text)}
           />
         </View>
-      </View>
+      </Layout>
     );
   };
 
   return (
     <SafeAreaView>
-      <Layout>
+      <Layout level={"2"}>
         <ScrollView style={{ marginHorizontal: 10 }}>
           <View name="Customer Information">
             <Text category={"h5"}>Customer Information</Text>
@@ -235,7 +256,7 @@ const InvoiceCreation = () => {
               label={(evaProps) => <Text {...evaProps}>Material Warranty</Text>}
             />
             <Input
-              onChangeText={(text) => (sendJSON["item_to_be_services"] = text)}
+              onChangeText={(text) => (sendJSON["item_to_be_serviced"] = text)}
               label={(evaProps) => (
                 <Text {...evaProps}>Item To Be Serviced</Text>
               )}
@@ -302,14 +323,14 @@ const InvoiceCreation = () => {
             />
           </View>
 
-          <View name="Parts and Materials" style={{ marginBottom: 100 }}>
+          <View name="Parts and Materials" style={{ marginBottom: 50 }}>
             <Text category={"h5"}>Parts and Materials</Text>
 
             <Divider style={{ marginBottom: 15 }} />
             <AllPartsAndMaterials />
           </View>
 
-          <View name="Cost Information" style={{ marginBottom: 100 }}>
+          <View name="Cost Information" style={{ marginBottom: 50 }}>
             <Text category={"h5"}>Cost Information</Text>
             <Divider style={{ marginBottom: 15 }} />
             <Input
@@ -356,7 +377,10 @@ const InvoiceCreation = () => {
             />
           </View>
 
-          <View name="Cost Information" style={{ marginBottom: 50 }}>
+          <View
+            name="Cost Information"
+            style={{ marginBottom: 50, paddingBottom: 150 }}
+          >
             <Text category={"h5"}>Billing Information</Text>
             <Divider style={{ marginBottom: 15 }} />
             <Select

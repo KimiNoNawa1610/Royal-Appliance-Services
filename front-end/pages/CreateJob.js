@@ -5,7 +5,7 @@ import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import DropDownPicker from 'react-native-dropdown-picker';
+import DropDownPicker from "react-native-dropdown-picker";
 import { showMessage } from "react-native-flash-message";
 
 const CreateJob = () => {
@@ -20,10 +20,9 @@ const CreateJob = () => {
   const [dateStart, onChangeDateStart] = useState(new Date());
   const [dateEnd, onChangeDateEnd] = useState(new Date());
 
-
   //dropdown
-  let state1 = { clients: [] }
-  let state2 = { techs: [] }
+  let state1 = { clients: [] };
+  let state2 = { techs: [] };
 
   const [client, setclient] = useState(null);
   const [aopen, asetOpen] = useState(false);
@@ -31,7 +30,11 @@ const CreateJob = () => {
 
   const [tech, setTech] = useState(null);
 
-  useEffect(() => { if(isFocused){ getCE();} }, [isFocused]);
+  useEffect(() => {
+    if (isFocused) {
+      getCE();
+    }
+  }, [isFocused]);
 
   const getCE = async () => {
     const token1 = await AsyncStorage.getItem("AccessToken");
@@ -44,7 +47,10 @@ const CreateJob = () => {
         //console.log(res1)
         for (let i = 0; i < res1.data.length; i++) {
           //console.log(res1.data[i].name, res1.data[i].employeeID)
-          state2.techs.push({ label: res1.data[i].name, value: res1.data[i].employeeID })
+          state2.techs.push({
+            label: res1.data[i].name,
+            value: res1.data[i].employeeID,
+          });
         }
 
         //console.log(token1)
@@ -56,29 +62,22 @@ const CreateJob = () => {
             //console.log(res2)
             for (let i = 0; i < res2.data.length; i++) {
               //console.log(res2.data[i].name, res2.data[i].clientID)
-              state1.clients.push({ label: res2.data[i].name, value: res2.data[i].clientID })
+              state1.clients.push({
+                label: res2.data[i].name,
+                value: res2.data[i].clientID,
+              });
             }
           })
           .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
-  }
+  };
 
   const [aitems, asetItems] = useState(state1.clients);
   const [bitems, bsetItems] = useState(state2.techs);
 
   return (
     <View style={styles.centered}>
-      <Text
-        style={{
-          color: "black",
-          fontSize: 20,
-          padding: 15,
-        }}
-      >
-        {" "}
-        Create a New Job
-      </Text>
       <Text>Client</Text>
       <DropDownPicker
         style={styles.dropdown}
@@ -124,35 +123,59 @@ const CreateJob = () => {
         setValue={setTech}
         setItems={bsetItems}
         searchable={true}
-
       />
 
       <Text>Start Date</Text>
       <Datepicker
-        style={{ width: "100%", borderRadius: 10, padding: 15, borderColor: "grey", }}
+        style={{
+          width: "100%",
+          borderRadius: 10,
+          padding: 15,
+          borderColor: "grey",
+        }}
         date={dateStart}
-        onSelect={nextDate => onChangeDateStart(nextDate)}
+        onSelect={(nextDate) => onChangeDateStart(nextDate)}
       />
 
       <Text>End Date</Text>
       <Datepicker
-        style={{ width: "100%", borderRadius: 10, padding: 15, borderColor: "grey", }}
+        style={{
+          width: "100%",
+          borderRadius: 10,
+          padding: 15,
+          borderColor: "grey",
+        }}
         date={dateEnd}
-        onSelect={nextDate => onChangeDateEnd(nextDate)}
+        onSelect={(nextDate) => onChangeDateEnd(nextDate)}
       />
 
       <Button
         title={"Assign New Job"}
+        status="success"
         style={{ marginTop: 12, alignItems: "center" }}
         onPress={async () => {
-          let des = "Note: "+notes + "\nBrand/Type: " + type + "\nProblem: " + problem;
-          let start = `${dateStart.getFullYear()}-${dateStart.getMonth()+1}-${dateStart.getDate()}`
-          let end = `${dateEnd.getFullYear()}-${dateEnd.getMonth()+1}-${dateEnd.getDate()}`
+          let des =
+            "Note: " +
+            notes +
+            "\nBrand/Type: " +
+            type +
+            "\nProblem: " +
+            problem;
+          let start = `${dateStart.getFullYear()}-${
+            dateStart.getMonth() + 1
+          }-${dateStart.getDate()}`;
+          let end = `${dateEnd.getFullYear()}-${
+            dateEnd.getMonth() + 1
+          }-${dateEnd.getDate()}`;
           //console.log(tech, client, start, end)
           axios
-            .post(BASE_URL + "/assign_job/" + client + "/" + tech, { dateStart: start, dateEnd: end, description: des }, {
-              headers: { token: await AsyncStorage.getItem("AccessToken") },
-            })
+            .post(
+              BASE_URL + "/assign_job/" + client + "/" + tech,
+              { dateStart: start, dateEnd: end, description: des },
+              {
+                headers: { token: await AsyncStorage.getItem("AccessToken") },
+              }
+            )
             .then((res) => {
               //console.log(res)
               if (res.status == 200) {
@@ -160,22 +183,17 @@ const CreateJob = () => {
                   message: res.data,
                   backgroundColor: "green",
                   type: "success",
-                })
-              }
-              else {
+                });
+              } else {
                 showMessage({
                   message: res.data,
                   backgroundColor: "red",
                   type: "error",
-                })
-              };
-
-
+                });
+              }
             })
             .catch((err) => console.log(err));
-
-        }
-        }
+        }}
       >
         Assign New Job{" "}
       </Button>
@@ -208,10 +226,10 @@ const styles = StyleSheet.create({
   },
   centered: {
     //flex: 1,
+    marginTop: "10%",
     justifyContent: "center",
     alignItems: "center",
   },
-
 });
 
 export default CreateJob;

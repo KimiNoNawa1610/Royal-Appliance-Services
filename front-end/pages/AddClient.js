@@ -51,13 +51,19 @@ const AddClient = () => {
   };
 
   return (
-    <Layout style={styles.page}>
+    <Layout style={styles.page} level={"2"}>
       <Text category={"h1"}>Add Client</Text>
       <Divider />
       <Input
         onChangeText={(text) => setName(text)}
         defaultValue={Name}
         label={(evaProps) => <Text {...evaProps}>Name</Text>}
+      />
+      <Input
+        onChangeText={(text) => setPhone(text)}
+        keyboardType="phone-pad"
+        defaultValue={Phone}
+        label={(evaProps) => <Text {...evaProps}>Phone</Text>}
       />
       <Input
         onChangeText={(text) => setEmail(text)}
@@ -75,13 +81,8 @@ const AddClient = () => {
         defaultValue={Note}
         label={(evaProps) => <Text {...evaProps}>Note</Text>}
       />
-      <Input
-        onChangeText={(text) => setPhone(text)}
-        keyboardType="phone-pad"
-        defaultValue={Phone}
-        label={(evaProps) => <Text {...evaProps}>Phone</Text>}
-      />
-      <Button status={"success"} onPress={onSave}>
+
+      <Button status={"success"} onPress={onSave} style={{ marginTop: 20 }}>
         Save
       </Button>
     </Layout>
@@ -90,9 +91,9 @@ const AddClient = () => {
 
 const styles = StyleSheet.create({
   page: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: 100,
     paddingHorizontal: 30,
   },
 });

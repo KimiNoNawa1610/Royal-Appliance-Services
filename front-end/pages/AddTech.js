@@ -71,8 +71,8 @@ const AddTech = ({ setAddEmpVisible }) => {
   };
 
   return (
-    <Layout>
-      <Layout style={styles.page}>
+    <View style={styles.main}>
+      <View style={styles.page}>
         <Text category={"h1"}>Add Employee</Text>
         <Divider />
         <Input
@@ -98,7 +98,7 @@ const AddTech = ({ setAddEmpVisible }) => {
         >
           Is Admin
         </Toggle>
-      </Layout>
+      </View>
 
       <View style={styles.buttons}>
         <Button status={"success"} onPress={onSave}>
@@ -108,18 +108,11 @@ const AddTech = ({ setAddEmpVisible }) => {
           Exit
         </Button>
       </View>
-    </Layout>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: 100,
-    paddingHorizontal: 30,
-  },
   buttons: {
     paddingTop: 20,
     justifyContent: "center",
@@ -127,6 +120,22 @@ const styles = StyleSheet.create({
   },
   exitButton: {
     marginLeft: "30%",
+  },
+  main: {
+    backgroundColor: "white",
+    paddingBottom: 400,
+    marginTop: "90%",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });
 

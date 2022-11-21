@@ -66,9 +66,7 @@ const AdminDrawerNavigator = () => {
 };
 
 const styles = StyleSheet.create({
-  topPadding: {
-    paddingTop: "5%",
-  },
+  topPadding: {},
   image: {
     flex: 1,
   },
