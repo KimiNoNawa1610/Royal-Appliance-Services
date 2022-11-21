@@ -50,7 +50,7 @@ const InvoiceCreation = () => {
             style={{ width: "15%" }}
             keyboardType={"decimal-pad"}
             label={(evaProps) => <Text {...evaProps}>Quantity</Text>}
-            onChangeText={(text) => (partsJSON[0]["date"] = text)}
+            onChangeText={(text) => (partsJSON[0]["quantity"] = text)}
           />
           <Input
             style={{ width: "65%" }}
@@ -69,7 +69,7 @@ const InvoiceCreation = () => {
             style={{ width: "15%" }}
             keyboardType={"decimal-pad"}
             label={(evaProps) => <Text {...evaProps}>Quantity</Text>}
-            onChangeText={(text) => (partsJSON[1]["date"] = text)}
+            onChangeText={(text) => (partsJSON[1]["quantity"] = text)}
           />
           <Input
             style={{ width: "65%" }}
@@ -88,7 +88,7 @@ const InvoiceCreation = () => {
             style={{ width: "15%" }}
             keyboardType={"decimal-pad"}
             label={(evaProps) => <Text {...evaProps}>Quantity</Text>}
-            onChangeText={(text) => (partsJSON[2]["date"] = text)}
+            onChangeText={(text) => (partsJSON[2]["quantity"] = text)}
           />
           <Input
             style={{ width: "65%" }}
@@ -107,7 +107,7 @@ const InvoiceCreation = () => {
             style={{ width: "15%" }}
             keyboardType={"decimal-pad"}
             label={(evaProps) => <Text {...evaProps}>Quantity</Text>}
-            onChangeText={(text) => (partsJSON[3]["date"] = text)}
+            onChangeText={(text) => (partsJSON[3]["quantity"] = text)}
           />
           <Input
             style={{ width: "65%" }}
@@ -126,7 +126,7 @@ const InvoiceCreation = () => {
             style={{ width: "15%" }}
             keyboardType={"decimal-pad"}
             label={(evaProps) => <Text {...evaProps}>Quantity</Text>}
-            onChangeText={(text) => (partsJSON[4]["date"] = text)}
+            onChangeText={(text) => (partsJSON[4]["quantity"] = text)}
           />
           <Input
             style={{ width: "65%" }}
@@ -145,7 +145,7 @@ const InvoiceCreation = () => {
             style={{ width: "15%" }}
             keyboardType={"decimal-pad"}
             label={(evaProps) => <Text {...evaProps}>Quantity</Text>}
-            onChangeText={(text) => (partsJSON[5]["date"] = text)}
+            onChangeText={(text) => (partsJSON[5]["quantity"] = text)}
           />
           <Input
             style={{ width: "65%" }}
@@ -164,7 +164,7 @@ const InvoiceCreation = () => {
             style={{ width: "15%" }}
             keyboardType={"decimal-pad"}
             label={(evaProps) => <Text {...evaProps}>Quantity</Text>}
-            onChangeText={(text) => (partsJSON[6]["date"] = text)}
+            onChangeText={(text) => (partsJSON[6]["quantity"] = text)}
           />
           <Input
             style={{ width: "65%" }}
@@ -356,7 +356,7 @@ const InvoiceCreation = () => {
             />
           </View>
 
-          <View name="Cost Information" style={{ marginBottom: 100 }}>
+          <View name="Cost Information" style={{ marginBottom: 50 }}>
             <Text category={"h5"}>Billing Information</Text>
             <Divider style={{ marginBottom: 15 }} />
             <Select
