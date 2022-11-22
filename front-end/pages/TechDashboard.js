@@ -14,13 +14,13 @@ export default function TechDashBoard() {
 
       <Layout style={styles.container} level="2">
 
-        <Button status="warning" onPress={()=>setActive("Past")}>Past</Button>
+        <Button style={styles.button} status="warning" onPress={()=>setActive("Past")}>Past</Button>
 
-        <Button status="primary" onPress={()=>setActive("Today")}>Today</Button>
+        <Button  style={styles.button} status="primary" onPress={()=>setActive("Today")}>Today</Button>
 
-        <Button status="info" onPress={()=>setActive("Future")}>Future</Button>
+        <Button  style={styles.button} status="info" onPress={()=>setActive("Future")}>Future</Button>
 
-        <Button status="success"  onPress={()=>setActive("Completed")}>Completed</Button>
+        <Button  style={styles.button} status="success"  onPress={()=>setActive("Completed")}>Completed</Button>
 
       </Layout>
 
@@ -41,12 +41,12 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
   },
   button: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    // flex: 1,
+    // justifyContent: "center",
+    // alignItems: "center",
     margin: 2,
-    height: 30,
-    width: 80,
+    // height: 30,
+    // width: 80,
   },
   controlContainer: {
     borderRadius: 4,

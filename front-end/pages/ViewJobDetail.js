@@ -68,50 +68,57 @@ const ViewJobDetail = ({ item, setVisible }) => {
 
       <Text category={"h1"}>Job Details</Text>
       <Divider />
-      <Text style={styles.techName}>CLIENT: {job["name"]}</Text>
-      <Text style={{ fontWeight: "bold" }}>DESCRIPTION:</Text>
+      <Text style={styles.techName}>CLIENT:</Text>
+      <Text>{job["name"]}</Text>
+      <Text style={{ fontWeight: "bold",paddingTop:10, paddingBottom:5 }}>DESCRIPTION:</Text>
       <Text>{job["description"]}</Text>
-      <Text style={{ fontWeight: "bold" }}>ADDRESS:</Text>
+      <Text style={{ fontWeight: "bold",paddingTop: 10, paddingBottom:5 }}>ADDRESS:</Text>
       <Text style={{color:"blue"}} onPress={()=>oMap(job["address"])}>{job["address"]}</Text>
       <Divider />
-      <Text style={{ fontWeight: "bold" }}>Start TIME: </Text>
+      <Text style={{ fontWeight: "bold", paddingTop:10 }}>Start TIME: </Text>
       <Text>{new Date(job["dateStart"]).getMonth() + "-" +
         new Date(job["dateStart"]).getDate() + "-" + new Date(job["dateStart"]).getFullYear()}</Text>
-      <Divider />
-      <Text style={{ fontWeight: "bold" }}>END TIME: </Text>
+      <Text style={{ fontWeight: "bold", paddingTop:10 }}>END TIME: </Text>
       <Text>{new Date(job["dateEnd"]).getMonth() + "-" +
         new Date(job["dateEnd"]).getDate() + "-" + new Date(job["dateEnd"]).getFullYear()}</Text>
-
-      <Toggle
+    <Layout style={styles.buttons}> 
+    <Toggle
         checked={isFinished}
         onChange={onCheckedChange}
-        style={{ marginTop: 15 }}
+        style={{ marginTop: 20}}
       >
-        Is Finish: {isFinished}
+      DONE {isFinished}
       </Toggle>
       <Divider />
-      <Button status={"success"} onPress={onSave}>
+      <Button style={{marginTop: 10}}status={"success"} onPress={onSave}>
         Save
       </Button>
       <Button onPress={() => setVisible(false)} appearance={"ghost"}>
         Back
       </Button>
     </Layout>
+  
+    </Layout>
   );
 };
 
 const styles = StyleSheet.create({
   page: {
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: 100,
-    paddingHorizontal: 30,
+    // justifyContent: "left",
+    // alignItems: "left",
+    paddingTop: 10,
+    paddingHorizontal: 40,
   },
   techName: {
     fontSize: 20,
     color:"#ff8c00",
-    fontWeight:"bold"
+    fontWeight:"bold",
+    paddingBottom:5 
 },
+buttons:{
+  justifyContent: "center",
+    alignItems: "center",
+}
 });
 
 export default ViewJobDetail;
