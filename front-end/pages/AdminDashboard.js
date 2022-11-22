@@ -7,9 +7,10 @@ import ViewTechs from './ViewTechs';
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, TextInput, View, Alert, SafeAreaView, Pressable,Image} from "react-native";
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import { Button, Layout, Card, Text, Calendar as Calendar2, Modal } from "@ui-kitten/components";
+import { Button, Layout, Icon, Text, Calendar as Calendar2, Modal } from "@ui-kitten/components";
 import AdminViewJobs from "../components/AdminViewJobs";
 import axios from "axios";
+import CreateJob from "./CreateJob";
 
 
 const Separator = () => (
@@ -25,7 +26,7 @@ const AdminDashboard = () => {
   const componentRef = React.createRef();
   const [visible, setJobVisible] = useState(false);
   const [workDays, setWorkDays] = useState([]);
-  //let dynamic = workDays.map((x) => x);
+  //const [addJobVisible, setAddJobVisible] = useState(false);
 
   //Retrieve all jobs to mark on the calendar WIP
   useEffect(() => {
@@ -86,6 +87,11 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleAddJob = () => {
+    //setAddJobVisible(true);
+    navigation.navigate("Create Job")
+  };
+
   return (
     <Layout status="success" style={styles.container} level='1'>
 
@@ -108,6 +114,24 @@ const AdminDashboard = () => {
           renderDay={DayCell}
           />
         <Separator/>  
+        <Button
+          style={{
+            top: 5,
+            marginLeft: "auto",
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.4,
+            shadowRadius: 25,
+            elevation: 5,
+          }}
+          size="large"
+          status={"success"}
+          onPress={handleAddJob}
+          accessoryRight={<Icon name={"briefcase-outline"} />}
+        />
       </View>
       <Modal
         visible={visible}
@@ -115,6 +139,7 @@ const AdminDashboard = () => {
           <AdminViewJobs start={selectedDate.toISOString().split('T')[0]} end={selectedDate.toISOString().split('T')[0]} setJobVisible={setJobVisible}/>
       </Modal>
     </Layout>
+    
     
   );
 };

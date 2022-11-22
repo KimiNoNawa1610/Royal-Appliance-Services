@@ -66,10 +66,11 @@ const AdminViewJobs = ({ start, end, setJobVisible }) => {
         <Layout style={styles.page}>
             <Layout>
                 <>
-                    {jobData.map((item, i) => (
-                        <TechRender key={i} item={item}></TechRender>
-                    ))}
-                    <Button onPress={() => setJobVisible(false)} appearance={"ghost"}>
+                {jobData.map((item, i) => (
+                    <TechRender key={i} item={item}></TechRender>
+                ))}
+                <Button  
+                    onPress={() => setJobVisible(false)} appearance={"ghost"}>
                   Back
                 </Button>
                 </>
