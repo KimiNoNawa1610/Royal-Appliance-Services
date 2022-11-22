@@ -4,6 +4,7 @@ import ViewTechs from "./ViewTechs";
 import CreateJob from "./CreateJob";
 import AdminDashboard from "./AdminDashboard";
 import AddClient from "./AddClient";
+import Login from "./Login";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Drawer, DrawerItem, Icon, IndexPath } from "@ui-kitten/components";
@@ -69,6 +70,7 @@ const AdminDrawerNavigator = () => {
       <Screen name="My Employees" component={ViewTechs} />
       <Screen name="Create Job" component={CreateJob} />
       <Screen name="Invoice Creation" component={InvoiceCreation} />
+      <Screen name="Logout" component={Login}/>
     </Navigator>
   );
 };
