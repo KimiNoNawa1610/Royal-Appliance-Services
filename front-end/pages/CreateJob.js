@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal, StyleSheet, View, SafeAreaView } from "react-native";
-import { Button, Input, Datepicker, Icon, Text } from "@ui-kitten/components";
+import { Button, Input, Datepicker, Icon, Text,Divider } from "@ui-kitten/components";
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
 import { BASE_URL } from "../config";
@@ -83,9 +83,11 @@ const CreateJob = () => {
       <Modal visible={visible} animationType="slide" transparent={true}>
         <AddClient onChangeVisible={onChangeVisible} />
       </Modal>
-
-      <Text>Client</Text>
-      <View style={{ flexDirection: "row", zIndex: 1 }}>
+    
+      {/* <Text category={"h5"} style={{marginTop: 30}}>Customer Information</Text>
+      <Divider style={{ marginBottom: 15, backgroundColor:"black" }} /> */}
+      {/* <Text>Client</Text> */}
+      <View style={{ flexDirection: "row", zIndex: 2 }}>
         <View style={{ width: "90%" }}>
           <DropDownPicker
             style={styles.dropdown}
@@ -95,6 +97,7 @@ const CreateJob = () => {
             setOpen={asetOpen}
             setValue={setclient}
             setItems={asetItems}
+            placeholder={"Select a Client"}
             searchable={true}
           />
         </View>
@@ -111,32 +114,9 @@ const CreateJob = () => {
         />
         <View style={{ width: "2%" }} />
       </View>
-      <Text>Note</Text>
-      <Input
-        style={styles.input}
-        onChangeText={onChangeNotes}
-        value={notes}
-        placeholder={""}
-        placeholderTextColor={"black"}
-      />
-      <Text>Brand/Type of Appliance</Text>
-      <Input
-        style={styles.input}
-        onChangeText={onChangeType}
-        value={type}
-        placeholder={""}
-        placeholderTextColor={"black"}
-      />
-      <Text>Problem</Text>
-      <Input
-        style={styles.input}
-        onChangeText={onChangeProblem}
-        value={problem}
-        placeholder={""}
-        placeholderTextColor={"black"}
-      />
-      <Text>Employee</Text>
-      <DropDownPicker
+      <View style={{ zIndex: 1 }}>
+        <View style={{ width: "101%" }}>
+        <DropDownPicker
         style={styles.dropdown}
         open={bopen}
         value={tech}
@@ -144,23 +124,61 @@ const CreateJob = () => {
         setOpen={bsetOpen}
         setValue={setTech}
         setItems={bsetItems}
+        placeholder={"Select Employee"}
         searchable={true}
       />
-      <Text>Start Date</Text>
+        </View>
+      </View>
+
+      
+
+
+    
+      {/* <Text>Note</Text> */}
+      <Input
+        label ={(evaProps)=> <Text {...evaProps}>Note</Text>}
+        style={styles.input}
+        onChangeText={onChangeNotes}
+        value={notes}
+        placeholder={""}
+        placeholderTextColor={"black"}
+      />
+      {/* <Text>Brand/Type of Appliance</Text> */}
+      <Input
+       label ={(evaProps)=> <Text {...evaProps}>Brand/Type of Appliance</Text>}
+        style={styles.input}
+        onChangeText={onChangeType}
+        value={type}
+        placeholder={""}
+        placeholderTextColor={"black"}
+      />
+      {/* <Text>Problem</Text> */}
+      <Input
+        label ={(evaProps)=> <Text {...evaProps}>Problem</Text>}
+        style={styles.input}
+        onChangeText={onChangeProblem}
+        value={problem}
+        placeholder={""}
+        placeholderTextColor={"black"}
+      />
+      {/* <Text>Start Date</Text> */}
       <Datepicker
+      label ={(evaProps)=> <Text {...evaProps}>Start Date</Text>}
         style={{
-          width: "100%",
+          width: "103%",
           borderRadius: 10,
+          margin:12,
           padding: 15,
           borderColor: "grey",
         }}
         date={dateStart}
         onSelect={(nextDate) => onChangeDateStart(nextDate)}
       />
-      <Text>End Date</Text>
+      {/* <Text>End Date</Text> */}
       <Datepicker
+      label ={(evaProps)=> <Text {...evaProps}>End Date</Text>}
         style={{
-          width: "100%",
+          width: "103%",
           borderRadius: 10,
           padding: 15,
           borderColor: "grey",
@@ -246,9 +264,11 @@ const styles = StyleSheet.create({
   },
   centered: {
     //flex: 1,
-    marginTop: "10%",
+    // marginTop: "10%",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor:"white",
+    textAlign:"left"
   },
 });
 
