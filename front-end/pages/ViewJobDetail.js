@@ -7,6 +7,7 @@ import {
   Text,
   Divider,
   Toggle,
+  Icon,
 } from "@ui-kitten/components";
 import axios from "axios";
 import { BASE_URL } from "../config";
@@ -65,16 +66,19 @@ const ViewJobDetail = ({ item, setVisible }) => {
 
   return (
     <Layout style={styles.page}>
-
       <Text category={"h1"}>Job Details</Text>
       <Divider />
       <Text style={styles.techName}>CLIENT:</Text>
       <Text>{job["name"]}</Text>
       <Text style={{ fontWeight: "bold",paddingTop:10, paddingBottom:5 }}>DESCRIPTION:</Text>
       <Text>{job["description"]}</Text>
-      <Text style={{ fontWeight: "bold",paddingTop: 10, paddingBottom:5 }}>ADDRESS:</Text>
-      <Text style={{color:"blue"}} onPress={()=>oMap(job["address"])}>{job["address"]}</Text>
       <Divider />
+      <Text style={{ fontWeight: "bold",paddingTop: 10, paddingBottom:5 }}>ADDRESS:</Text>
+      <Layout style={{flexDirection:"row"}}>
+
+      <Text style={{color:"blue",margin:10, marginLeft:-2}}>{job["address"]}</Text>
+      <Button style={{height:10, width:10}} onPress={()=>oMap(job["address"])} accessoryLeft = {<Icon name={"map-outline"} />}></Button>
+      </Layout>
       <Text style={{ fontWeight: "bold", paddingTop:10 }}>Start TIME: </Text>
       <Text>{new Date(job["dateStart"]).getMonth() + "-" +
         new Date(job["dateStart"]).getDate() + "-" + new Date(job["dateStart"]).getFullYear()}</Text>
