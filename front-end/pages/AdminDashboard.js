@@ -26,7 +26,7 @@ const AdminDashboard = () => {
   const componentRef = React.createRef();
   const [visible, setJobVisible] = useState(false);
   const [workDays, setWorkDays] = useState([]);
-  //const [addJobVisible, setAddJobVisible] = useState(false);
+  const [blur, setBlur] = useState(false);
 
   //Retrieve all jobs to mark on the calendar WIP
   useEffect(() => {
@@ -40,21 +40,17 @@ const AdminDashboard = () => {
               let dayList = []
               for (var i = 0; i < res.data.length; i++){
                     var obj = res.data[i];
-                    //console.log(obj["dateStart"]);
                     var value = obj["dateStart"];
                     dayList.push(new Date(value).toISOString().split('T')[0]);
-                    //console.log(dayList)
                   }
                   dayList = dayList.sort(function(a, b) { return (a).localeCompare(b); });
-                  //console.log("LIST " + dayList)
                   setWorkDays(dayList)
                   console.log("START " +workDays)
           })
           .catch((err) => console.log(err));
       }
       getAllJobs();
-        //console.log(selectedDate);
-      }, []);
+      }, []);  
   
     const DayCell = ({ date }, style) => {
       let dynamic = workDays.map((x) => x);
@@ -71,7 +67,8 @@ const AdminDashboard = () => {
             }
           }
         }
-        return( <View
+        return( 
+        <View
           style={[styles.dayContainer, style.container]}>
           <Text style={[style.text]}>{`${date.getDate()}`}</Text>
         </View>);
@@ -93,8 +90,11 @@ const AdminDashboard = () => {
   };
 
   return (
-    <Layout status="success" style={styles.container} level='1'>
-
+    <Layout 
+      status="success" 
+      style={styles.container} 
+      level='1'
+      >
       <Button status="success" style={styles.topButton1} onPress={scrollToToday}>Scroll to Today</Button>
       {/* this opens a modal that shows info */}
       <Button status="success" style={styles.topButton2} onPress={scrollToSelected}>View Selected Date</Button>
@@ -135,12 +135,10 @@ const AdminDashboard = () => {
       </View>
       <Modal
         visible={visible}
-        >
+        backdropStyle={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}>
           <AdminViewJobs start={selectedDate.toISOString().split('T')[0]} end={selectedDate.toISOString().split('T')[0]} setJobVisible={setJobVisible}/>
       </Modal>
     </Layout>
-    
-    
   );
 };
 
@@ -148,13 +146,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    //alignItems: "center",
     justifyContent: "center",
     flex: 1,
   },
   calendarContainer: {
     margin: 2,
-    //alignItems: "center",
   },
   separator: {
     marginVertical: 4,
