@@ -7,7 +7,7 @@ import AddClient from "./AddClient";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Drawer, DrawerItem, Icon, IndexPath } from "@ui-kitten/components";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet, Image } from "react-native";
 import InvoiceCreation from "./Invoice Creation";
 const { Navigator, Screen } = createDrawerNavigator();
 
@@ -19,6 +19,20 @@ const DrawerContent = ({ navigation, state }) => {
   return (
     <SafeAreaView>
       <Drawer
+        ListHeaderComponent={
+          <SafeAreaView>
+            <Image
+              style={{
+                height: 40,
+                width: "95%",
+                marginBottom: 5,
+                marginHorizontal: 5,
+              }}
+              source={require("../assets/royal.png")}
+            />
+          </SafeAreaView>
+        }
+        stickyHeaderIndices={[0]}
         selectedIndex={new IndexPath(state.index)}
         onSelect={(index) => navigation.navigate(state.routeNames[index.row])}
       >
@@ -33,11 +47,6 @@ const DrawerContent = ({ navigation, state }) => {
         <DrawerItem
           title="Create Job"
           accessoryRight={<Icon name={"briefcase-outline"} />}
-        />
-
-        <DrawerItem
-          title="Add Client"
-          accessoryRight={<Icon name={"person-add-outline"} />}
         />
         <DrawerItem
           title="Invoice Creation"
@@ -59,7 +68,6 @@ const AdminDrawerNavigator = () => {
       <Screen name="Dashboard" component={AdminDashboard} />
       <Screen name="My Employees" component={ViewTechs} />
       <Screen name="Create Job" component={CreateJob} />
-      <Screen name="Add Client" component={AddClient} />
       <Screen name="Invoice Creation" component={InvoiceCreation} />
     </Navigator>
   );

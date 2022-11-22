@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
-import { Button, Input, Datepicker } from "@ui-kitten/components";
+import { Modal, StyleSheet, View, SafeAreaView } from "react-native";
+import { Button, Input, Datepicker, Icon, Text } from "@ui-kitten/components";
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DropDownPicker from "react-native-dropdown-picker";
 import { showMessage } from "react-native-flash-message";
+import AddClient from "./AddClient";
 
 const CreateJob = () => {
   const isFocused = useIsFocused();
@@ -19,6 +20,7 @@ const CreateJob = () => {
   const [problem, onChangeProblem] = useState("");
   const [dateStart, onChangeDateStart] = useState(new Date());
   const [dateEnd, onChangeDateEnd] = useState(new Date());
+  const [visible, onChangeVisible] = useState(false);
 
   //dropdown
   let state1 = { clients: [] };
@@ -77,18 +79,38 @@ const CreateJob = () => {
   const [bitems, bsetItems] = useState(state2.techs);
 
   return (
-    <View style={styles.centered}>
+    <SafeAreaView style={styles.centered}>
+      <Modal visible={visible} animationType="slide" transparent={true}>
+        <AddClient onChangeVisible={onChangeVisible} />
+      </Modal>
+
       <Text>Client</Text>
-      <DropDownPicker
-        style={styles.dropdown}
-        open={aopen}
-        value={client}
-        items={aitems}
-        setOpen={asetOpen}
-        setValue={setclient}
-        setItems={asetItems}
-        searchable={true}
-      />
+      <View style={{ flexDirection: "row", zIndex: 1 }}>
+        <View style={{ width: "90%" }}>
+          <DropDownPicker
+            style={styles.dropdown}
+            open={aopen}
+            value={client}
+            items={aitems}
+            setOpen={asetOpen}
+            setValue={setclient}
+            setItems={asetItems}
+            searchable={true}
+          />
+        </View>
+
+        <Button
+          status="success"
+          style={{
+            width: "8%",
+            height: "50%",
+            marginTop: 15,
+          }}
+          onPress={() => onChangeVisible(true)}
+          accessoryRight={<Icon name={"plus-outline"} />}
+        />
+        <View style={{ width: "2%" }} />
+      </View>
       <Text>Note</Text>
       <Input
         style={styles.input}
@@ -124,7 +146,6 @@ const CreateJob = () => {
         setItems={bsetItems}
         searchable={true}
       />
-
       <Text>Start Date</Text>
       <Datepicker
         style={{
@@ -136,7 +157,6 @@ const CreateJob = () => {
         date={dateStart}
         onSelect={(nextDate) => onChangeDateStart(nextDate)}
       />
-
       <Text>End Date</Text>
       <Datepicker
         style={{
@@ -148,7 +168,6 @@ const CreateJob = () => {
         date={dateEnd}
         onSelect={(nextDate) => onChangeDateEnd(nextDate)}
       />
-
       <Button
         title={"Assign New Job"}
         status="success"
@@ -195,9 +214,9 @@ const CreateJob = () => {
             .catch((err) => console.log(err));
         }}
       >
-        Assign New Job{" "}
+        Assign New Job
       </Button>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -219,6 +238,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "95%",
     borderColor: "grey",
+    elevation: 999,
   },
   image: {
     width: 700,

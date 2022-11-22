@@ -101,6 +101,7 @@ const EditTech = ({ item, setVisible }) => {
       <View style={{ flexDirection: "row" }}>
         <Text category={"h1"}>Edit Employee </Text>
         <Button
+          size="large"
           accessoryRight={<Icon name={"close-outline"} />}
           appearance={"ghost"}
           style={{ width: "5%" }}
@@ -153,7 +154,7 @@ const EditTech = ({ item, setVisible }) => {
 
         <Divider />
       </View>
-      <Button status={"danger"} onPress={onDelete} style={{ marginTop: 150 }}>
+      <Button status={"danger"} onPress={onDelete} style={{ marginTop: 80 }}>
         Delete Employee
       </Button>
     </View>
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
   page: {
     backgroundColor: "white",
     paddingBottom: 400,
-    marginTop: "65%",
+    marginTop: "80%",
     borderRadius: 20,
     padding: 35,
     alignItems: "center",

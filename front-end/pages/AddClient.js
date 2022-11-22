@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { showMessage } from "react-native-flash-message";
 import {
   Button,
@@ -8,12 +8,13 @@ import {
   Text,
   Divider,
   Toggle,
+  Icon,
 } from "@ui-kitten/components";
 import axios from "axios";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const AddClient = () => {
+const AddClient = ({ onChangeVisible }) => {
   let [Name, setName] = useState("");
   let [Note, setNote] = useState("");
   let [Address, setAddress] = useState("");
@@ -51,8 +52,17 @@ const AddClient = () => {
   };
 
   return (
-    <Layout style={styles.page} level={"2"}>
-      <Text category={"h1"}>Add Client</Text>
+    <Layout style={styles.page}>
+      <View style={{ flexDirection: "row" }}>
+        <Text category={"h1"}>Add Client </Text>
+        <Button
+          size="large"
+          accessoryRight={<Icon name={"close-outline"} />}
+          appearance={"ghost"}
+          style={{ width: "5%" }}
+          onPress={() => onChangeVisible(false)}
+        ></Button>
+      </View>
       <Divider />
       <Input
         onChangeText={(text) => setName(text)}
@@ -91,10 +101,21 @@ const AddClient = () => {
 
 const styles = StyleSheet.create({
   page: {
-    flex: 1,
-    justifyContent: "center",
+    backgroundColor: "white",
+    marginTop: "90%",
+    borderRadius: 20,
+    padding: 35,
     alignItems: "center",
-    paddingHorizontal: 30,
+    shadowColor: "#000",
+    paddingBottom: 400,
+
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });
 

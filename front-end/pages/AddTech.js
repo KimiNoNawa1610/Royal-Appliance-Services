@@ -8,6 +8,7 @@ import {
   Text,
   Divider,
   Toggle,
+  Icon,
 } from "@ui-kitten/components";
 import axios from "axios";
 import { BASE_URL } from "../config";
@@ -73,7 +74,16 @@ const AddTech = ({ setAddEmpVisible }) => {
   return (
     <View style={styles.main}>
       <View style={styles.page}>
-        <Text category={"h1"}>Add Employee</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text category={"h1"}>Add Employee </Text>
+          <Button
+            size="large"
+            accessoryRight={<Icon name={"close-outline"} />}
+            appearance={"ghost"}
+            style={{ width: "5%" }}
+            onPress={() => setAddEmpVisible(false)}
+          ></Button>
+        </View>
         <Divider />
         <Input
           onChangeText={(text) => setTechName(text)}
@@ -96,25 +106,20 @@ const AddTech = ({ setAddEmpVisible }) => {
           onChange={onCheckedChange}
           style={{ marginTop: 15 }}
         >
-          Is Admin
+          Admin Status
         </Toggle>
       </View>
 
-      <View style={styles.buttons}>
-        <Button status={"success"} onPress={onSave}>
-          Save
-        </Button>
-        <Button style={styles.exitButton} appearance={"ghost"} onPress={onExit}>
-          Exit
-        </Button>
-      </View>
+      <Button style={styles.buttons} status={"success"} onPress={onSave}>
+        Save
+      </Button>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   buttons: {
-    paddingTop: 20,
+    marginTop: 20,
     justifyContent: "center",
     flexDirection: "row",
   },

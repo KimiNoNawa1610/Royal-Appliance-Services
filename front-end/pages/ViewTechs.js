@@ -86,13 +86,17 @@ const ViewTechs = () => {
         />
       </Modal>
       <Button
-        style={{ position: "absolute", right: 10, top: 5 }}
+        style={{
+          position: "absolute",
+          right: 10,
+          top: 5,
+          borderRadius: "100%",
+        }}
+        size="large"
         status={"success"}
         onPress={handleAddTech}
         accessoryRight={<Icon name={"person-add-outline"} />}
-      >
-        {""}
-      </Button>
+      />
     </Layout>
   );
 };

@@ -205,9 +205,9 @@ const InvoiceCreation = () => {
 
   return (
     <SafeAreaView>
-      <Layout level={"2"}>
+      <Layout>
         <ScrollView style={{ marginHorizontal: 10 }}>
-          <View name="Customer Information">
+          <View name="Customer Information" style={{ marginTop: 30 }}>
             <Text category={"h5"}>Customer Information</Text>
             <Divider style={{ marginBottom: 15 }} />
             <Input
@@ -243,7 +243,7 @@ const InvoiceCreation = () => {
 
           <View
             name="Appliance Information"
-            style={{ marginBottom: 100, marginTop: 50 }}
+            style={{ marginBottom: 50, marginTop: 50 }}
           >
             <Text category={"h5"}>Appliance Information</Text>
             <Divider style={{ marginBottom: 15 }} />
@@ -275,7 +275,7 @@ const InvoiceCreation = () => {
             />
           </View>
 
-          <View name="Job Information" style={{ marginBottom: 100 }}>
+          <View name="Job Information" style={{ marginBottom: 50 }}>
             <Text category={"h5"}>Job Information</Text>
             <Divider style={{ marginBottom: 15 }} />
             <Input

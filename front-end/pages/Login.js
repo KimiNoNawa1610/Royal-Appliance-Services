@@ -28,7 +28,7 @@ const Login = () => {
       <Image style={styles.image} source={require("../assets/royal.png")} />
       <Divider />
       <Input
-        autofocus
+        autofocus={true}
         style={styles.input}
         placeholder="Email"
         value={email}
