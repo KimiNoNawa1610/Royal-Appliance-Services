@@ -8,6 +8,7 @@ import {
   Divider,
   Toggle,
   Icon,
+  Card,
 } from "@ui-kitten/components";
 import axios from "axios";
 import { BASE_URL } from "../config";
@@ -65,26 +66,30 @@ const ViewJobDetail = ({ item, setVisible }) => {
   }
 
   return (
-    <Layout style={styles.page}>
+  
+    <Card style={styles.page}>
       <Text category={"h1"}>Job Details</Text>
       <Divider />
-      <Text style={styles.techName}>CLIENT:</Text>
+      <Text style={{ fontWeight: "bold",paddingTop: 10, paddingBottom:5 }}>CLIENT:</Text>
       <Text>{job["name"]}</Text>
       <Text style={{ fontWeight: "bold",paddingTop:10, paddingBottom:5 }}>DESCRIPTION:</Text>
       <Text>{job["description"]}</Text>
-      <Divider />
+      <Divider style={{margin:5}}/>
       <Text style={{ fontWeight: "bold",paddingTop: 10, paddingBottom:5 }}>ADDRESS:</Text>
       <Layout style={{flexDirection:"row"}}>
 
       <Text style={{color:"blue",margin:10, marginLeft:-2}}>{job["address"]}</Text>
       <Button style={{height:10, width:10}} onPress={()=>oMap(job["address"])} accessoryLeft = {<Icon name={"map-outline"} />}></Button>
       </Layout>
-      <Text style={{ fontWeight: "bold", paddingTop:10 }}>Start TIME: </Text>
-      <Text>{new Date(job["dateStart"]).getMonth() + "-" +
-        new Date(job["dateStart"]).getDate() + "-" + new Date(job["dateStart"]).getFullYear()}</Text>
-      <Text style={{ fontWeight: "bold", paddingTop:10 }}>END TIME: </Text>
-      <Text>{new Date(job["dateEnd"]).getMonth() + "-" +
-        new Date(job["dateEnd"]).getDate() + "-" + new Date(job["dateEnd"]).getFullYear()}</Text>
+      <Divider style={{margin:5}}/>
+      <Text style={{ fontWeight: "bold", paddingTop:10 }}>START TIME: <Text>{new Date(job["dateStart"]).getMonth() + "-" +
+        new Date(job["dateStart"]).getDate() + "-" + new Date(job["dateStart"]).getFullYear()}</Text> </Text>
+      {/* <Text>{new Date(job["dateStart"]).getMonth() + "-" +
+        new Date(job["dateStart"]).getDate() + "-" + new Date(job["dateStart"]).getFullYear()}</Text> */}
+      <Text style={{ fontWeight: "bold", paddingTop:10 }}>END TIME: <Text>{new Date(job["dateEnd"]).getMonth() + "-" +
+        new Date(job["dateEnd"]).getDate() + "-" + new Date(job["dateEnd"]).getFullYear()}</Text></Text>
+      {/* <Text>{new Date(job["dateEnd"]).getMonth() + "-" +
+        new Date(job["dateEnd"]).getDate() + "-" + new Date(job["dateEnd"]).getFullYear()}</Text> */}
     <Layout style={styles.buttons}> 
     <Toggle
         checked={isFinished}
@@ -102,7 +107,7 @@ const ViewJobDetail = ({ item, setVisible }) => {
       </Button>
     </Layout>
   
-    </Layout>
+    </Card>
   );
 };
 
