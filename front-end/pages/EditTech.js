@@ -97,7 +97,7 @@ const EditTech = ({ item, setVisible }) => {
   }
 
   return (
-    <View style={styles.page}>
+    <Layout style={styles.page}>
       <View style={{ flexDirection: "row" }}>
         <Text category={"h1"}>Edit Employee </Text>
         <Button
@@ -154,18 +154,17 @@ const EditTech = ({ item, setVisible }) => {
 
         <Divider />
       </View>
-      <Button status={"danger"} onPress={onDelete} style={{ marginTop: 80 }}>
+      <Button status={"danger"} onPress={onDelete} style={{ marginTop: 30 }}>
         Delete Employee
       </Button>
-    </View>
+    </Layout>
   );
 };
 
 const styles = StyleSheet.create({
   page: {
     backgroundColor: "white",
-    paddingBottom: 400,
-    marginTop: "80%",
+    marginTop: "50%",
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
@@ -174,8 +173,8 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
+    shadowOpacity: 0.4,
+    shadowRadius: 100,
     elevation: 5,
   },
   buttons: {

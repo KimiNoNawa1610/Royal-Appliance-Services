@@ -90,7 +90,6 @@ const ViewTechs = () => {
           position: "absolute",
           right: 10,
           top: 5,
-          borderRadius: "100%",
         }}
         size="large"
         status={"success"}

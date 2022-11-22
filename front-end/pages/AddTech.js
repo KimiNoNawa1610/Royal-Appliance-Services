@@ -128,8 +128,7 @@ const styles = StyleSheet.create({
   },
   main: {
     backgroundColor: "white",
-    paddingBottom: 400,
-    marginTop: "90%",
+    marginTop: "50%",
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
@@ -138,8 +137,8 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
+    shadowOpacity: 0.4,
+    shadowRadius: 100,
     elevation: 5,
   },
 });
