@@ -86,7 +86,7 @@ const CreateJob = () => {
 
         <Text category={"h5"} style={{marginTop: 30, margin:10, marginBottom:0}}>Job Details</Text>
       <Divider style={{ marginBottom: 15, }} />
-    <View style={styles.view}>
+  
     
       {/* <Text>Client</Text> */}
       <View style={{ flexDirection: "row", zIndex: 2 }}>
@@ -116,8 +116,7 @@ const CreateJob = () => {
         />
         <View style={{ width: "2%" }} />
       </View>
-      <View style={{ zIndex: 1 }}>
-        <View style={{ width: "101%" }}>
+        <View style={{ width: "101%", zIndex:1}}>
         <DropDownPicker
         style={styles.dropdown}
         open={bopen}
@@ -129,8 +128,6 @@ const CreateJob = () => {
         placeholder={"Select Employee"}
         searchable={true}
       />
-        </View>
-      </View>
       </View>
       
       <Divider style={{ marginTop: 15}} />
