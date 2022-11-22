@@ -87,11 +87,11 @@ const AdminDashboard = () => {
   };
 
   return (
-    <Layout style={styles.container} level='1'>
+    <Layout status="success" style={styles.container} level='1'>
 
-      <Button style={styles.topButton1} onPress={scrollToToday}>Scroll to Today</Button>
+      <Button status="success" style={styles.topButton1} onPress={scrollToToday}>Scroll to Today</Button>
       {/* this opens a modal that shows info */}
-      <Button style={styles.topButton2} onPress={scrollToSelected}>View Selected Date</Button>
+      <Button status="success" style={styles.topButton2} onPress={scrollToSelected}>View Selected Date</Button>
       <View style={styles.calendarContainer}>
       <Separator/>  
         <Text
@@ -101,6 +101,7 @@ const AdminDashboard = () => {
         </Text>
 
         <Calendar2
+          status="success"
           ref={componentRef}
           date={selectedDate}
           onSelect={nextDate => setSelectedDate(nextDate)}
