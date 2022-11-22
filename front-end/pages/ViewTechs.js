@@ -90,6 +90,14 @@ const ViewTechs = () => {
           position: "absolute",
           right: 10,
           top: 5,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.4,
+          shadowRadius: 25,
+          elevation: 5,
         }}
         size="large"
         status={"success"}

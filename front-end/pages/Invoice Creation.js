@@ -17,7 +17,11 @@ import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const InvoiceCreation = () => {
+  const data = ["Visa", "Mastercard", "AMEX", "Discover"];
+
   const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
+  const displayValue = data[selectedIndex.row];
+
   const [partsJSON, setPartsJSON] = React.useState([
     {},
     {},
@@ -27,7 +31,7 @@ const InvoiceCreation = () => {
     {},
     {},
   ]);
-  const [sendJSON, setSendJSON] = React.useState({});
+  const [sendJSON, setSendJSON] = React.useState({ card_type: "Visa" });
 
   //Example for parts JSON
   // [ {  quantity: 100, part_material, "Part /  Material", cost: 100.20 }, ..., { }  ]
@@ -58,10 +62,7 @@ const InvoiceCreation = () => {
       .catch((err) => console.log(err));
   };
 
-  const handleSelectCardType = (index) => {
-    setSelectedIndex(index);
-    sendJSON["card_type"] = index;
-  };
+  const renderOption = (title) => <SelectItem title={title} />;
 
   const AllPartsAndMaterials = () => {
     return (
@@ -378,21 +379,23 @@ const InvoiceCreation = () => {
           </View>
 
           <View
-            name="Cost Information"
+            name="Billing Information"
             style={{ marginBottom: 50, paddingBottom: 150 }}
           >
             <Text category={"h5"}>Billing Information</Text>
             <Divider style={{ marginBottom: 15 }} />
             <Select
+              placeholder=""
+              value={displayValue}
               selectedIndex={selectedIndex}
-              onSelect={(index) => handleSelectCardType(index)}
-              label={(evaProps) => <Text {...evaProps}>Card Network</Text>}
+              onSelect={(index) => {
+                setSelectedIndex(index);
+                sendJSON["card_type"] = data[index.row];
+              }}
             >
-              <SelectItem title="Visa" />
-              <SelectItem title="Mastercard" />
-              <SelectItem title="American Express" />
-              <SelectItem title="Discover" />
+              {data.map(renderOption)}
             </Select>
+
             <Input
               onChangeText={(text) => (sendJSON["card_number"] = text)}
               label={(evaProps) => <Text {...evaProps}>Card Number</Text>}
