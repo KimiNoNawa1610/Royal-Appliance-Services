@@ -1,8 +1,5 @@
 import React from "react";
-import AddTech from "./AddTech";
-import ViewTechs from "./ViewTechs";
-import CreateJob from "./CreateJob";
-import AdminDashboard from "./AdminDashboard";
+import TechATM from "./TechATM";
 import TechDashBoard from "./TechDashboard";
 
 import Login from "./Login";
@@ -43,6 +40,10 @@ const DrawerContent = ({ navigation, state }) => {
           accessoryRight={<Icon name={"home-outline"} />}
         />
         <DrawerItem
+          title="Net Income"
+          accessoryRight={<Icon name={"clipboard-outline"} />}
+        />
+        <DrawerItem
           title="Invoice Creation"
           accessoryRight={<Icon name={"clipboard-outline"} />}
         />
@@ -60,6 +61,7 @@ const TechDrawerNavigator = () => {
   return (
     <Navigator drawerContent={(props) => <DrawerContent {...props} />}>
       <Screen name="TechDashboard" component={TechDashBoard} />
+      <Screen name="Net Income" component={TechATM} />
       <Screen name="Invoice Creation" component={InvoiceCreation} />
       <Screen name="Logout" component={Login}/>
     </Navigator>
