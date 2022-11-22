@@ -52,12 +52,10 @@ const ViewTechs = () => {
 
     return (
       <ListItem>
-        <Layout style={styles.techContainer}>
-          <Card footer={Footer}>
-            <Text style={styles.techName}>{item["name"]}</Text>
-            <Text>Email: {item["email"]}</Text>
-          </Card>
-        </Layout>
+        <Card footer={Footer} style={styles.techContainer}>
+          <Text style={styles.techName}>{item["name"]}</Text>
+          <Text>Email: {item["email"]}</Text>
+        </Card>
       </ListItem>
     );
   };
@@ -67,7 +65,7 @@ const ViewTechs = () => {
   };
 
   return (
-    <Layout style={styles.page}>
+    <Layout>
       <List
         data={techData}
         renderItem={TechRender}
@@ -110,8 +108,9 @@ const ViewTechs = () => {
 
 const styles = StyleSheet.create({
   techContainer: {
-    width: "100%",
+    width: "90%",
     marginBottom: 5,
+    marginHorizontal: "5%",
   },
   techName: {
     fontSize: 30,
@@ -121,9 +120,6 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 40,
-  },
-  page: {
-    paddingHorizontal: 30,
   },
 });
 export default ViewTechs;

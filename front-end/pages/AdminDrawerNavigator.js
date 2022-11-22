@@ -70,7 +70,7 @@ const AdminDrawerNavigator = () => {
       <Screen name="My Employees" component={ViewTechs} />
       <Screen name="Create Job" component={CreateJob} />
       <Screen name="Invoice Creation" component={InvoiceCreation} />
-      <Screen name="Logout" component={Login}/>
+      <Screen name="Logout" component={Login} />
     </Navigator>
   );
 };

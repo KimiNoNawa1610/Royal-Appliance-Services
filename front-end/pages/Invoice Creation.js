@@ -10,7 +10,7 @@ import {
   Select,
   SelectItem,
   Divider,
-  ButtonGroup,
+  Datepicker,
 } from "@ui-kitten/components";
 import axios from "axios";
 import { BASE_URL } from "../config";
@@ -31,8 +31,12 @@ const InvoiceCreation = () => {
     {},
     {},
   ]);
-  const [sendJSON, setSendJSON] = React.useState({ card_type: "Visa" });
+  const [date, setDate] = React.useState(new Date());
 
+  const [sendJSON, setSendJSON] = React.useState({
+    card_type: "Visa",
+    date: `${date.toString()}}`,
+  });
   //Example for parts JSON
   // [ {  quantity: 100, part_material, "Part /  Material", cost: 100.20 }, ..., { }  ]
 
@@ -62,7 +66,7 @@ const InvoiceCreation = () => {
       .catch((err) => console.log(err));
   };
 
-  const renderOption = (title) => <SelectItem title={title} />;
+  const renderOption = (item, i) => <SelectItem key={i} title={item} />;
 
   const AllPartsAndMaterials = () => {
     return (
@@ -222,9 +226,13 @@ const InvoiceCreation = () => {
               onChangeText={(text) => (sendJSON["customer_name"] = text)}
               label={(evaProps) => <Text {...evaProps}>Customer Name</Text>}
             />
-            <Input
+            <Datepicker
               label={(evaProps) => <Text {...evaProps}>Date</Text>}
-              onChangeText={(text) => (sendJSON["date"] = text)}
+              date={date}
+              onSelect={(nextDate) => {
+                setDate(nextDate);
+                sendJSON["date"] = nextDate.toString();
+              }}
             />
             <Input
               keyboardType={"phone-pad"}
@@ -393,7 +401,7 @@ const InvoiceCreation = () => {
                 sendJSON["card_type"] = data[index.row];
               }}
             >
-              {data.map(renderOption)}
+              {data.map((item, i) => renderOption(item, i))}
             </Select>
 
             <Input
