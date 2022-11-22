@@ -83,9 +83,11 @@ const CreateJob = () => {
       <Modal visible={visible} animationType="slide" transparent={true}>
         <AddClient onChangeVisible={onChangeVisible} />
       </Modal>
+
+        <Text category={"h5"} style={{marginTop: 30, margin:10, marginBottom:0}}>Job Details</Text>
+      <Divider style={{ marginBottom: 15, }} />
+    <View style={styles.view}>
     
-      {/* <Text category={"h5"} style={{marginTop: 30}}>Customer Information</Text>
-      <Divider style={{ marginBottom: 15, backgroundColor:"black" }} /> */}
       {/* <Text>Client</Text> */}
       <View style={{ flexDirection: "row", zIndex: 2 }}>
         <View style={{ width: "90%" }}>
@@ -129,12 +131,11 @@ const CreateJob = () => {
       />
         </View>
       </View>
-
+      </View>
       
-
-
+      <Divider style={{ marginTop: 15}} />
+      <View style={{ justifyContent: "center",alignItems: "center",}}>
     
-      {/* <Text>Note</Text> */}
       <Input
         label ={(evaProps)=> <Text {...evaProps}>Note</Text>}
         style={styles.input}
@@ -143,7 +144,6 @@ const CreateJob = () => {
         placeholder={""}
         placeholderTextColor={"black"}
       />
-      {/* <Text>Brand/Type of Appliance</Text> */}
       <Input
        label ={(evaProps)=> <Text {...evaProps}>Brand/Type of Appliance</Text>}
         style={styles.input}
@@ -161,13 +161,17 @@ const CreateJob = () => {
         placeholder={""}
         placeholderTextColor={"black"}
       />
-      {/* <Text>Start Date</Text> */}
+      </View>
+
+      <Divider style={{ marginTop: 30}} />
+
+      <View style={{ justifyContent: "center",alignItems: "center",}}>
       <Datepicker
       label ={(evaProps)=> <Text {...evaProps}>Start Date</Text>}
         style={{
           width: "103%",
           borderRadius: 10,
-          margin:12,
+          // margin:12,
           padding: 15,
           borderColor: "grey",
         }}
@@ -180,8 +184,10 @@ const CreateJob = () => {
         style={{
           width: "103%",
           borderRadius: 10,
+          margin: -25,
           padding: 15,
           borderColor: "grey",
+
         }}
         date={dateEnd}
         onSelect={(nextDate) => onChangeDateEnd(nextDate)}
@@ -189,7 +195,7 @@ const CreateJob = () => {
       <Button
         title={"Assign New Job"}
         status="success"
-        style={{ marginTop: 12, alignItems: "center" }}
+        style={{ marginTop: 20, alignItems: "center" }}
         onPress={async () => {
           let des =
             "Note: " +
@@ -234,6 +240,7 @@ const CreateJob = () => {
       >
         Assign New Job
       </Button>
+    </View>
     </SafeAreaView>
   );
 };
@@ -265,10 +272,15 @@ const styles = StyleSheet.create({
   centered: {
     //flex: 1,
     // marginTop: "10%",
-    justifyContent: "center",
-    alignItems: "center",
+    // justifyContent: "center",
+    // alignItems: "center",
     backgroundColor:"white",
   },
+  view: {
+    justifyContent: "center",
+    alignItems: "center",
+
+  }
 });
 
 export default CreateJob;
