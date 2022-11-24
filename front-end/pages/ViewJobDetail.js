@@ -82,11 +82,11 @@ const ViewJobDetail = ({ item, setVisible }) => {
       <Button style={{height:10, width:10}} onPress={()=>oMap(job["address"])} accessoryLeft = {<Icon name={"map-outline"} />}></Button>
       </Layout>
       <Divider style={{margin:5}}/>
-      <Text style={{ fontWeight: "bold", paddingTop:10 }}>START TIME: <Text>{new Date(job["dateStart"]).getMonth() + "-" +
+      <Text style={{ fontWeight: "bold", paddingTop:10 }}>START TIME: <Text>{new Date(job["dateStart"]).getMonth()+1 + "-" +
         new Date(job["dateStart"]).getDate() + "-" + new Date(job["dateStart"]).getFullYear()}</Text> </Text>
       {/* <Text>{new Date(job["dateStart"]).getMonth() + "-" +
         new Date(job["dateStart"]).getDate() + "-" + new Date(job["dateStart"]).getFullYear()}</Text> */}
-      <Text style={{ fontWeight: "bold", paddingTop:10 }}>END TIME: <Text>{new Date(job["dateEnd"]).getMonth() + "-" +
+      <Text style={{ fontWeight: "bold", paddingTop:10 }}>END TIME: <Text>{new Date(job["dateEnd"]).getMonth()+1 + "-" +
         new Date(job["dateEnd"]).getDate() + "-" + new Date(job["dateEnd"]).getFullYear()}</Text></Text>
       {/* <Text>{new Date(job["dateEnd"]).getMonth() + "-" +
         new Date(job["dateEnd"]).getDate() + "-" + new Date(job["dateEnd"]).getFullYear()}</Text> */}
