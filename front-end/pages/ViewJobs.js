@@ -70,7 +70,7 @@ const ViewJobs = ({ start, end, iscompleted }) => {
                     <Text style={{ fontWeight: "bold" }}>DESCRIPTION:</Text>
                     <Text>{item["description"].split("\n", 1)}</Text>
                     <Text style={{ fontWeight: "bold" }}>END TIME: </Text>
-                    <Text>{new Date(item["dateEnd"]).getMonth() + "-" +
+                    <Text>{new Date(item["dateEnd"]).getMonth()+1 + "-" +
                         new Date(item["dateEnd"]).getDate() + "-" + new Date(item["dateEnd"]).getFullYear()}</Text>
                 </Card>
 
