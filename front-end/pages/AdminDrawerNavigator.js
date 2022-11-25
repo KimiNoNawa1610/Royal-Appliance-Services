@@ -1,15 +1,14 @@
 import React from "react";
-import AddTech from "./AddTech";
 import ViewTechs from "./ViewTechs";
 import CreateJob from "./CreateJob";
 import AdminDashboard from "./AdminDashboard";
-import AddClient from "./AddClient";
 import Login from "./Login";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Drawer, DrawerItem, Icon, IndexPath } from "@ui-kitten/components";
 import { SafeAreaView, StyleSheet, Image } from "react-native";
 import InvoiceCreation from "./Invoice Creation";
+import AdminViewTechIncome from "./AdminViewTechIncome";
 const { Navigator, Screen } = createDrawerNavigator();
 
 const DrawerContent = ({ navigation, state }) => {
@@ -50,6 +49,10 @@ const DrawerContent = ({ navigation, state }) => {
           accessoryRight={<Icon name={"briefcase-outline"} />}
         />
         <DrawerItem
+          title="Income Sheets"
+          accessoryRight={<Icon name={"clipboard-outline"} />}
+        />
+        <DrawerItem
           title="Invoice Creation"
           accessoryRight={<Icon name={"clipboard-outline"} />}
         />
@@ -69,6 +72,7 @@ const AdminDrawerNavigator = () => {
       <Screen name="Dashboard" component={AdminDashboard} />
       <Screen name="My Employees" component={ViewTechs} />
       <Screen name="Create Job" component={CreateJob} />
+      <Screen name="Income Sheets" component={AdminViewTechIncome} />
       <Screen name="Invoice Creation" component={InvoiceCreation} />
       <Screen name="Logout" component={Login} />
     </Navigator>

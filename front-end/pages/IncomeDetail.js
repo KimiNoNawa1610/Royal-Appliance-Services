@@ -24,28 +24,28 @@ const IncomeDetail = ({ item, setVisible }) => {
       <Divider />
 
       <Text style={{ fontWeight: "bold" }}>TOTAL: </Text>
-      <Text>{item["total"]}</Text>
+      <Text>${item["total"]}</Text>
 
       <Text style={{ fontWeight: "bold" }}>MY PART: </Text>
-      <Text>{item["my_part"]}</Text>
+      <Text>${item["my_part"]}</Text>
 
       <Text style={{ fontWeight: "bold" }}>MY PART: </Text>
-      <Text>{item["my_part"]}</Text>
+      <Text>${item["my_part"]}</Text>
 
       <Text style={{ fontWeight: "bold" }}>LABOR: </Text>
-      <Text>{item["labor"]}</Text>
+      <Text>${item["labor"]}</Text>
 
       <Text style={{ fontWeight: "bold" }}>TAX: </Text>
-      <Text>{item["tax"]}</Text>
+      <Text>${item["tax"]}</Text>
 
       <Text style={{ fontWeight: "bold" }}>SHIPPING: </Text>
-      <Text>{item["shipping"]}</Text>
+      <Text>${item["shipping"]}</Text>
 
       <Text style={{ fontWeight: "bold" }}>PART INSTALLED: </Text>
       <Text>{item["part_installed"]}</Text>
 
       <Text style={{ fontWeight: "bold" }}>ClLIENT SELL: </Text>
-      <Text>{item["client_sell"]}</Text>
+      <Text>${item["client_sell"]}</Text>
 
       <Text style={{ fontWeight: "bold" }}>PAID BY: </Text>
       <Text>{item["paid_by"]}</Text>

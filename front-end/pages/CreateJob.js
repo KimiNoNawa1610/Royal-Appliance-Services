@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal, StyleSheet, View, SafeAreaView } from "react-native";
-import { Button, Input, Datepicker, Icon, Text,Divider } from "@ui-kitten/components";
+import { Button, Input, Datepicker, Icon, Text, Divider } from "@ui-kitten/components";
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
 import { BASE_URL } from "../config";
@@ -84,10 +84,10 @@ const CreateJob = () => {
         <AddClient onChangeVisible={onChangeVisible} />
       </Modal>
 
-        <Text category={"h5"} style={{marginTop: 30, margin:10, marginBottom:0}}>Job Details</Text>
+      <Text category={"h5"} style={{ marginTop: 30, margin: 10, marginBottom: 0 }}>Job Details</Text>
       <Divider style={{ marginBottom: 15, }} />
-  
-    
+
+
       {/* <Text>Client</Text> */}
       <View style={{ flexDirection: "row", zIndex: 2 }}>
         <View style={{ width: "90%" }}>
@@ -116,128 +116,126 @@ const CreateJob = () => {
         />
         <View style={{ width: "2%" }} />
       </View>
-        <View style={{ width: "101%", zIndex:1}}>
+      <View style={{ width: "101%", zIndex: 1 }}>
         <DropDownPicker
-        style={styles.dropdown}
-        open={bopen}
-        value={tech}
-        items={bitems}
-        setOpen={bsetOpen}
-        setValue={setTech}
-        setItems={bsetItems}
-        placeholder={"Select Employee"}
-        searchable={true}
-      />
-      </View>
-      
-      <Divider style={{ marginTop: 15}} />
-      <View style={{ justifyContent: "center",alignItems: "center",}}>
-    
-      <Input
-        label ={(evaProps)=> <Text {...evaProps}>Note</Text>}
-        style={styles.input}
-        onChangeText={onChangeNotes}
-        value={notes}
-        placeholder={""}
-        placeholderTextColor={"black"}
-      />
-      <Input
-       label ={(evaProps)=> <Text {...evaProps}>Brand/Type of Appliance</Text>}
-        style={styles.input}
-        onChangeText={onChangeType}
-        value={type}
-        placeholder={""}
-        placeholderTextColor={"black"}
-      />
-      {/* <Text>Problem</Text> */}
-      <Input
-        label ={(evaProps)=> <Text {...evaProps}>Problem</Text>}
-        style={styles.input}
-        onChangeText={onChangeProblem}
-        value={problem}
-        placeholder={""}
-        placeholderTextColor={"black"}
-      />
+          style={styles.dropdown}
+          open={bopen}
+          value={tech}
+          items={bitems}
+          setOpen={bsetOpen}
+          setValue={setTech}
+          setItems={bsetItems}
+          placeholder={"Select Employee"}
+          searchable={true}
+        />
       </View>
 
-      <Divider style={{ marginTop: 30}} />
+      <Divider style={{ marginTop: 15 }} />
+      <View style={{ justifyContent: "center", alignItems: "center", }}>
 
-      <View style={{ justifyContent: "center",alignItems: "center",}}>
-      <Datepicker
-      label ={(evaProps)=> <Text {...evaProps}>Start Date</Text>}
-        style={{
-          width: "103%",
-          borderRadius: 10,
-          // margin:12,
-          padding: 15,
-          borderColor: "grey",
-        }}
-        date={dateStart}
-        onSelect={(nextDate) => onChangeDateStart(nextDate)}
-      />
-      {/* <Text>End Date</Text> */}
-      <Datepicker
-      label ={(evaProps)=> <Text {...evaProps}>End Date</Text>}
-        style={{
-          width: "103%",
-          borderRadius: 10,
-          margin: -25,
-          padding: 15,
-          borderColor: "grey",
+        <Input
+          label={(evaProps) => <Text {...evaProps}>Note</Text>}
+          style={styles.input}
+          onChangeText={onChangeNotes}
+          value={notes}
+          placeholder={""}
+          placeholderTextColor={"black"}
+        />
+        <Input
+          label={(evaProps) => <Text {...evaProps}>Brand/Type of Appliance</Text>}
+          style={styles.input}
+          onChangeText={onChangeType}
+          value={type}
+          placeholder={""}
+          placeholderTextColor={"black"}
+        />
+        {/* <Text>Problem</Text> */}
+        <Input
+          label={(evaProps) => <Text {...evaProps}>Problem</Text>}
+          style={styles.input}
+          onChangeText={onChangeProblem}
+          value={problem}
+          placeholder={""}
+          placeholderTextColor={"black"}
+        />
+      </View>
 
-        }}
-        date={dateEnd}
-        onSelect={(nextDate) => onChangeDateEnd(nextDate)}
-      />
-      <Button
-        title={"Assign New Job"}
-        status="success"
-        style={{ marginTop: 20, alignItems: "center" }}
-        onPress={async () => {
-          let des =
-            "Note: " +
-            notes +
-            "\nBrand/Type: " +
-            type +
-            "\nProblem: " +
-            problem;
-          let start = `${dateStart.getFullYear()}-${
-            dateStart.getMonth() + 1
-          }-${dateStart.getDate()}`;
-          let end = `${dateEnd.getFullYear()}-${
-            dateEnd.getMonth() + 1
-          }-${dateEnd.getDate()}`;
-          //console.log(tech, client, start, end)
-          axios
-            .post(
-              BASE_URL + "/assign_job/" + client + "/" + tech,
-              { dateStart: start, dateEnd: end, description: des },
-              {
-                headers: { token: await AsyncStorage.getItem("AccessToken") },
-              }
-            )
-            .then((res) => {
-              //console.log(res)
-              if (res.status == 200) {
-                showMessage({
-                  message: res.data,
-                  backgroundColor: "green",
-                  type: "success",
-                });
-              } else {
-                showMessage({
-                  message: res.data,
-                  backgroundColor: "red",
-                  type: "error",
-                });
-              }
-            })
-            .catch((err) => console.log(err));
-        }}
-      >
-        Assign New Job
-      </Button>
-    </View>
+      <Divider style={{ marginTop: 30 }} />
+
+      <View style={{ justifyContent: "center", alignItems: "center", }}>
+        <Datepicker
+          label={(evaProps) => <Text {...evaProps}>Start Date</Text>}
+          style={{
+            width: "103%",
+            borderRadius: 10,
+            // margin:12,
+            padding: 15,
+            borderColor: "grey",
+          }}
+          date={dateStart}
+          onSelect={(nextDate) => onChangeDateStart(nextDate)}
+        />
+        {/* <Text>End Date</Text> */}
+        <Datepicker
+          label={(evaProps) => <Text {...evaProps}>End Date</Text>}
+          style={{
+            width: "103%",
+            borderRadius: 10,
+            margin: -25,
+            padding: 15,
+            borderColor: "grey",
+
+          }}
+          date={dateEnd}
+          onSelect={(nextDate) => onChangeDateEnd(nextDate)}
+        />
+        <Button
+          title={"Assign New Job"}
+          status="success"
+          style={{ marginTop: 20, alignItems: "center" }}
+          onPress={async () => {
+            let des =
+              "Note: " +
+              notes +
+              "\nBrand/Type: " +
+              type +
+              "\nProblem: " +
+              problem;
+            let start = `${dateStart.getFullYear()}-${dateStart.getMonth() + 1
+              }-${dateStart.getDate()}`;
+            let end = `${dateEnd.getFullYear()}-${dateEnd.getMonth() + 1
+              }-${dateEnd.getDate()}`;
+            //console.log(tech, client, start, end)
+            axios
+              .post(
+                BASE_URL + "/assign_job/" + client + "/" + tech,
+                { dateStart: start, dateEnd: end, description: des },
+                {
+                  headers: { token: await AsyncStorage.getItem("AccessToken") },
+                }
+              )
+              .then((res) => {
+                //console.log(res)
+                if (res.status == 200) {
+                  showMessage({
+                    message: res.data,
+                    backgroundColor: "green",
+                    type: "success",
+                  });
+                } else {
+                  showMessage({
+                    message: res.data,
+                    backgroundColor: "red",
+                    type: "error",
+                  });
+                }
+              })
+              .catch((err) => console.log(err));
+          }}
+        >
+          Assign New Job
+        </Button>
+      </View>
     </SafeAreaView>
   );
 };
@@ -271,7 +269,7 @@ const styles = StyleSheet.create({
     // marginTop: "10%",
     // justifyContent: "center",
     // alignItems: "center",
-    backgroundColor:"white",
+    backgroundColor: "white",
   },
   view: {
     justifyContent: "center",

@@ -9818,7 +9818,7 @@
   "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
   "version" "1.0.4"
 
-"moment@^2.24.0":
+"moment@^2.24.0", "moment@>=2.10.3":
   "integrity" "sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
   "version" "2.29.4"
@@ -11668,6 +11668,13 @@
   "integrity" "sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   "version" "18.2.0"
+
+"react-native-calendar@^0.13.1":
+  "integrity" "sha512-0XY2rXFkMN36shTGuYTEXYmeWbViWqMnvQ2ZZ4BaINCKvQFxAfv4N6lL6uu5Uhe/Ro2fyDFYTw6nkiJ83PUoZg=="
+  "resolved" "https://registry.npmjs.org/react-native-calendar/-/react-native-calendar-0.13.1.tgz"
+  "version" "0.13.1"
+  dependencies:
+    "moment" ">=2.10.3"
 
 "react-native-calendars@^1.1275.0":
   "integrity" "sha512-3/3VX1WMUXi6kzsM2HLodLKVKXqiSlxbhhwDt5Ke+WgEVsr5stdyKK4JDZwJKOEEEqlHbRl+AMBgNBmof2/cyw=="

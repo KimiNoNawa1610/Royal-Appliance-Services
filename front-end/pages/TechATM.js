@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Image, ScrollView, LogBox } from "react-native";
-import { Button, Layout, Modal } from "@ui-kitten/components";
+import { StyleSheet, View, ScrollView } from "react-native";
+import { Button, Icon, Modal,Text } from "@ui-kitten/components";
 import { DataTable } from 'react-native-paper';
 import axios from "axios";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import IncomeDetail from "./IncomeDetail";
+import AddIncomeSheet from "./AddIncomeSheet";
 //import { getJobs} from "./apiCaller.js";
 
 
 export default TechATM = () => {
   //const navigation = useNavigation();
-
-  const optionsPerPage = [5, 10, 15];
   const [incomeData, setIncomeData] = useState([]);
   const [visible, setVisible] = useState(false);
-  const [page, setPage] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(optionsPerPage[0]);
   const [modalData, setModalData] = useState();
+  const [addvisible, onAddVisible] = useState(false);
+  let total_net = 0
+  const [totalnet, setTotalNet] = useState(0);
+
 
   useEffect(() => {
-    setPage(0);
     getIncomes();
-  }, [itemsPerPage, visible]);
+  }, [visible,addvisible]);
 
   const getIncomes = async () => {
     const token1 = await AsyncStorage.getItem("AccessToken");
@@ -35,12 +35,17 @@ export default TechATM = () => {
         const id = res1.data.employeeID
 
         axios
-          .get(BASE_URL + "/get_tech_income_sheet/" + id.toString() + "/" + `${new Date().getFullYear()}-${new Date().getMonth() + 1 - 1}-${new Date().getDate()}` + "/" + `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate() - 1}`, {
+          .get(BASE_URL + "/get_tech_income_sheet/" + id.toString() + "/" + `${new Date().getFullYear()}-${new Date().getMonth() + 1 - 1}-${new Date().getDate()}` + "/" + `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`, {
             headers: { token: token1 },
           })
           .then((res2) => {
             //console.log(res2.data)
             setIncomeData(res2.data)
+            for(let i=0;i<res2.data.length;i++){
+              total_net=total_net+res2.data[i].net
+              console.log(i,res2.data[i].net)
+            }
+            setTotalNet(total_net)
           })
           .catch((err) => console.log(err));
       })
@@ -55,50 +60,51 @@ export default TechATM = () => {
 
     return (
       <View>
-      <Modal
-        visible={visible}
-        backdropStyle={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}>
-        <IncomeDetail item={modalData} setVisible={setVisible} />
-      </Modal>
+        <Modal
+          visible={visible}
+          backdropStyle={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}>
+          <IncomeDetail item={modalData} setVisible={setVisible} />
+        </Modal>
 
-      <DataTable.Row onPress={handlePress}>
-              <DataTable.Cell>{new Date(item["datecreated"]).getMonth() + "-" +
-                new Date(item["datecreated"]).getDate() + "-" + new Date(item["datecreated"]).getFullYear()}</DataTable.Cell>
-              <DataTable.Cell>{item["invoiceID"]}</DataTable.Cell>
-              <DataTable.Cell>{item["net"]}</DataTable.Cell>
-      </DataTable.Row>
+        <DataTable.Row onPress={handlePress}>
+          <DataTable.Cell>{new Date(item["datecreated"]).getMonth() + "-" +
+            new Date(item["datecreated"]).getDate() + "-" + new Date(item["datecreated"]).getFullYear()}</DataTable.Cell>
+          <DataTable.Cell>{item["invoiceID"]}</DataTable.Cell>
+          <DataTable.Cell>${item["net"]}</DataTable.Cell>
+        </DataTable.Row>
       </View>
     );
   };
 
-
   return (
-    <Layout style={styles.center} level="1">
-      <ScrollView style={styles.container}>
-        <DataTable>
-          <DataTable.Header>
-            <DataTable.Title >DATE</DataTable.Title>
-            <DataTable.Title >INV#</DataTable.Title>
-            <DataTable.Title >NET</DataTable.Title>
-          </DataTable.Header>
-          {incomeData.map((item, i) => (
-            <IncomeRender key={i} item={item}></IncomeRender>
-          ))}
-          <DataTable.Pagination
-            page={page}
-            numberOfPages={3}
-            onPageChange={(page) => setPage(page)}
-            label="1-2 of 6"
-            optionsPerPage={optionsPerPage}
-            itemsPerPage={itemsPerPage}
-            setItemsPerPage={setItemsPerPage}
-            showFastPagination
-            optionsLabel={'Rows per page'}
-          />
-        </DataTable>
+    <ScrollView style={styles.container}>
+      <Modal visible={addvisible} animationType="slide" transparent={true}>
+        <AddIncomeSheet onAddVisible={onAddVisible} />
+      </Modal>
+       <Button
+          status="success"
+          style={{
+            width: "8%",
+            height: "50%",
+            marginTop: 15,
+          }}
+          onPress={() => onAddVisible(true)}
+          accessoryRight={<Icon name={"plus-outline"} />}
+        />
+      <DataTable>
+        <DataTable.Header>
+          <DataTable.Title >DATE</DataTable.Title>
+          <DataTable.Title >INV#</DataTable.Title>
+          <DataTable.Title >NET</DataTable.Title>
+        </DataTable.Header>
+        {incomeData.map((item, i) => (
+          <IncomeRender key={i} item={item}></IncomeRender>
+          
+        ))}
+      </DataTable>
+      <Text category={"h5"} style={{ marginTop: 30, margin: 10, marginBottom: 0 }}>Net Total: ${totalnet}</Text>
+    </ScrollView>
 
-      </ScrollView>
-    </Layout>
   );
 }
 

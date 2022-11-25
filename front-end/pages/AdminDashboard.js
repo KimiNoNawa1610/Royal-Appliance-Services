@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Admin, Resource } from 'react-admin'
-import restProvider from 'ra-data-simple-rest'
 import { BASE_URL } from '../config';
-import ViewTechs from './ViewTechs';
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, TextInput, View, Alert, SafeAreaView, Pressable,Image} from "react-native";
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
+import { StyleSheet,  View} from "react-native";
 import { Button, Layout, Icon, Text, Calendar as Calendar2, Modal } from "@ui-kitten/components";
 import AdminViewJobs from "../components/AdminViewJobs";
 import axios from "axios";
-import CreateJob from "./CreateJob";
+
 
 
 const Separator = () => (
