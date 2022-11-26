@@ -17,11 +17,11 @@ Android Emulator Setup:
 Both Royal-Appliance-Services and Royal-Appliance-Services-API must be launched for the application to work.
 
 To run:
-Launch the android emulator in Android Studio.
-Open an integrated terminal from the frontend folder.
-Run 'npm install' to ensure the dependencies are properly updated.
-Launch the app with 'expo start'
+1. Launch the android emulator in Android Studio.
+2. Open an integrated terminal from the frontend folder.
+3. Run 'npm install' to ensure the dependencies are properly updated.
+4. Launch the app with 'expo start'
 
 To run Backend API:
-Pip install all libraries under requirements.txt
-Launch with 'python3 app.py'
+1. Pip install all libraries under requirements.txt
+2. Launch with 'python3 app.py'
