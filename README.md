@@ -23,5 +23,7 @@ Run 'npm install' to ensure the dependencies are properly updated.
 Launch the app with 'expo start'
 
 To run Backend API:
+
 Pip install all libraries under requirements.txt
+
 Launch with 'python3 app.py'
