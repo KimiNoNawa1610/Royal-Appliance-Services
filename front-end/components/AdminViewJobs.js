@@ -51,8 +51,8 @@ const AdminViewJobs = ({ start, end, setJobVisible }) => {
                     <Text style={{fontWeight: "bold"}}>DESCRIPTION:</Text>
                     <Text>{item["description"].split("\n",1)}</Text>
                     <Text style={{fontWeight: "bold"}}>END TIME: </Text>
-                    <Text>{new Date(item["dateEnd"]).getMonth() + "-" +
-                        new Date(item["dateEnd"]).getDate() + "-" + new Date(item["dateEnd"]).getFullYear()}</Text>
+                    <Text>{new Date(item["dateEnd"]).getMonth()+1 + "-" +
+                        new Date(item["dateEnd"]).getDate()+1 + "-" + new Date(item["dateEnd"]).getFullYear()}</Text>
                 </Card>
                 {/* <Button onPress={() => setJobVisible(false)} appearance={"ghost"}>
                   Back

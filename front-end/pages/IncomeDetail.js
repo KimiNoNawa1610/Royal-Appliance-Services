@@ -19,8 +19,8 @@ const IncomeDetail = ({ item, setVisible }) => {
       <Divider />
 
       <Text style={{ fontWeight: "bold" }}>CREATE DATE: </Text>
-      <Text>{new Date(item["datecreated"]).getMonth() + "-" +
-        new Date(item["datecreated"]).getDate() + "-" + new Date(item["datecreated"]).getFullYear()}</Text>
+      <Text>{new Date(item["datecreated"]).getMonth()+1 + "-" +
+        new Date(item["datecreated"]).getDate()+1 + "-" + new Date(item["datecreated"]).getFullYear()}</Text>
       <Divider />
 
       <Text style={{ fontWeight: "bold" }}>TOTAL: </Text>
