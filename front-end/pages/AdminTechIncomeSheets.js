@@ -54,11 +54,11 @@ export default AdminTechIncomeSheets = ({ employeeID }) => {
                 </Modal>
 
                 <DataTable.Row onPress={handlePress}>
-                    <DataTable.Cell>{new Date(item["datecreated"]).getMonth()+1 + "-" +
-                        new Date(item["datecreated"]).getDate()+1 + "-" + new Date(item["datecreated"]).getFullYear()}</DataTable.Cell>
+                    <DataTable.Cell>{`${new Date(item["datecreated"]).getMonth()+1}-${new Date(item["datecreated"]).getDate()+1}-${new Date(item["datecreated"]).getFullYear()}`}</DataTable.Cell>
                     <DataTable.Cell>{item["invoiceID"]}</DataTable.Cell>
                     <DataTable.Cell>${item["net"]}</DataTable.Cell>
                 </DataTable.Row>
+                
             </View>
         );
     };
