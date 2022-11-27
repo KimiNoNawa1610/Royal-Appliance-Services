@@ -61,12 +61,10 @@ const AdminViewJobDetail = ({ item, setVisible }) => {
       <Text>{job["address"]}</Text>
       <Divider />
       <Text style={{ fontWeight: "bold" }}>Start TIME: </Text>
-      <Text>{new Date(job["dateStart"]).getMonth()+1 + "-" +
-        new Date(job["dateStart"]).getDate()+1 + "-" + new Date(job["dateStart"]).getFullYear()}</Text>
+      <Text>{new Date(job["dateStart"]).getMonth()+1 + "-" +new Date(job["dateStart"]).getDate()+1 + "-" + new Date(job["dateStart"]).getFullYear()}</Text>
       <Divider />
       <Text style={{ fontWeight: "bold" }}>END TIME: </Text>
-      <Text>{new Date(item["dateEnd"]).getMonth()+1 + "-" +
-                        new Date(item["dateEnd"]).getDate()+1 + "-" + new Date(job["dateEnd"]).getFullYear()}</Text>
+      <Text>{new Date(item["dateEnd"]).getMonth()+1 + "-" + new Date(item["dateEnd"]).getDate()+1 + "-" + new Date(job["dateEnd"]).getFullYear()}</Text>
 
       <Toggle
         checked={isFinished}
