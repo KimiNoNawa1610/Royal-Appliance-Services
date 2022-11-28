@@ -39,7 +39,7 @@ const InvoiceDetail = ({ item, setVisible }) => {
           source={{
             uri: `data:image/jpeg;base64,${imageSource}`,
           }}
-          style={{ resizeMode: "cover", width: 460, height: 700 }}
+          style={{ resizeMode: "contain", width: 370, height: 500 }}
         />
 
         <Button onPress={() => setVisible(false)} appearance={"ghost"}>
