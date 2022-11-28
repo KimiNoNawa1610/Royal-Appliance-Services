@@ -57,6 +57,7 @@ const Login = () => {
                 const token = await AsyncStorage.getItem("AccessToken");
                 console.log(token);
                 if (res.data.isAdmin) {
+                  await AsyncStorage.setItem("name", res.data.name);
                   console.log("Admin");
                   navigation.navigate("AdminDrawer");
                 } else {

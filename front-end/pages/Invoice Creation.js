@@ -45,7 +45,7 @@ const InvoiceCreation = () => {
     console.log(sendJSON);
 
     axios
-      .post(BASE_URL + "/invoice_creation", sendJSON, {
+      .post(BASE_URL + "/generate_invoice", sendJSON, {
         headers: { token: await AsyncStorage.getItem("AccessToken") },
       })
       .then((res) => {
@@ -231,7 +231,8 @@ const InvoiceCreation = () => {
               date={date}
               onSelect={(nextDate) => {
                 setDate(nextDate);
-                sendJSON["date"] = nextDate.toString();
+                sendJSON["date"] = `${nextDate.getFullYear()}-${nextDate.getMonth() + 1
+                }-${nextDate.getDate()}`;
               }}
             />
             <Input

@@ -9,6 +9,7 @@ import { Drawer, DrawerItem, Icon, IndexPath } from "@ui-kitten/components";
 import { SafeAreaView, StyleSheet, Image } from "react-native";
 import InvoiceCreation from "./Invoice Creation";
 import AdminViewTechIncome from "./AdminViewTechIncome";
+import AdminViewInvoice from "./AdminViewInvoice";
 const { Navigator, Screen } = createDrawerNavigator();
 
 const DrawerContent = ({ navigation, state }) => {
@@ -57,10 +58,16 @@ const DrawerContent = ({ navigation, state }) => {
           accessoryRight={<Icon name={"clipboard-outline"} />}
         />
         <DrawerItem
+          title="Invoices"
+          accessoryRight={<Icon name={"clipboard-outline"} />}
+        />
+        <DrawerItem
           title="Logout"
           onPress={handleLogOut}
           accessoryRight={<Icon name={"log-out-outline"} />}
         />
+
+        
       </Drawer>
     </SafeAreaView>
   );
@@ -74,6 +81,7 @@ const AdminDrawerNavigator = () => {
       <Screen name="Create Job" component={CreateJob} />
       <Screen name="Income Sheets" component={AdminViewTechIncome} />
       <Screen name="Invoice Creation" component={InvoiceCreation} />
+      <Screen name="Invoices" component={AdminViewInvoice} />
       <Screen name="Logout" component={Login} />
     </Navigator>
   );
