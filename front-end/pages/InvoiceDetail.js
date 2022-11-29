@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Image, ScrollView, WebView} from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 import axios from "axios";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StorageAccessFramework } from 'expo-file-system';
 import {
   Button,
-  Layout,
-  Text,
-  Divider,
 } from "@ui-kitten/components";
+import { showMessage } from "react-native-flash-message";
 
 
 const InvoiceDetail = ({ item, setVisible }) => {
 
-  const [imageSource, Setsource] = useState("");
+  const [source, setSource] = useState("");
 
-  useEffect(() => { getInvoices(); }, []);
+  useEffect(() => { getInvoice(); }, []);
 
-  const getInvoices = async () => {
+  const getInvoice = async () => {
     const token1 = await AsyncStorage.getItem("AccessToken");
     //console.log(token1)
     axios
@@ -26,41 +25,72 @@ const InvoiceDetail = ({ item, setVisible }) => {
       })
       .then(async (res1) => {
         //console.log(res1.data)
-        Setsource(res1.data)
+        setSource(res1.data)
       })
       .catch((err) => console.log(err));
   };
 
+  const DeleteInvoice = async () => {
+    const token1 = await AsyncStorage.getItem("AccessToken");
+    //console.log(token1)
+    axios
+      .post(BASE_URL + "/delete_invoice/" + item["invoiceID"].toString(), {}, {
+        headers: { token: token1 }
+      })
+      .then(async (res1) => {
+        //console.log(res1.data)
+        if (res1.status == 200) {
+          showMessage({
+            message: res1.data,
+            backgroundColor: "green",
+            type: "success",
+          });
+        } else {
+          showMessage({
+            message: res1.data,
+            backgroundColor: "red",
+            type: "error",
+          });
+        }
+
+      })
+      .catch((err) => console.log(err));
+  };
+
+  //need to edit
+  const savePDF = async () => {
+    const permissions = await StorageAccessFramework.requestDirectoryPermissionsAsync();
+    if (!permissions.granted) {
+      return;
+    }
+
+    try {
+      await StorageAccessFramework.createFileAsync(permissions.directoryUri,  item["invoiceID"].toString()+".pdf", 'application/pdf')
+        .then(async (uri) => {
+          await FileSystem.writeAsStringAsync(uri, source, { encoding: FileSystem.EncodingType.Base64 });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
+
   return (
-    <Layout style={styles.page}>
-      <ScrollView>
-
-        <Image
-          source={{
-            uri: `data:image/jpeg;base64,${imageSource}`,
-          }}
-          style={{ resizeMode: "contain", width: 370, height: 500 }}
-        />
-
-        <Button onPress={() => setVisible(false)} appearance={"ghost"}>
-          Back
-        </Button>
-      </ScrollView>
-
-    </Layout>
+    <View>
+      <Button onPress={() => setVisible(false)} appearance={"ghost"}>
+        Back
+      </Button>
+      <Button status='danger' onPress={() => DeleteInvoice()}>
+        Delete
+      </Button>
+      <Button onPress={() => savePDF()}>
+        Save To Device
+      </Button>
+    </View>
   )
 
 }
-
-const styles = StyleSheet.create({
-  page: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  zoomableView: {
-    padding: 10,
-    backgroundColor: '#fff',
-  },
-});
 
 export default InvoiceDetail

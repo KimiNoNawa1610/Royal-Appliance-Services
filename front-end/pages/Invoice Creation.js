@@ -42,6 +42,7 @@ const InvoiceCreation = () => {
 
   const handleSend = async () => {
     sendJSON["part_rows"] = partsJSON;
+    sendJSON["date"] = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
     console.log(sendJSON);
 
     axios
@@ -231,8 +232,7 @@ const InvoiceCreation = () => {
               date={date}
               onSelect={(nextDate) => {
                 setDate(nextDate);
-                sendJSON["date"] = `${nextDate.getFullYear()}-${nextDate.getMonth() + 1
-                }-${nextDate.getDate()}`;
+                sendJSON["date"] = nextDate
               }}
             />
             <Input
