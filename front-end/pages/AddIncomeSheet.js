@@ -127,13 +127,14 @@ const AddIncomeSheet = ({ onAddVisible }) => {
                 defaultValue={Paid_by}
                 label={(evaProps) => <Text {...evaProps}>Paid By</Text>}
             />
-
+            <View style={{flexDirection:"row"}}>
             <Button status={"success"} onPress={onSave} style={{ marginTop: 20 }}>
                 Save
             </Button>
-            <Button status={"success"} onPress={()=>{onAddVisible(false);}} style={{ marginTop: 20 }}>
+            <Button status={"primary"} onPress={()=>{onAddVisible(false);}} style={{ marginTop: 20, marginLeft: 10 }}>
                 Back
             </Button>
+            </View>
         </Layout>
     );
 };
@@ -141,7 +142,7 @@ const AddIncomeSheet = ({ onAddVisible }) => {
 const styles = StyleSheet.create({
     page: {
         backgroundColor: "white",
-        marginTop: "50%",
+        marginTop: "30%",
         borderRadius: 20,
         padding: 35,
         alignItems: "center",

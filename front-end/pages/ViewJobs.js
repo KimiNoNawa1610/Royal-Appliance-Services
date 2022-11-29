@@ -57,6 +57,7 @@ const ViewJobs = ({ start, end, iscompleted }) => {
         };
 
         return (
+            <ScrollView style={styles.container}>
             <View style={styles.techContainer}>
 
                 <Modal
@@ -64,7 +65,6 @@ const ViewJobs = ({ start, end, iscompleted }) => {
                     backdropStyle={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}>
                     <ViewJobDetail item={modalData} setVisible={setVisible} />
                 </Modal>
-
                 <Card style={styles.card_template} footer={Footer}>
                     <View style={styles.header}><Text style={styles.techName}>{item["name"]}</Text><Text style={item["isCompleted"] ? styles.finish_condition : styles.unfinish_condition}>{finish[item["isCompleted"]]}</Text></View>
                     <Text style={{ fontWeight: "bold" }}>DESCRIPTION:</Text>
@@ -74,6 +74,7 @@ const ViewJobs = ({ start, end, iscompleted }) => {
                 </Card>
 
             </View>
+            </ScrollView>
         );
     };
 
@@ -84,6 +85,7 @@ const ViewJobs = ({ start, end, iscompleted }) => {
                     <JobRender key={i} item={item}></JobRender>
                 ))}
             </>
+            <Button style={{position:"absolute"}}Text/>
         </Layout>
     );
 };
@@ -129,5 +131,8 @@ const styles = StyleSheet.create({
         boxShadow: "10px 10px 17px -12px rgba(0,0,0,0.75)",
         marginBottom: 20,
     },
+    container: {
+        flex: 1,
+      },
 });
 export default ViewJobs;

@@ -80,16 +80,17 @@ export default TechATM = () => {
       <Modal visible={addvisible} animationType="slide" transparent={true}>
         <AddIncomeSheet onAddVisible={onAddVisible} />
       </Modal>
+      <View style={styles.loginButtonSection}>
        <Button
           status="success"
           style={{
-            width: "8%",
+            width: "100%",
             height: "50%",
-            marginTop: 15,
           }}
           onPress={() => onAddVisible(true)}
           accessoryRight={<Icon name={"plus-outline"} />}
         />
+        </View>
       <DataTable>
         <DataTable.Header>
           <DataTable.Title >DATE</DataTable.Title>
@@ -109,4 +110,11 @@ export default TechATM = () => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
+  loginButtonSection: {
+    width: '100%',
+    height: '10%',
+    marginBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
+ }
 });

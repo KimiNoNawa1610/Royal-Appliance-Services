@@ -10,6 +10,8 @@ import { SafeAreaView, StyleSheet, Image } from "react-native";
 import InvoiceCreation from "./Invoice Creation";
 import AdminViewTechIncome from "./AdminViewTechIncome";
 import AdminViewInvoice from "./AdminViewInvoice";
+import TechDashBoard from "./TechDashboard";
+import TechATM from "./TechATM";
 const { Navigator, Screen } = createDrawerNavigator();
 
 const DrawerContent = ({ navigation, state }) => {
@@ -41,6 +43,10 @@ const DrawerContent = ({ navigation, state }) => {
           title="Dashboard"
           accessoryRight={<Icon name={"home-outline"} />}
         />
+         <DrawerItem
+          title="My Jobs"
+          accessoryRight={<Icon name={"briefcase-outline"} />}
+        />
         <DrawerItem
           title="My Employees"
           accessoryRight={<Icon name={"people-outline"} />}
@@ -55,11 +61,16 @@ const DrawerContent = ({ navigation, state }) => {
         />
         <DrawerItem
           title="Invoice Creation"
-          accessoryRight={<Icon name={"clipboard-outline"} />}
+          accessoryRight={<Icon name={"edit-outline"} />}
         />
         <DrawerItem
           title="Invoices"
-          accessoryRight={<Icon name={"clipboard-outline"} />}
+          accessoryRight={<Icon name={"folder-outline"} />}
+        />
+        
+        <DrawerItem
+          title="Net Income"
+          accessoryRight={<Icon name={"file-outline"} />}
         />
         <DrawerItem
           title="Logout"
@@ -77,11 +88,13 @@ const AdminDrawerNavigator = () => {
   return (
     <Navigator drawerContent={(props) => <DrawerContent {...props} />}>
       <Screen name="Dashboard" component={AdminDashboard} />
+      <Screen name="TechDashboard" component={TechDashBoard} />
       <Screen name="My Employees" component={ViewTechs} />
       <Screen name="Create Job" component={CreateJob} />
       <Screen name="Income Sheets" component={AdminViewTechIncome} />
       <Screen name="Invoice Creation" component={InvoiceCreation} />
       <Screen name="Invoices" component={AdminViewInvoice} />
+      <Screen name="Net Income" component={TechATM} />
       <Screen name="Logout" component={Login} />
     </Navigator>
   );

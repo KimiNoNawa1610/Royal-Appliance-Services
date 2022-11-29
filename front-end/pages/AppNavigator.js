@@ -10,11 +10,11 @@ export const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Navigator screenOptions={{ headerShown: false }}>
-        <Screen
+        {/* <Screen
           name="Login"
           component={Login}
           options={{ gestureEnabled: false }}
-        />
+        /> */}
         <Screen
           name={"AdminDrawer"}
           component={AdminDrawerNavigator}

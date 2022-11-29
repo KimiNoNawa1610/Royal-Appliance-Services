@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View,  SafeAreaView, StatusBar } from "react-native";
 import { Button, Card, Layout, Modal, Text } from "@ui-kitten/components";
 import axios from "axios";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AdminViewJobDetail from "./AdminViewJobDetail";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
 
 const AdminViewJobs = ({ start, end, setJobVisible }) => {
     const [jobData, setjobData] = useState([]);
@@ -39,6 +40,7 @@ const AdminViewJobs = ({ start, end, setJobVisible }) => {
         };
 
         return (
+           
             <View style={styles.techContainer}>
                 <Modal
                     visible={visible}
@@ -58,24 +60,28 @@ const AdminViewJobs = ({ start, end, setJobVisible }) => {
                   Back
                 </Button> */}
             </View>
+         
         );
     };
 
 
     return (
-        <Layout style={styles.page}>
-            <Layout>
+        
+            <ScrollView visible={visible} animationType="slide" transparent={true}>
                 <>
                 {jobData.map((item, i) => (
                     <TechRender key={i} item={item}></TechRender>
                 ))}
+                
+    
                 <Button  
                     onPress={() => setJobVisible(false)} appearance={"ghost"}>
                   Back
                 </Button>
                 </>
-            </Layout>
-        </Layout>
+                </ScrollView>
+       
+     
     );
 };
 
@@ -106,6 +112,12 @@ const styles = StyleSheet.create({
         width: 350,
         boxShadow: "10px 10px 17px -12px rgba(0,0,0,0.75)",
         marginBottom: 20
+      },
+      container: {
+        flex: 1,
+      },
+      scrollView: {
+        marginHorizontal: 20,
       },
 });
 export default AdminViewJobs;
