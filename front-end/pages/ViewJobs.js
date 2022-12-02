@@ -85,7 +85,6 @@ const ViewJobs = ({ start, end, iscompleted }) => {
                     <JobRender key={i} item={item}></JobRender>
                 ))}
             </>
-            <Button style={{position:"absolute"}}Text/>
         </Layout>
     );
 };

@@ -7,6 +7,7 @@ import {
   Text,
   Divider,
   Toggle,
+  Card,
 } from "@ui-kitten/components";
 import axios from "axios";
 import { BASE_URL } from "../config";
@@ -50,28 +51,28 @@ const AdminViewJobDetail = ({ item, setVisible }) => {
   }
 
   return (
-    <Layout style={styles.page}>
+    <Card style={styles.page}>
 
       <Text category={"h1"}>Job Details</Text>
       <Divider />
-      <Text style={styles.techName}>CLIENT: {job["name"]}</Text>
-      <Text style={{ fontWeight: "bold" }}>DESCRIPTION:</Text>
+      <Text style={{ fontWeight: "bold",paddingTop: 10, paddingBottom:5 }} >CLIENT: {job["name"]}</Text>
+      <Text style={{ fontWeight: "bold",paddingTop:10, paddingBottom:5 }}>DESCRIPTION:</Text>
       <Text>{job["description"]}</Text>
-      <Text style={{ fontWeight: "bold" }}>ADDRESS:</Text>
+      <Text style={{ fontWeight: "bold",paddingTop:10, paddingBottom:5 }}>ADDRESS:</Text>
       <Text>{job["address"]}</Text>
       <Divider />
-      <Text style={{ fontWeight: "bold" }}>Start TIME: </Text>
+      <Text style={{ fontWeight: "bold", paddingTop:10 }}>Start TIME: </Text>
       <Text>{`${new Date(item["dateStart"]).getMonth()+1}-${new Date(item["dateStart"]).getDate()+1}-${new Date(item["dateStart"]).getFullYear()}`}</Text>
       <Divider />
-      <Text style={{ fontWeight: "bold" }}>END TIME: </Text>
+      <Text style={{ fontWeight: "bold", paddingTop:10 }} >END TIME: </Text>
       <Text>{`${new Date(item["dateEnd"]).getMonth()+1}-${new Date(item["dateEnd"]).getDate()+1}-${new Date(item["dateEnd"]).getFullYear()}`}</Text>
 
       <Toggle
         checked={isFinished}
         onChange={onCheckedChange}
-        style={{ marginTop: 15 }}
+        style={{ marginTop: 20, marginBottom: 10 }}
       >
-        Is Finish: {isFinished}
+        Done {isFinished}
       </Toggle>
       <Divider />
       <Button status={"success"} onPress={onSave}>
@@ -80,7 +81,7 @@ const AdminViewJobDetail = ({ item, setVisible }) => {
       <Button onPress={() => setVisible(false)} appearance={"ghost"}>
         Back
       </Button>
-    </Layout>
+    </Card>
   );
 };
 

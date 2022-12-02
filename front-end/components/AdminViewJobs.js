@@ -40,7 +40,6 @@ const AdminViewJobs = ({ start, end, setJobVisible }) => {
         };
 
         return (
-           
             <View style={styles.techContainer}>
                 <Modal
                     visible={visible}
@@ -58,6 +57,7 @@ const AdminViewJobs = ({ start, end, setJobVisible }) => {
                 
                 {/* <Button onPress={() => setJobVisible(false)} appearance={"ghost"}>
                   Back
+                
                 </Button> */}
             </View>
          
@@ -66,21 +66,19 @@ const AdminViewJobs = ({ start, end, setJobVisible }) => {
 
 
     return (
-        
-            <ScrollView visible={visible} animationType="slide" transparent={true}>
+        <ScrollView style={styles.container}>
+        <Layout style={styles.page}>
                 <>
                 {jobData.map((item, i) => (
                     <TechRender key={i} item={item}></TechRender>
                 ))}
-                
-    
-                <Button  
+                {/* <Button  
                     onPress={() => setJobVisible(false)} appearance={"ghost"}>
                   Back
-                </Button>
+                </Button> */}
                 </>
-                </ScrollView>
-       
+        </Layout>
+       </ScrollView>
      
     );
 };
@@ -92,8 +90,22 @@ const styles = StyleSheet.create({
     },
     techName: {
         fontSize: 20,
-        color:"#ff8c00",
-        fontWeight:"bold"
+        color: "#ff8c00",
+        fontWeight: "bold",
+    },
+    finish_condition: {
+        fontSize: 20,
+        color: "#00ee8d",
+        fontWeight: "bold",
+    },
+    unfinish_condition: {
+        fontSize: 20,
+        color: "#ff726f",
+        fontWeight: "bold",
+    },
+    header: {
+        flexDirection: "row",
+        justifyContent: 'space-between'
     },
     titleLayout: {
         marginBottom: 20,
@@ -104,20 +116,16 @@ const styles = StyleSheet.create({
     page: {
         justifyContent: "center",
         alignItems: "center",
-        //paddingTop: 100,
-        flex: 1,
+        paddingTop: 100,
         paddingHorizontal: 30,
     },
-    card_template:{
+    card_template: {
         width: 350,
         boxShadow: "10px 10px 17px -12px rgba(0,0,0,0.75)",
-        marginBottom: 20
-      },
-      container: {
+        marginBottom: 20,
+    },
+    container: {
         flex: 1,
-      },
-      scrollView: {
-        marginHorizontal: 20,
       },
 });
 export default AdminViewJobs;
