@@ -5,14 +5,13 @@ import axios from "axios";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ViewJobDetail from "./ViewJobDetail";
-import { DrawerContentScrollView } from "@react-navigation/drawer";
 
-const ViewJobs = ({ start, end, iscompleted }) => {
+const ViewJobs = ({ start, end, iscompleted, selector}) => {
     const [jobData, setjobData] = useState([]);
     const [visible, setVisible] = useState(false);
     const [modalData, setModalData] = useState();
     const finish = { true: "Completed", false: "Incompleted" }
-    let count = 0
+    //let count = 0
 
     useEffect(() => {
         const getJobs = async () => {
@@ -29,7 +28,7 @@ const ViewJobs = ({ start, end, iscompleted }) => {
                     console.log(res1.data)
                     const id = res1.data.employeeID
 
-                    //console.log(token1)
+                    console.log(iscompleted)
                     axios
                         .get(BASE_URL + "/get_jobs/" + id.toString() + "/" + start + "/" + end + "/" + iscompleted.toString(), {
                             headers: { token: token1 },
@@ -43,8 +42,114 @@ const ViewJobs = ({ start, end, iscompleted }) => {
                 })
                 .catch((err) => console.log(err));
         }
+        // const getPastJobs = async () => {
+        //     // console.log(start)
+        //     // console.log(end)
+        //     const token1 = await AsyncStorage.getItem("AccessToken");
+        //     const name = await AsyncStorage.getItem("name")
+        //     //console.log(token1)
+        //     axios
+        //         .get(BASE_URL + "/get_employee_id/" + name, {
+        //             headers: { token: token1 },
+        //         })
+        //         .then((res1) => {
+        //             console.log(res1.data)
+        //             const id = res1.data.employeeID
+    
+        //             axios
+        //                 .get(BASE_URL + "/get_past_jobs/" + id.toString() + "/" + end + "/" + iscompleted.toString(), {
+        //                     headers: { token: token1 },
+        //                 })
+        //                 .then((res2) => {
+        //                     console.log(res2.data)
+        //                     console.log(res2.data.length)
+        //                     setjobData(res2.data)
+        //                 })
+        //                 .catch((err) => console.log(err));
+        //         })
+        //         .catch((err) => console.log(err));
+        // }
+    
+        // const getTodayJobs = async () => {
+        //     // console.log(start)
+        //     // console.log(end)
+        //     const token1 = await AsyncStorage.getItem("AccessToken");
+        //     const name = await AsyncStorage.getItem("name")
+        //     //console.log(token1)
+        //     axios
+        //         .get(BASE_URL + "/get_employee_id/" + name, {
+        //             headers: { token: token1 },
+        //         })
+        //         .then((res1) => {
+        //             console.log(res1.data)
+        //             const id = res1.data.employeeID
+    
+        //             axios
+        //                 .get(BASE_URL + "/get_present_jobs/" + id.toString() + "/" + start + "/" + end + "/" + iscompleted.toString(), {
+        //                     headers: { token: token1 },
+        //                 })
+        //                 .then((res2) => {
+        //                     console.log(res2.data)
+        //                     console.log(res2.data.length)
+        //                     setjobData(res2.data)
+        //                 })
+        //                 .catch((err) => console.log(err));
+        //         })
+        //         .catch((err) => console.log(err));
+        // }
+    
+        // const getFutureJobs = async () => {
+        //     // console.log(start)
+        //     // console.log(end)
+        //     const token1 = await AsyncStorage.getItem("AccessToken");
+        //     const name = await AsyncStorage.getItem("name")
+        //     //console.log(token1)
+        //     axios
+        //         .get(BASE_URL + "/get_employee_id/" + name, {
+        //             headers: { token: token1 },
+        //         })
+        //         .then((res1) => {
+        //             console.log(res1.data)
+        //             const id = res1.data.employeeID
+    
+        //             axios
+        //                 .get(BASE_URL + "/get_future_jobs/" + id.toString() + "/" + start + "/" + iscompleted.toString(), {
+        //                     headers: { token: token1 },
+        //                 })
+        //                 .then((res2) => {
+        //                     console.log(res2.data)
+        //                     console.log(res2.data.length)
+        //                     setjobData(res2.data)
+        //                 })
+        //                 .catch((err) => console.log(err));
+        //         })
+        //         .catch((err) => console.log(err));
+        // }
         getJobs();
+        // if(selector === "Past"){getPastJobs();}
+        // if(selector === "Today"){getTodayJobs();}
+        // if(selector === "Future"){getFutureJobs();}
     }, [visible]);
+
+    // useEffect(() =>{
+    // try {
+    //   if (selector === "Past") {
+    //     //setDate1(new Date().getFullYear()-new Date().getMonth()+1-1-new Date().getDate());
+    //     <ViewJobs start={`${new Date().getFullYear()}-${new Date().getMonth()+1-1}-${new Date().getDate()}`} 
+    //     end={`${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()-1}`} iscompleted={"None"}/>
+
+    //     setDate1(`${new Date().getFullYear()}-${new Date().getMonth()+1-1}-${new Date().getDate()}`)
+    //     console.log(date1);
+    //     setDate2(`${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()-1}`);
+    //     console.log(date2);
+    //     setStatus("None");
+    //   } 
+      
+    // } catch (err) {
+    //   console.log(err);
+    // }
+
+    // }, [selector]);
 
     const JobRender = ({ item }) => {
         const handleEditPress = () => {

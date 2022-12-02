@@ -88,7 +88,7 @@ const AdminDrawerNavigator = () => {
   return (
     <Navigator drawerContent={(props) => <DrawerContent {...props} />}>
       <Screen name="Dashboard" component={AdminDashboard} />
-      <Screen name="TechDashboard" component={TechDashBoard} />
+      <Screen name="My Jobs" component={TechDashBoard} />
       <Screen name="My Employees" component={ViewTechs} />
       <Screen name="Create Job" component={CreateJob} />
       <Screen name="Income Sheets" component={AdminViewTechIncome} />
