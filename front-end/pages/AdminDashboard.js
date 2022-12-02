@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BASE_URL } from '../config';
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet,  View} from "react-native";
-import { Button, Layout, Icon, Text, Calendar as Calendar2, Modal } from "@ui-kitten/components";
+import { StyleSheet, View, ScrollView} from "react-native";
+import { Button, Layout, Icon, Text, List, ListItem, Divider, Calendar as Calendar2} from "@ui-kitten/components";
 import AdminViewJobs from "../components/AdminViewJobs";
 import axios from "axios";
+import Modal from "react-native-modal";
+//import { ScrollView } from "react-native-gesture-handler";
 
 
 
@@ -17,14 +19,12 @@ const AdminDashboard = () => {
   const navigation = useNavigation();
   const now = new Date();
   const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  //const [date, setDate] = React.useState(null);
   const [ selectedDate, setSelectedDate ] = React.useState(date);
   const componentRef = React.createRef();
   const [visible, setJobVisible] = useState(false);
   const [workDays, setWorkDays] = useState([]);
-  const [blur, setBlur] = useState(false);
+  
 
-  //Retrieve all jobs to mark on the calendar WIP
   useEffect(() => {
     const getAllJobs = async () => {
       const token1 = await AsyncStorage.getItem("AccessToken");
@@ -81,7 +81,6 @@ const AdminDashboard = () => {
   };
 
   const handleAddJob = () => {
-    //setAddJobVisible(true);
     navigation.navigate("Create Job")
   };
 
@@ -91,9 +90,10 @@ const AdminDashboard = () => {
       style={styles.container} 
       level='1'
       >
+      
       <Button status="success" style={styles.topButton1} onPress={scrollToToday}>Scroll to Today</Button>
-      {/* this opens a modal that shows info */}
       <Button status="success" style={styles.topButton2} onPress={scrollToSelected}>View Selected Date</Button>
+
       <View style={styles.calendarContainer}>
       <Separator/>  
         <Text
@@ -129,11 +129,15 @@ const AdminDashboard = () => {
           accessoryRight={<Icon name={"briefcase-outline"} />}
         />
       </View>
+
       <Modal
         visible={visible}
-        backdropStyle={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}>
-          <AdminViewJobs start={selectedDate.toISOString().split('T')[0]} end={selectedDate.toISOString().split('T')[0]} setJobVisible={setJobVisible}/>
+        animationType="fade"
+        transparent={true}
+        backgroundColor= 'rgba(255, 255, 255, 0.9)'>
+        <AdminViewJobs start={selectedDate.toISOString().split('T')[0]} end={selectedDate.toISOString().split('T')[0]} setJobVisible={setJobVisible}/>
       </Modal>
+
     </Layout>
   );
 };

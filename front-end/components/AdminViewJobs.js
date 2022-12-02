@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View,  SafeAreaView, StatusBar } from "react-native";
-import { Button, Card, Layout, Modal, Text } from "@ui-kitten/components";
+import { StyleSheet, View,  SafeAreaView, StatusBar, ScrollView } from "react-native";
+import { Button, Card, Layout, Modal, Text, Divider,
+    Icon,
+    List,
+    ListItem } from "@ui-kitten/components";
 import axios from "axios";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AdminViewJobDetail from "./AdminViewJobDetail";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
+//import { FlatList, ScrollView } from "react-native-gesture-handler";
 
 const AdminViewJobs = ({ start, end, setJobVisible }) => {
     const [jobData, setjobData] = useState([]);
@@ -29,7 +32,7 @@ const AdminViewJobs = ({ start, end, setJobVisible }) => {
       getJobs();
   }, [visible]);
 
-    const TechRender = ({ item }) => {
+    const JobRender = ({ item }) => {
         const handleEditPress = () => {
             setModalData(item);
             setVisible(true);
@@ -40,7 +43,8 @@ const AdminViewJobs = ({ start, end, setJobVisible }) => {
         };
 
         return (
-            <View style={styles.techContainer}>
+            
+            <ListItem>
                 <Modal
                     visible={visible}
                     backdropStyle={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}>
@@ -53,32 +57,40 @@ const AdminViewJobs = ({ start, end, setJobVisible }) => {
                     <Text>{item["description"].split("\n",1)}</Text>
                     <Text style={{fontWeight: "bold"}}>END TIME: </Text>
                     <Text>{`${new Date(item["dateEnd"]).getMonth()+1}-${new Date(item["dateEnd"]).getDate()+1}-${new Date(item["dateEnd"]).getFullYear()}`}</Text>
+                    
                 </Card>
-                
-                {/* <Button onPress={() => setJobVisible(false)} appearance={"ghost"}>
-                  Back
-                
-                </Button> */}
-            </View>
+               
+            </ListItem>
          
         );
     };
 
 
     return (
-        <ScrollView style={styles.container}>
-        <Layout style={styles.page}>
-                <>
-                {jobData.map((item, i) => (
-                    <TechRender key={i} item={item}></TechRender>
-                ))}
-                {/* <Button  
-                    onPress={() => setJobVisible(false)} appearance={"ghost"}>
-                  Back
-                </Button> */}
-                </>
+        
+        <Layout>
+            {/* <>
+            {jobData.map((item, i) => (
+                <JobRender key={i} item={item}></JobRender>
+            ))}
+            <Button  
+                onPress={() => setJobVisible(false)} appearance={"ghost"}>
+                Back
+            </Button>
+            </> */}
+            <List
+                data={jobData}
+                renderItem={JobRender}
+                keyExtractor={(item) => item.jobID}
+                ItemSeparatorComponent={Divider}>
+            </List>
+            <Button  
+                onPress={() => setJobVisible(false)} appearance={"ghost"}>
+                Back
+            </Button>
+
         </Layout>
-       </ScrollView>
+       
      
     );
 };
