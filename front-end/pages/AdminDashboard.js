@@ -71,7 +71,8 @@ const AdminDashboard = () => {
     }
   
   const scrollToSelected = () => {
-      setJobVisible(true);
+       setJobVisible(true);
+      //navigation.navigate("ViewJobs")
   };
 
   const scrollToToday = () => {
