@@ -91,7 +91,6 @@ const InvoiceDetail = ({ item, setVisible }) => {
   return (
     <Layout style={styles.page}>
       <ScrollView>
-
         <Image
           source={{
             uri: `data:image/jpeg;base64,${imageSource}`,
@@ -121,7 +120,19 @@ const InvoiceDetail = ({ item, setVisible }) => {
 const styles = StyleSheet.create({
   page: {
     justifyContent: "center",
-    alignItems: "center",
+    alignContent: "center",
+    backgroundColor: "white",
+    marginTop: "50%",
+    borderRadius: 20,
+    padding: 35,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 100,
+    elevation: 5,
   },
   zoomableView: {
     padding: 10,

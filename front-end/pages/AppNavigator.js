@@ -2,9 +2,9 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import AdminDrawerNavigator from "./AdminDrawerNavigator";
 import TechDrawerNavigator from "./TechDrawerNavigator";
 import { createStackNavigator } from "@react-navigation/stack";
-const { Navigator, Screen } = createStackNavigator();
 import React, { useContext } from "react";
 import Login from "./Login";
+const { Navigator, Screen } = createStackNavigator();
 
 export const AppNavigator = () => {
   return (

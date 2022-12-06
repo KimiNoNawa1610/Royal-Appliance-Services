@@ -16,7 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import EditTech from "./EditTech";
 import AddTech from "./AddTech";
 
-const ViewTechs = () => {
+const ViewTechs = (props) => {
   const [techData, setTechData] = useState([]);
   const [addEmpVisible, setAddEmpVisible] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -31,7 +31,7 @@ const ViewTechs = () => {
       console.log(techData);
     };
     getTechs();
-  }, [visible, addEmpVisible]);
+  }, [visible, addEmpVisible, props.navigation]);
 
   const TechRender = ({ item }) => {
     const handleEditPress = () => {
