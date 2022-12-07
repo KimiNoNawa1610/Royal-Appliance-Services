@@ -144,8 +144,8 @@ const styles = StyleSheet.create({
   page: {
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: 100,
     paddingHorizontal: 30,
+    paddingBottom: 150,
   },
   card_template: {
     width: 350,

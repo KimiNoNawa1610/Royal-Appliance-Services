@@ -124,9 +124,20 @@ const styles = StyleSheet.create({
         fontSize: 40,
     },
     page: {
-        justifyContent: "center",
+        backgroundColor: "white",
+        marginTop: "50%",
+        borderRadius: 20,
+        padding: 35,
         alignItems: "center",
-        paddingTop: 100,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.4,
+        shadowRadius: 100,
+        elevation: 5,
+        maxHeight: '50%',
     },
     card_template: {
         width: 350,

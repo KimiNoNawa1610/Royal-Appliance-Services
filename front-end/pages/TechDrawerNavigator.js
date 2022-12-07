@@ -60,7 +60,7 @@ const DrawerContent = ({ navigation, state }) => {
 const TechDrawerNavigator = () => {
   return (
     <Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-      <Screen name="TechDashboard" component={TechDashBoard} />
+      <Screen name="Dashboard" component={TechDashBoard} />
       <Screen name="Net Income" component={TechATM} />
       <Screen name="Invoice Creation" component={InvoiceCreation} />
       <Screen name="Logout" component={Login}/>

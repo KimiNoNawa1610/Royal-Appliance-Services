@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BASE_URL } from '../config';
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, View, ScrollView} from "react-native";
+import { StyleSheet, View, ScrollView, Modal} from "react-native";
 import { Button, Layout, Icon, Text, List, ListItem, Divider, Calendar as Calendar2} from "@ui-kitten/components";
 import AdminViewJobs from "../components/AdminViewJobs";
 import axios from "axios";
-import Modal from "react-native-modal";
 //import { ScrollView } from "react-native-gesture-handler";
 
 
@@ -34,13 +33,13 @@ const AdminDashboard = () => {
           })
           .then((res) => {
               let dayList = []
-              for (var i = 0; i < res.data.length; i++){
-                    var obj = res.data[i];
-                    var value = obj["dateStart"];
+              for (let i = 0; i < res.data.length; i++){
+                    let obj = res.data[i];
+                    let value = obj["dateStart"];
                     dayList.push(new Date(value).toISOString().split('T')[0]);
                   }
                   dayList = dayList.sort(function(a, b) { return (a).localeCompare(b); });
-                  setWorkDays(dayList)
+                  setWorkDays((prev) => dayList)
                   console.log("START " +workDays)
           })
           .catch((err) => console.log(err));
@@ -49,25 +48,45 @@ const AdminDashboard = () => {
       }, []);  
   
     const DayCell = ({ date }, style) => {
-      let dynamic = workDays.map((x) => x);
-        if(dynamic.length != 0){
-          for (var i = 0; i < dynamic.length; i++){
-            if(date.toISOString().split('T')[0] === dynamic[i]){
-              dynamic.shift(dynamic.indexOf(i), 1);
-              return(
-                <View
-                  style={[styles.dayContainer, style.container]}>
-                  <Text style={[style.text,styles.textDay]}>{`${date.getDate()}`}</Text>
-                </View>
-              );
-            }
-          }
+
+        if((workDays.find( workDay =>  date.toISOString().split('T')[0] === workDay) !== undefined)){
+                return(
+                    <View
+                        style={[styles.dayContainer, style.container]}>
+                        <View style={{backgroundColor: "rgba(194,194,194,0.33)", borderRadius: 10, borderWidth: 1, padding: 5, minWidth: 24}}>
+                            <Text style={[style.text,styles.textDay]}>{`${date.getDate()}`}</Text>
+                        </View>
+                    </View>
+                );
+        } else {
+            return(
+                <View style={[styles.dayContainer, style.container]}>
+                     <Text style={[style.text]}>{`${date.getDate()}`}</Text>
+                </View>);
         }
-        return( 
-        <View
-          style={[styles.dayContainer, style.container]}>
-          <Text style={[style.text]}>{`${date.getDate()}`}</Text>
-        </View>);
+
+
+
+
+        // if(workDays.length !== 0){
+        //   for (let workDay of workDays){
+        //     if(date.toISOString().split('T')[0] === workDay){
+        //       return(
+        //         <View
+        //           style={[styles.dayContainer, style.container]}>
+        //             <View style={{backgroundColor: "rgba(194,194,194,0.33)", borderRadius: 10, borderWidth: 1, padding: 5,}}>
+        //                 <Text style={[style.text,styles.textDay]}>{`${date.getDate()}`}</Text>
+        //             </View>
+        //         </View>
+        //       );
+        //     }
+        //   }
+        // }
+        // return(
+        // <View
+        //   style={[styles.dayContainer, style.container]}>
+        //   <Text style={[style.text]}>{`${date.getDate()}`}</Text>
+        // </View>);
     }
   
   const scrollToSelected = () => {
@@ -107,7 +126,7 @@ const AdminDashboard = () => {
           status="success"
           ref={componentRef}
           date={selectedDate}
-          onSelect={nextDate => setSelectedDate(nextDate)}
+          onSelect={nextDate => setSelectedDate((prev) => nextDate)}
           renderDay={DayCell}
           />
         <Separator/>  
@@ -133,9 +152,10 @@ const AdminDashboard = () => {
 
       <Modal
         visible={visible}
-        animationType="fade"
+        animationType="slide"
         transparent={true}
-        backgroundColor= 'rgba(255, 255, 255, 0.9)'>
+        centered
+      >
         <AdminViewJobs start={selectedDate.toISOString().split('T')[0]} end={selectedDate.toISOString().split('T')[0]} setJobVisible={setJobVisible}/>
       </Modal>
 
@@ -145,6 +165,7 @@ const AdminDashboard = () => {
 
 const styles = StyleSheet.create({
   container: {
+
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: "center",
@@ -159,7 +180,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   text: {
-    marginVertical: 4,
+      padding: 20,
   },
   center: {
     flex: 1,
@@ -185,13 +206,13 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   dayContainer: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     aspectRatio: 1,
   },
   textDay: {
-    color: '#00F9E4',
+      alignItems: 'center',
+      color: '#000000',
   },
 });
 

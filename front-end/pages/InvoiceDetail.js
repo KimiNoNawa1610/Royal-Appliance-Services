@@ -12,6 +12,7 @@ import {
 import * as MediaLibrary from "expo-media-library";
 import * as FileSystem from 'expo-file-system';
 import { StorageAccessFramework } from 'expo-file-system';
+import {showMessage} from "react-native-flash-message";
 
 
 
@@ -69,6 +70,7 @@ const InvoiceDetail = ({ item, setVisible }) => {
         await FileSystem.writeAsStringAsync(filename, imageSource, {
           encoding: FileSystem.EncodingType.Base64,
         });
+        const mediaResult = await MediaLibrary.saveToLibraryAsync(filename);
 
         showMessage({
           message: "Invoice Is Saved",
@@ -78,7 +80,6 @@ const InvoiceDetail = ({ item, setVisible }) => {
       }
 
 
-      const mediaResult = await MediaLibrary.saveToLibraryAsync(filename);
     } catch (error) {
       showMessage({
         message: error,
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     backgroundColor: "white",
-    marginTop: "50%",
+    marginTop: "40%",
     borderRadius: 20,
     padding: 35,
     shadowColor: "#000",

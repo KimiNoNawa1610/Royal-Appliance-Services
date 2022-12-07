@@ -23,9 +23,6 @@ const IncomeDetail = ({ item, setVisible }) => {
       <Text style={{ fontWeight: "bold" }}>MY PART: </Text>
       <Text>${item["my_part"]}</Text>
 
-      <Text style={{ fontWeight: "bold" }}>MY PART: </Text>
-      <Text>${item["my_part"]}</Text>
-
       <Text style={{ fontWeight: "bold" }}>LABOR: </Text>
       <Text>${item["labor"]}</Text>
 
@@ -38,7 +35,7 @@ const IncomeDetail = ({ item, setVisible }) => {
       <Text style={{ fontWeight: "bold" }}>PART INSTALLED: </Text>
       <Text>{item["part_installed"]}</Text>
 
-      <Text style={{ fontWeight: "bold" }}>ClLIENT SELL: </Text>
+      <Text style={{ fontWeight: "bold" }}>CLIENT SELL: </Text>
       <Text>${item["client_sell"]}</Text>
 
       <Text style={{ fontWeight: "bold" }}>PAID BY: </Text>
