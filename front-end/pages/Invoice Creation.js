@@ -43,6 +43,7 @@ const InvoiceCreation = () => {
   const handleSend = async () => {
     sendJSON["part_rows"] = partsJSON;
     sendJSON["date"] = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    sendJSON["signature"] = sendJSON["customer_name"]
     console.log(sendJSON);
 
     axios
