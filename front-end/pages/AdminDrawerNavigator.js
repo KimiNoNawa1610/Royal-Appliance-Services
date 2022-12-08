@@ -40,7 +40,7 @@ const DrawerContent = ({ navigation, state }) => {
         onSelect={(index) => navigation.navigate(state.routeNames[index.row])}
       >
         <DrawerItem
-          title="Dashboard"
+          title="Calendar"
           accessoryRight={<Icon name={"home-outline"} />}
         />
          <DrawerItem
@@ -87,8 +87,8 @@ const DrawerContent = ({ navigation, state }) => {
 const AdminDrawerNavigator = () => {
   return (
     <Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-      <Screen name="Dashboard" component={AdminDashboard} />
-      <Screen name="TechDashboard" component={TechDashBoard} />
+      <Screen name="Calendar" component={AdminDashboard} />
+      <Screen name="Jobs" component={TechDashBoard} />
       <Screen name="My Employees" component={ViewTechs} />
       <Screen name="Create Job" component={CreateJob} />
       <Screen name="Income Sheets" component={AdminViewTechIncome} />

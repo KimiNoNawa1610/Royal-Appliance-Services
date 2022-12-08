@@ -12,6 +12,7 @@ import {
 import * as MediaLibrary from "expo-media-library";
 import * as FileSystem from 'expo-file-system';
 import { StorageAccessFramework } from 'expo-file-system';
+import {showMessage} from "react-native-flash-message";
 
 
 
@@ -69,6 +70,7 @@ const InvoiceDetail = ({ item, setVisible }) => {
         await FileSystem.writeAsStringAsync(filename, imageSource, {
           encoding: FileSystem.EncodingType.Base64,
         });
+        const mediaResult = await MediaLibrary.saveToLibraryAsync(filename);
 
         showMessage({
           message: "Invoice Is Saved",
@@ -78,7 +80,6 @@ const InvoiceDetail = ({ item, setVisible }) => {
       }
 
 
-      const mediaResult = await MediaLibrary.saveToLibraryAsync(filename);
     } catch (error) {
       showMessage({
         message: error,
@@ -91,7 +92,6 @@ const InvoiceDetail = ({ item, setVisible }) => {
   return (
     <Layout style={styles.page}>
       <ScrollView>
-
         <Image
           source={{
             uri: `data:image/jpeg;base64,${imageSource}`,
@@ -121,7 +121,19 @@ const InvoiceDetail = ({ item, setVisible }) => {
 const styles = StyleSheet.create({
   page: {
     justifyContent: "center",
-    alignItems: "center",
+    alignContent: "center",
+    backgroundColor: "white",
+    marginTop: "40%",
+    borderRadius: 20,
+    padding: 35,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 100,
+    elevation: 5,
   },
   zoomableView: {
     padding: 10,

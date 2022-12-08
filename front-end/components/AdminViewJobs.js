@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View,  SafeAreaView, StatusBar, ScrollView } from "react-native";
-import { Button, Card, Layout, Modal, Text, Divider,
+import { StyleSheet, View,  SafeAreaView, StatusBar, ScrollView, Modal } from "react-native";
+import { Button, Card, Layout, Text, Divider,
     Icon,
     List,
     ListItem } from "@ui-kitten/components";
@@ -14,6 +14,7 @@ const AdminViewJobs = ({ start, end, setJobVisible }) => {
     const [jobData, setjobData] = useState([]);
     const [visible, setVisible] = useState(false);
     const [modalData, setModalData] = useState();
+    const finish = { true: "Completed", false: "Incompleted" };
 
     //only retreives all jobs on selected day
     useEffect(() => {
@@ -43,55 +44,52 @@ const AdminViewJobs = ({ start, end, setJobVisible }) => {
         };
 
         return (
-            
-            <ListItem>
-                <Modal
-                    visible={visible}
-                    backdropStyle={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}>
-                    <AdminViewJobDetail item={modalData} setVisible={setVisible}/>
-                </Modal>
-
-                <Card style={styles.card_template} footer={Footer}>
-                    <Text style={styles.techName}>{item["name"]}</Text>
-                    <Text style={{fontWeight: "bold"}}>DESCRIPTION:</Text>
-                    <Text>{item["description"].split("\n",1)}</Text>
-                    <Text style={{fontWeight: "bold"}}>END TIME: </Text>
-                    <Text>{`${new Date(item["dateEnd"]).getMonth()+1}-${new Date(item["dateEnd"]).getDate()+1}-${new Date(item["dateEnd"]).getFullYear()}`}</Text>
-                    
-                </Card>
-               
-            </ListItem>
+            <View style={styles.container}>
+            <View style={styles.techContainer}>
+              <Card style={styles.card_template} footer={Footer}>
+                <View style={styles.header}>
+                  <Text style={styles.techName}>{item["name"]}</Text>
+                  <Text
+                    style={
+                      item["isCompleted"]
+                        ? styles.finish_condition
+                        : styles.unfinish_condition
+                    }
+                  >
+                    {finish[item["isCompleted"]]}
+                  </Text>
+                </View>
+                <Text style={{ fontWeight: "bold" }}>DESCRIPTION:</Text>
+                <Text>{item["description"].split("\n", 1)}</Text>
+                <Text style={{ fontWeight: "bold" }}>END TIME: </Text>
+                <Text>{`${new Date(item["dateEnd"]).getMonth() + 1}-${
+                  new Date(item["dateEnd"]).getDate() + 1
+                }-${new Date(item["dateEnd"]).getFullYear()}`}</Text>
+              </Card>
+            </View>
+          </View>
          
         );
     };
 
 
-    return (
-        
-        <Layout>
-            {/* <>
+    return ( 
+        <Layout style={styles.page}>
+        <ScrollView>
+          <Modal animationType="fade" transparent={true} visible={visible} backgroundColor= 'rgba(255, 255, 255, 0.9)'>
+            <AdminViewJobDetail item={modalData} setVisible={setVisible} />
+          </Modal>
+          <>
             {jobData.map((item, i) => (
-                <JobRender key={i} item={item}></JobRender>
+              <JobRender key={i} item={item}></JobRender>
             ))}
-            <Button  
-                onPress={() => setJobVisible(false)} appearance={"ghost"}>
-                Back
-            </Button>
-            </> */}
-            <List
-                data={jobData}
-                renderItem={JobRender}
-                keyExtractor={(item) => item.jobID}
-                ItemSeparatorComponent={Divider}>
-            </List>
-            <Button  
-                onPress={() => setJobVisible(false)} appearance={"ghost"}>
-                Back
-            </Button>
-
-        </Layout>
-       
-     
+          </>
+        </ScrollView>
+        <Button  
+            onPress={() => setJobVisible(false)} appearance={"ghost"}>
+            Back
+        </Button>
+      </Layout> 
     );
 };
 
@@ -126,10 +124,20 @@ const styles = StyleSheet.create({
         fontSize: 40,
     },
     page: {
-        justifyContent: "center",
+        backgroundColor: "white",
+        marginTop: "50%",
+        borderRadius: 20,
+        padding: 35,
         alignItems: "center",
-        paddingTop: 100,
-        paddingHorizontal: 30,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.4,
+        shadowRadius: 100,
+        elevation: 5,
+        maxHeight: '50%',
     },
     card_template: {
         width: 350,
@@ -138,6 +146,16 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
+    },
+    finish_condition: {
+        fontSize: 20,
+        color: "#00ee8d",
+        fontWeight: "bold",
+      },
+      unfinish_condition: {
+        fontSize: 20,
+        color: "#ff726f",
+        fontWeight: "bold",
       },
 });
 export default AdminViewJobs;

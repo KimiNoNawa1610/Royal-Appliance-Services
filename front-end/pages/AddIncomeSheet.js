@@ -45,7 +45,7 @@ const AddIncomeSheet = ({ onAddVisible }) => {
                         headers: { token: token1 },
                     })
                     .then((res2) => {
-                        if (res2.status == 200) {
+                        if (res2.status === 200) {
                             showMessage({
                                 message: res2.data,
                                 backgroundColor: "green",
