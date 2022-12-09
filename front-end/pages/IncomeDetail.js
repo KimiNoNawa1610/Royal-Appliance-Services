@@ -52,7 +52,7 @@ const IncomeDetail = ({ item, setVisible }) => {
 const styles = StyleSheet.create({
   page: {
     backgroundColor: "white",
-    marginTop: "50%",
+    marginTop: "20%",
     borderRadius: 20,
     padding: 35,
     shadowColor: "#000",

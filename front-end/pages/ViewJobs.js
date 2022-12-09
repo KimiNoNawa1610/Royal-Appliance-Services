@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import ViewJobDetail from "./ViewJobDetail";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 
-const ViewJobs = ({ start, end, iscompleted }) => {
+const ViewJobs = ({ start, end, iscompleted, refreshing }) => {
   const [jobData, setjobData] = useState([]);
   const [visible, setVisible] = useState(false);
   const [modalData, setModalData] = useState();
@@ -55,7 +55,7 @@ const ViewJobs = ({ start, end, iscompleted }) => {
         .catch((err) => console.log(err));
     };
     getJobs();
-  }, [visible]);
+  }, [visible, refreshing]);
 
   const JobRender = ({ item }) => {
     const handleEditPress = () => {

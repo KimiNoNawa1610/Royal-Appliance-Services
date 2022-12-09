@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Modal, View } from "react-native";
+import {
+  StyleSheet,
+  Modal,
+  View,
+  ScrollView,
+  RefreshControl,
+  FlatList,
+} from "react-native";
 import {
   Button,
   Card,
@@ -22,6 +29,16 @@ const ViewTechs = (props) => {
   const [visible, setVisible] = useState(false);
   const [modalData, setModalData] = useState();
 
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const wait = (timeout) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   useEffect(() => {
     const getTechs = async () => {
       const response = await axios.get(BASE_URL + "/get_all_employees/", {
@@ -31,7 +48,7 @@ const ViewTechs = (props) => {
       console.log(techData);
     };
     getTechs();
-  }, [visible, addEmpVisible, props.navigation]);
+  }, [visible, addEmpVisible, refreshing]);
 
   const TechRender = ({ item }) => {
     const handleEditPress = () => {
@@ -66,23 +83,15 @@ const ViewTechs = (props) => {
 
   return (
     <Layout>
-      <List
+      <FlatList
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         data={techData}
         renderItem={TechRender}
         keyExtractor={(item) => item.employeeID}
         ItemSeparatorComponent={Divider}
-      ></List>
-
-      <Modal visible={visible} animationType="slide" transparent={true}>
-        <EditTech item={modalData} setVisible={setVisible} />
-      </Modal>
-
-      <Modal visible={addEmpVisible} animationType="slide" transparent={true}>
-        <AddTech
-          setAddEmpVisible={setAddEmpVisible}
-          addEmpVisible={addEmpVisible}
-        />
-      </Modal>
+      ></FlatList>
       <Button
         style={{
           position: "absolute",
@@ -102,6 +111,17 @@ const ViewTechs = (props) => {
         onPress={handleAddTech}
         accessoryRight={<Icon name={"person-add-outline"} />}
       />
+
+      <Modal visible={visible} animationType="slide" transparent={true}>
+        <EditTech item={modalData} setVisible={setVisible} />
+      </Modal>
+
+      <Modal visible={addEmpVisible} animationType="slide" transparent={true}>
+        <AddTech
+          setAddEmpVisible={setAddEmpVisible}
+          addEmpVisible={addEmpVisible}
+        />
+      </Modal>
     </Layout>
   );
 };

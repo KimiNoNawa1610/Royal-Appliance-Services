@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BASE_URL } from '../config';
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, View, ScrollView, Modal} from "react-native";
+import { StyleSheet, View, ScrollView, Modal, RefreshControl} from "react-native";
 import { Button, Layout, Icon, Text, List, ListItem, Divider, Calendar as Calendar2} from "@ui-kitten/components";
 import AdminViewJobs from "../components/AdminViewJobs";
 import axios from "axios";
@@ -22,7 +22,14 @@ const AdminDashboard = () => {
   const componentRef = React.createRef();
   const [visible, setJobVisible] = useState(false);
   const [workDays, setWorkDays] = useState([]);
-  
+    const [refreshing, setRefreshing] = React.useState(false);
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+    }
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(2000).then(() => setRefreshing(false));
+    }, []);
 
   useEffect(() => {
     const getAllJobs = async () => {
@@ -45,7 +52,7 @@ const AdminDashboard = () => {
           .catch((err) => console.log(err));
       }
       getAllJobs();
-      }, []);  
+      }, [refreshing]);
   
     const DayCell = ({ date }, style) => {
 
@@ -110,26 +117,34 @@ const AdminDashboard = () => {
       style={styles.container} 
       level='1'
       >
+
       
       <Button status="success" style={styles.topButton1} onPress={scrollToToday}>Scroll to Today</Button>
       <Button status="success" style={styles.topButton2} onPress={scrollToSelected}>View Selected Date</Button>
 
       <View style={styles.calendarContainer}>
-      <Separator/>  
+      <Separator/>
         <Text
           category='h6'
           style={styles.text}>
           Selected date: {selectedDate.toLocaleDateString()}
         </Text>
+        <ScrollView refreshControl={
+            <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+            />
+        }>
+            <Calendar2
+                status="success"
+                ref={componentRef}
+                date={selectedDate}
+                onSelect={nextDate => setSelectedDate((prev) => nextDate)}
+                renderDay={DayCell}
+            />
+        </ScrollView>
 
-        <Calendar2
-          status="success"
-          ref={componentRef}
-          date={selectedDate}
-          onSelect={nextDate => setSelectedDate((prev) => nextDate)}
-          renderDay={DayCell}
-          />
-        <Separator/>  
+        <Separator/>
         <Button
           style={{
             top: 5,

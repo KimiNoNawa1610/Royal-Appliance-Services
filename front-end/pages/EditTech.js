@@ -164,7 +164,7 @@ const EditTech = ({ item, setVisible }) => {
 const styles = StyleSheet.create({
   page: {
     backgroundColor: "white",
-    marginTop: "50%",
+    marginTop: "25%",
     borderRadius: 20,
     padding: 35,
     alignItems: "center",

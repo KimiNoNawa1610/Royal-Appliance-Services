@@ -1,6 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Modal, StyleSheet, View, SafeAreaView } from "react-native";
-import { Button, Input, Datepicker, Icon, Text, Divider } from "@ui-kitten/components";
+import {
+  Modal,
+  StyleSheet,
+  View,
+  SafeAreaView,
+  ScrollView,
+  RefreshControl,
+  LogBox,
+} from "react-native";
+import {
+  Button,
+  Input,
+  Datepicker,
+  Icon,
+  Text,
+  Divider,
+} from "@ui-kitten/components";
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
 import { BASE_URL } from "../config";
@@ -13,7 +28,9 @@ const CreateJob = () => {
   const isFocused = useIsFocused();
   // const [email, onChangeEmail] = React.useState(null);
   // const [password, onChangePassword] = React.useState(null);
-
+  LogBox.ignoreLogs([
+    "VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.",
+  ]);
   //syntax: textValue var and useState var?
   const [notes, onChangeNotes] = useState("");
   const [type, onChangeType] = useState("");
@@ -21,22 +38,28 @@ const CreateJob = () => {
   const [dateStart, onChangeDateStart] = useState(new Date());
   const [dateEnd, onChangeDateEnd] = useState(new Date());
   const [visible, onChangeVisible] = useState(false);
-
+  const [aitems, asetItems] = useState([]);
+  const [bitems, bsetItems] = useState([]);
   //dropdown
-  let state1 = { clients: [] };
-  let state2 = { techs: [] };
-
   const [client, setclient] = useState(null);
   const [aopen, asetOpen] = useState(false);
   const [bopen, bsetOpen] = useState(false);
 
   const [tech, setTech] = useState(null);
+  const [refreshing, setRefreshing] = React.useState(false);
+  const wait = (timeout) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   useEffect(() => {
     if (isFocused) {
       getCE();
     }
-  }, [isFocused]);
+  }, [refreshing]);
 
   const getCE = async () => {
     const token1 = await AsyncStorage.getItem("AccessToken");
@@ -46,6 +69,7 @@ const CreateJob = () => {
         headers: { token: token1 },
       })
       .then((res1) => {
+        let state2 = { techs: [] };
         //console.log(res1)
         for (let i = 0; i < res1.data.length; i++) {
           //console.log(res1.data[i].name, res1.data[i].employeeID)
@@ -54,6 +78,7 @@ const CreateJob = () => {
             value: res1.data[i].employeeID,
           });
         }
+        bsetItems((prev) => state2.techs);
 
         //console.log(token1)
         axios
@@ -61,6 +86,8 @@ const CreateJob = () => {
             headers: { token: token1 },
           })
           .then((res2) => {
+            let state1 = { clients: [] };
+
             //console.log(res2)
             for (let i = 0; i < res2.data.length; i++) {
               //console.log(res2.data[i].name, res2.data[i].clientID)
@@ -69,14 +96,12 @@ const CreateJob = () => {
                 value: res2.data[i].clientID,
               });
             }
+            asetItems((prev) => state1.clients);
           })
           .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   };
-
-  const [aitems, asetItems] = useState(state1.clients);
-  const [bitems, bsetItems] = useState(state2.techs);
 
   return (
     <SafeAreaView style={styles.centered}>
@@ -84,158 +109,172 @@ const CreateJob = () => {
         <AddClient onChangeVisible={onChangeVisible} />
       </Modal>
 
-      <Text category={"h5"} style={{ marginTop: 30, margin: 10, marginBottom: 0 }}>Job Details</Text>
-      <Divider style={{ marginBottom: 15, }} />
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <Text
+          category={"h5"}
+          style={{ marginTop: 30, margin: 10, marginBottom: 0 }}
+        >
+          Job Details
+        </Text>
+        <Divider style={{ marginBottom: 15 }} />
 
+        {/* <Text>Client</Text> */}
+        <View style={{ flexDirection: "row", zIndex: 2 }}>
+          <View style={{ width: "90%" }}>
+            <DropDownPicker
+              style={styles.dropdown}
+              open={aopen}
+              value={client}
+              items={aitems}
+              setOpen={asetOpen}
+              setValue={setclient}
+              setItems={asetItems}
+              placeholder={"Select a Client"}
+              searchable={true}
+            />
+          </View>
 
-      {/* <Text>Client</Text> */}
-      <View style={{ flexDirection: "row", zIndex: 2 }}>
-        <View style={{ width: "90%" }}>
+          <Button
+            status="success"
+            style={{
+              width: "8%",
+              height: "50%",
+              marginTop: 15,
+            }}
+            onPress={() => onChangeVisible(true)}
+            accessoryRight={<Icon name={"plus-outline"} />}
+          />
+          <View style={{ width: "2%" }} />
+        </View>
+        <View style={{ width: "101%", zIndex: 1 }}>
           <DropDownPicker
             style={styles.dropdown}
-            open={aopen}
-            value={client}
-            items={aitems}
-            setOpen={asetOpen}
-            setValue={setclient}
-            setItems={asetItems}
-            placeholder={"Select a Client"}
+            open={bopen}
+            value={tech}
+            items={bitems}
+            setOpen={bsetOpen}
+            setValue={setTech}
+            setItems={bsetItems}
+            placeholder={"Select Employee"}
             searchable={true}
           />
         </View>
 
-        <Button
-          status="success"
-          style={{
-            width: "8%",
-            height: "50%",
-            marginTop: 15,
-          }}
-          onPress={() => onChangeVisible(true)}
-          accessoryRight={<Icon name={"plus-outline"} />}
-        />
-        <View style={{ width: "2%" }} />
-      </View>
-      <View style={{ width: "101%", zIndex: 1 }}>
-        <DropDownPicker
-          style={styles.dropdown}
-          open={bopen}
-          value={tech}
-          items={bitems}
-          setOpen={bsetOpen}
-          setValue={setTech}
-          setItems={bsetItems}
-          placeholder={"Select Employee"}
-          searchable={true}
-        />
-      </View>
+        <Divider style={{ marginTop: 15 }} />
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <Input
+            label={(evaProps) => <Text {...evaProps}>Note</Text>}
+            style={styles.input}
+            onChangeText={onChangeNotes}
+            value={notes}
+            placeholder={""}
+            placeholderTextColor={"black"}
+          />
+          <Input
+            label={(evaProps) => (
+              <Text {...evaProps}>Brand/Type of Appliance</Text>
+            )}
+            style={styles.input}
+            onChangeText={onChangeType}
+            value={type}
+            placeholder={""}
+            placeholderTextColor={"black"}
+          />
+          {/* <Text>Problem</Text> */}
+          <Input
+            label={(evaProps) => <Text {...evaProps}>Problem</Text>}
+            style={styles.input}
+            onChangeText={onChangeProblem}
+            value={problem}
+            placeholder={""}
+            placeholderTextColor={"black"}
+          />
+        </View>
 
-      <Divider style={{ marginTop: 15 }} />
-      <View style={{ justifyContent: "center", alignItems: "center", }}>
+        <Divider style={{ marginTop: 30 }} />
 
-        <Input
-          label={(evaProps) => <Text {...evaProps}>Note</Text>}
-          style={styles.input}
-          onChangeText={onChangeNotes}
-          value={notes}
-          placeholder={""}
-          placeholderTextColor={"black"}
-        />
-        <Input
-          label={(evaProps) => <Text {...evaProps}>Brand/Type of Appliance</Text>}
-          style={styles.input}
-          onChangeText={onChangeType}
-          value={type}
-          placeholder={""}
-          placeholderTextColor={"black"}
-        />
-        {/* <Text>Problem</Text> */}
-        <Input
-          label={(evaProps) => <Text {...evaProps}>Problem</Text>}
-          style={styles.input}
-          onChangeText={onChangeProblem}
-          value={problem}
-          placeholder={""}
-          placeholderTextColor={"black"}
-        />
-      </View>
-
-      <Divider style={{ marginTop: 30 }} />
-
-      <View style={{ justifyContent: "center", alignItems: "center", }}>
-        <Datepicker
-          label={(evaProps) => <Text {...evaProps}>Start Date</Text>}
-          style={{
-            width: "103%",
-            borderRadius: 10,
-            // margin:12,
-            padding: 15,
-            borderColor: "grey",
-          }}
-          date={dateStart}
-          onSelect={(nextDate) => onChangeDateStart(nextDate)}
-        />
-        {/* <Text>End Date</Text> */}
-        <Datepicker
-          label={(evaProps) => <Text {...evaProps}>End Date</Text>}
-          style={{
-            width: "103%",
-            borderRadius: 10,
-            margin: -25,
-            padding: 15,
-            borderColor: "grey",
-
-          }}
-          date={dateEnd}
-          onSelect={(nextDate) => onChangeDateEnd(nextDate)}
-        />
-        <Button
-          title={"Assign New Job"}
-          status="success"
-          style={{ marginTop: 20, alignItems: "center" }}
-          onPress={async () => {
-            let des =
-              "Note: " +
-              notes +
-              "\nBrand/Type: " +
-              type +
-              "\nProblem: " +
-              problem;
-            let start = `${dateStart.getFullYear()}-${dateStart.getMonth() + 1
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <Datepicker
+            label={(evaProps) => <Text {...evaProps}>Start Date</Text>}
+            style={{
+              width: "103%",
+              borderRadius: 10,
+              // margin:12,
+              padding: 15,
+              borderColor: "grey",
+            }}
+            date={dateStart}
+            onSelect={(nextDate) => onChangeDateStart(nextDate)}
+          />
+          {/* <Text>End Date</Text> */}
+          <Datepicker
+            label={(evaProps) => <Text {...evaProps}>End Date</Text>}
+            style={{
+              width: "103%",
+              borderRadius: 10,
+              margin: -25,
+              padding: 15,
+              borderColor: "grey",
+            }}
+            date={dateEnd}
+            onSelect={(nextDate) => onChangeDateEnd(nextDate)}
+          />
+          <Button
+            title={"Assign New Job"}
+            status="success"
+            style={{ marginTop: 20, alignItems: "center", marginBottom: 200 }}
+            onPress={async () => {
+              let des =
+                "Note: " +
+                notes +
+                "\nBrand/Type: " +
+                type +
+                "\nProblem: " +
+                problem;
+              let start = `${dateStart.getFullYear()}-${
+                dateStart.getMonth() + 1
               }-${dateStart.getDate()}`;
-            let end = `${dateEnd.getFullYear()}-${dateEnd.getMonth() + 1
+              let end = `${dateEnd.getFullYear()}-${
+                dateEnd.getMonth() + 1
               }-${dateEnd.getDate()}`;
-            //console.log(tech, client, start, end)
-            axios
-              .post(
-                BASE_URL + "/assign_job/" + client + "/" + tech,
-                { dateStart: start, dateEnd: end, description: des },
-                {
-                  headers: { token: await AsyncStorage.getItem("AccessToken") },
-                }
-              )
-              .then((res) => {
-                //console.log(res)
-                if (res.status == 200) {
-                  showMessage({
-                    message: res.data,
-                    backgroundColor: "green",
-                    type: "success",
-                  });
-                } else {
-                  showMessage({
-                    message: res.data,
-                    backgroundColor: "red",
-                    type: "error",
-                  });
-                }
-              })
-              .catch((err) => console.log(err));
-          }}
-        >
-          Assign New Job
-        </Button>
-      </View>
+              //console.log(tech, client, start, end)
+              axios
+                .post(
+                  BASE_URL + "/assign_job/" + client + "/" + tech,
+                  { dateStart: start, dateEnd: end, description: des },
+                  {
+                    headers: {
+                      token: await AsyncStorage.getItem("AccessToken"),
+                    },
+                  }
+                )
+                .then((res) => {
+                  //console.log(res)
+                  if (res.status == 200) {
+                    showMessage({
+                      message: res.data,
+                      backgroundColor: "green",
+                      type: "success",
+                    });
+                  } else {
+                    showMessage({
+                      message: res.data,
+                      backgroundColor: "red",
+                      type: "error",
+                    });
+                  }
+                })
+                .catch((err) => console.log(err));
+            }}
+          >
+            Assign New Job
+          </Button>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -274,8 +313,7 @@ const styles = StyleSheet.create({
   view: {
     justifyContent: "center",
     alignItems: "center",
-
-  }
+  },
 });
 
 export default CreateJob;

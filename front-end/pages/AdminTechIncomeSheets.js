@@ -7,7 +7,7 @@ import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import IncomeDetail from "./IncomeDetail";
 
-export default AdminTechIncomeSheets = ({ employeeID }) => {
+export default function AdminTechIncomeSheets ({ employeeID})  {
   //const navigation = useNavigation();
   const [incomeData, setIncomeData] = useState([]);
   const [visible, setVisible] = useState(false);

@@ -3,33 +3,31 @@ import { StyleSheet, Image, ScrollView, WebView } from "react-native";
 import axios from "axios";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  Button,
-  Layout,
-  Text,
-  Divider,
-} from "@ui-kitten/components";
+import { Button, Layout, Text, Divider } from "@ui-kitten/components";
 import * as MediaLibrary from "expo-media-library";
-import * as FileSystem from 'expo-file-system';
-import { StorageAccessFramework } from 'expo-file-system';
-import {showMessage} from "react-native-flash-message";
-
-
+import * as FileSystem from "expo-file-system";
+import { StorageAccessFramework } from "expo-file-system";
+import { showMessage } from "react-native-flash-message";
 
 const InvoiceDetail = ({ item, setVisible }) => {
-
   const [imageSource, Setsource] = useState("");
 
-  useEffect(() => { getInvoice(); }, [setVisible]);
+  useEffect(() => {
+    getInvoice();
+  }, [setVisible]);
 
   const DeleteInvoice = async () => {
     const token1 = await AsyncStorage.getItem("AccessToken");
     //console.log(token1)
 
     axios
-      .post(BASE_URL + "/delete_invoice/" + item["invoiceID"].toString(),{}, {
-        headers: { token: token1 }
-      })
+      .post(
+        BASE_URL + "/delete_invoice/" + item["invoiceID"].toString(),
+        {},
+        {
+          headers: { token: token1 },
+        }
+      )
       .then(async (res1) => {
         if (res1.status === 200) {
           showMessage({
@@ -44,7 +42,7 @@ const InvoiceDetail = ({ item, setVisible }) => {
             type: "error",
           });
         }
-      })
+      });
   };
 
   const getInvoice = async () => {
@@ -52,13 +50,16 @@ const InvoiceDetail = ({ item, setVisible }) => {
     //console.log(token1)
 
     axios
-      .get(BASE_URL + "/get_invoice/" + item["invoiceID"].toString() + "/base64", {
-        headers: { token: token1, responseType: 'arraybuffer' }
-      })
+      .get(
+        BASE_URL + "/get_invoice/" + item["invoiceID"].toString() + "/base64",
+        {
+          headers: { token: token1, responseType: "arraybuffer" },
+        }
+      )
       .then(async (res1) => {
         //console.log(res1.data)
-        Setsource(res1.data)
-      })
+        Setsource(res1.data);
+      });
   };
 
   const saveImage = async () => {
@@ -66,7 +67,11 @@ const InvoiceDetail = ({ item, setVisible }) => {
       // Request device storage access permission
       const { status } = await MediaLibrary.requestPermissionsAsync();
       if (status === "granted") {
-        const filename = FileSystem.documentDirectory + "invoice_" + item["invoiceID"] + ".jpg";
+        const filename =
+          FileSystem.documentDirectory +
+          "invoice_" +
+          item["invoiceID"] +
+          ".jpg";
         await FileSystem.writeAsStringAsync(filename, imageSource, {
           encoding: FileSystem.EncodingType.Base64,
         });
@@ -78,8 +83,6 @@ const InvoiceDetail = ({ item, setVisible }) => {
           type: "success",
         });
       }
-
-
     } catch (error) {
       showMessage({
         message: error,
@@ -99,31 +102,28 @@ const InvoiceDetail = ({ item, setVisible }) => {
           style={{ resizeMode: "contain", width: 400, height: 500 }}
         />
 
-        <Button status='success' onPress={() => saveImage()}>
+        <Button status="success" onPress={() => saveImage()}>
           Save
         </Button>
 
-        <Button status='danger' onPress={() => DeleteInvoice()}>
+        <Button status="danger" onPress={() => DeleteInvoice()}>
           Delete
         </Button>
 
         <Button onPress={() => setVisible(false)} appearance={"ghost"}>
           Back
         </Button>
-
       </ScrollView>
-
     </Layout>
-  )
-
-}
+  );
+};
 
 const styles = StyleSheet.create({
   page: {
     justifyContent: "center",
     alignContent: "center",
     backgroundColor: "white",
-    marginTop: "40%",
+    marginTop: "10%",
     borderRadius: 20,
     padding: 35,
     shadowColor: "#000",
@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
   },
   zoomableView: {
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
 });
 
-export default InvoiceDetail
+export default InvoiceDetail;

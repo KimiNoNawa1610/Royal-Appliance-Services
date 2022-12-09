@@ -102,7 +102,7 @@ const AddClient = ({ onChangeVisible }) => {
 const styles = StyleSheet.create({
   page: {
     backgroundColor: "white",
-    marginTop: "50%",
+    marginTop: "10%",
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
