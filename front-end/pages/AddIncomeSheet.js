@@ -6,6 +6,12 @@ import axios from "axios";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
+/*
+AddIncomeSheet window
+
+a form for user to fill out the new income information and trigger the backend to add to the database
+*/
 const AddIncomeSheet = ({ onAddVisible }) => {
   let [Total, setTotal] = useState(0);
   let [my_part, setMyPart] = useState(0);
@@ -18,6 +24,7 @@ const AddIncomeSheet = ({ onAddVisible }) => {
   let [Installed_part, setInstalledPart] = useState("");
   let [Paid_by, setPaidBy] = useState("");
 
+  //function
   const onSave = async () => {
     let sendJSON = {
       total: Total,
@@ -74,6 +81,8 @@ const AddIncomeSheet = ({ onAddVisible }) => {
       .catch((err) => console.log(err));
   };
 
+
+  //User Interface
   return (
     <Layout style={styles.page}>
       <Text category={"h1"}>Add Income Sheet</Text>

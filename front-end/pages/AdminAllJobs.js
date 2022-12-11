@@ -3,6 +3,7 @@ import { StyleSheet, View, Image } from "react-native";
 import { Button, Layout, Card, Text } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
 
+
 export default function AdminAllJobs({ navigation }) {
   //const navigation = useNavigation();
 

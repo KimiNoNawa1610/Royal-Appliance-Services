@@ -14,6 +14,12 @@ import axios from "axios";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+/*
+add client window
+
+a form for user to fill out the new client information and trigger add client 
+request in the backend.
+*/
 const AddClient = ({ onChangeVisible }) => {
   let [Name, setName] = useState("");
   let [Note, setNote] = useState("");
@@ -21,6 +27,7 @@ const AddClient = ({ onChangeVisible }) => {
   let [Phone, setPhone] = useState("");
   let [Email, setEmail] = useState("");
 
+  //save function
   const onSave = async () => {
     let sendJSON = {
       name: Name,
@@ -51,6 +58,8 @@ const AddClient = ({ onChangeVisible }) => {
       .catch((err) => console.log(err));
   };
 
+
+  //user interface
   return (
     <Layout style={styles.page}>
       <View style={{ flexDirection: "row" }}>

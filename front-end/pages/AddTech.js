@@ -14,6 +14,12 @@ import axios from "axios";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+/*
+AddTech window
+
+a form for user to fill out the new employee information and trigger add new employee 
+request in the backend.
+*/
 const AddTech = ({ setAddEmpVisible }) => {
   const [techName, setTechName] = useState("");
   const [techEmail, setTechEmail] = useState("");
@@ -21,6 +27,7 @@ const AddTech = ({ setAddEmpVisible }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const prevCryptPass = "";
 
+  //Function
   const onSave = async () => {
     let sendJSON;
     if (techNewPass) {
@@ -71,6 +78,7 @@ const AddTech = ({ setAddEmpVisible }) => {
     setAddEmpVisible(false);
   };
 
+  //User Interface
   return (
     <View style={styles.main}>
       <View style={styles.page}>
