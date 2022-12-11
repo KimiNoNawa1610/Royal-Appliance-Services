@@ -10,7 +10,17 @@ import { SafeAreaView, StyleSheet, Image } from "react-native";
 import InvoiceCreation from "./Invoice Creation";
 const { Navigator, Screen } = createDrawerNavigator();
 
+/**
+ * The component portion fo the Drawer component
+ * @param navigation
+ * @param state
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const DrawerContent = ({ navigation, state }) => {
+  /**
+   * A callback function handling whenever the user logs out.
+   */
   const handleLogOut = () => {
     AsyncStorage.removeItem("AccessToken").then(navigation.navigate("Login"));
   };
@@ -57,13 +67,18 @@ const DrawerContent = ({ navigation, state }) => {
   );
 };
 
+/**
+ * The navigation portion of the Technician Drawer where it takes in the Drawer components and maps out their navigation configs.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const TechDrawerNavigator = () => {
   return (
     <Navigator drawerContent={(props) => <DrawerContent {...props} />}>
       <Screen name="Dashboard" component={TechDashBoard} />
       <Screen name="Net Income" component={TechATM} />
       <Screen name="Invoice Creation" component={InvoiceCreation} />
-      <Screen name="Logout" component={Login}/>
+      <Screen name="Logout" component={Login} />
     </Navigator>
   );
 };

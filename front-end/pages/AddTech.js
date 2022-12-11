@@ -14,9 +14,8 @@ import axios from "axios";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-/*
+/**
 AddTech window
-
 a form for user to fill out the new employee information and trigger add new employee 
 request in the backend.
 */
@@ -27,7 +26,10 @@ const AddTech = ({ setAddEmpVisible }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const prevCryptPass = "";
 
-  //Function
+  /**
+   * Callback function for when the "Save" button is clicked to create a new employee
+   * @returns {Promise<void>}
+   */
   const onSave = async () => {
     let sendJSON;
     if (techNewPass) {
@@ -70,13 +72,13 @@ const AddTech = ({ setAddEmpVisible }) => {
       .catch((err) => console.log(err));
   };
 
+  /**
+   * Callback function to change the state of isChecked
+   * @param isChecked
+   */
   function onCheckedChange(isChecked) {
     setIsAdmin(isChecked);
   }
-
-  const onExit = () => {
-    setAddEmpVisible(false);
-  };
 
   //User Interface
   return (

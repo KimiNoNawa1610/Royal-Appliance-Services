@@ -7,18 +7,24 @@ import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import IncomeDetail from "./IncomeDetail";
 
-export default function AdminTechIncomeSheets ({ employeeID})  {
-  //const navigation = useNavigation();
+export default function AdminTechIncomeSheets({ employeeID }) {
   const [incomeData, setIncomeData] = useState([]);
   const [visible, setVisible] = useState(false);
   const [modalData, setModalData] = useState();
   let total_net = 0;
   const [totalnet, setTotalNet] = useState(0);
 
+  /**
+   * A React useEffect that gets the incomes of technicians depending on if the modal view has changed or when the employee selection has changed.
+   */
   useEffect(() => {
     getIncomes();
   }, [visible, employeeID]);
 
+  /**
+   * The fetch function getting the income of a specific employee by their identification number.
+   * @returns {Promise<void>}
+   */
   const getIncomes = async () => {
     const token1 = await AsyncStorage.getItem("AccessToken");
     axios
@@ -50,7 +56,16 @@ export default function AdminTechIncomeSheets ({ employeeID})  {
       .catch((err) => console.log(err));
   };
 
+  /**
+   * A custom component taking in a prop of a technician and rendering out their total income.
+   * @param item
+   * @returns {JSX.Element}
+   * @constructor
+   */
   const IncomeRender = ({ item }) => {
+    /**
+     * A callback function for when the user clicks on a specific invoice detail. The modal with the details is shown.
+     */
     const handlePress = () => {
       setModalData((prev) => item);
       setVisible(true);
@@ -92,7 +107,7 @@ export default function AdminTechIncomeSheets ({ employeeID})  {
       </Text>
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: "#fff" },

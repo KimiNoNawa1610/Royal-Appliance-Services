@@ -8,6 +8,11 @@ import { BASE_URL } from "../config";
 import axios from "axios";
 import { showMessage } from "react-native-flash-message";
 
+/**
+ * The Login page for the app. Will direct the user either to the Admin or Technician experience.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Login = () => {
   const [email, setEmail] = useState("");
   const [seePassword, setSeePassword] = useState(true);

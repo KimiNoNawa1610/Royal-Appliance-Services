@@ -24,10 +24,13 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { showMessage } from "react-native-flash-message";
 import AddClient from "./AddClient";
 
+/**
+ * The page component that would generate a new job appointment
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const CreateJob = () => {
   const isFocused = useIsFocused();
-  // const [email, onChangeEmail] = React.useState(null);
-  // const [password, onChangePassword] = React.useState(null);
   LogBox.ignoreLogs([
     "VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.",
   ]);
@@ -47,13 +50,27 @@ const CreateJob = () => {
 
   const [tech, setTech] = useState(null);
   const [refreshing, setRefreshing] = React.useState(false);
+
+  /**
+   * Wait function for the user to assume the data is being loaded
+   * @param timeout
+   * @returns {Promise<unknown>}
+   */
   const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout));
   };
+  /**
+   * A custom callback function that cycles the refreshing state so that a future useEffect can be called.
+   * @type {(function(): void)|*}
+   */
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
+
+  /**
+   * A React useEffect that is called whenever the refreshing state is changed.
+   */
 
   useEffect(() => {
     if (isFocused) {
@@ -61,6 +78,10 @@ const CreateJob = () => {
     }
   }, [refreshing]);
 
+  /**
+   * A fetch function that gets all employees and all clients from the database.
+   * @returns {Promise<void>}
+   */
   const getCE = async () => {
     const token1 = await AsyncStorage.getItem("AccessToken");
     //console.log(token1)
@@ -254,7 +275,7 @@ const CreateJob = () => {
                 )
                 .then((res) => {
                   //console.log(res)
-                  if (res.status == 200) {
+                  if (res.status === 200) {
                     showMessage({
                       message: res.data,
                       backgroundColor: "green",

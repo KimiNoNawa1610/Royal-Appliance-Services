@@ -9,13 +9,28 @@ import * as FileSystem from "expo-file-system";
 import { StorageAccessFramework } from "expo-file-system";
 import { showMessage } from "react-native-flash-message";
 
+/**
+ * A custom React component that renders a certain amount invoice details based on the item JSON
+ * @param item
+ * @param setVisible
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const InvoiceDetail = ({ item, setVisible }) => {
   const [imageSource, Setsource] = useState("");
 
+  /**
+   * A React useEffect that is called whenever the modal is visible or not.
+   */
   useEffect(() => {
     getInvoice();
   }, [setVisible]);
 
+  /**
+   * An Axios function that deletes a specific invoice
+   * @returns {Promise<void>}
+   * @constructor
+   */
   const DeleteInvoice = async () => {
     const token1 = await AsyncStorage.getItem("AccessToken");
     //console.log(token1)
@@ -45,6 +60,10 @@ const InvoiceDetail = ({ item, setVisible }) => {
       });
   };
 
+  /**
+   * An Axios function that receives a specific invoice
+   * @returns {Promise<void>}
+   */
   const getInvoice = async () => {
     const token1 = await AsyncStorage.getItem("AccessToken");
     //console.log(token1)
@@ -62,6 +81,10 @@ const InvoiceDetail = ({ item, setVisible }) => {
       });
   };
 
+  /**
+   * A callback function that handles the saving of an invoice image to the machine's local storage.
+   * @returns {Promise<void>}
+   */
   const saveImage = async () => {
     try {
       // Request device storage access permission

@@ -15,6 +15,11 @@ import { DataTable } from "react-native-paper";
 import InvoiceDetail from "./InvoiceDetail";
 import { showMessage } from "react-native-flash-message";
 
+/**
+ * THe page for the admin to view invoices.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const AdminViewInvoice = () => {
   const isFocused = useIsFocused();
   const [dateStart, onChangeDateStart] = useState(new Date());
@@ -23,12 +28,19 @@ const AdminViewInvoice = () => {
   const [invoiceData, setInvoiceData] = useState([]);
   const [visible, setVisible] = useState(false);
 
+  /**
+   * A React useEffect that is called whenever the screen is in focus or when the date has been changed.
+   */
   useEffect(() => {
     if (isFocused) {
       getInvoices();
     }
   }, [isFocused, dateStart, dateEnd]);
 
+  /**
+   * A fetch function getting the invoices for a specific user.
+   * @returns {Promise<void>}
+   */
   const getInvoices = async () => {
     const token1 = await AsyncStorage.getItem("AccessToken");
     //console.log(token1)
@@ -49,6 +61,12 @@ const AdminViewInvoice = () => {
       .catch((err) => console.log(err));
   };
 
+  /**
+   * Renders the one invoice with a given invoice JSON that was fetched earlier.
+   * @param item
+   * @returns {JSX.Element}
+   * @constructor
+   */
   const InvoiceRender = ({ item }) => {
     const handlePress = () => {
       setModalData(item);

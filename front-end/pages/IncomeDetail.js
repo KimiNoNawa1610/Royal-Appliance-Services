@@ -2,6 +2,13 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { Button, Layout, Text, Divider } from "@ui-kitten/components";
 
+/**
+ * A custom React component that renders a certain amount income details based on the item JSON
+ * @param item {Object}
+ * @param setVisible
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const IncomeDetail = ({ item, setVisible }) => {
   return (
     <Layout style={styles.page}>

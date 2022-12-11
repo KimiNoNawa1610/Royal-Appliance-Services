@@ -16,6 +16,11 @@ import axios from "axios";
 import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+/**
+ * The Invoice Creation page for when a user wants to create a new user.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const InvoiceCreation = () => {
   const data = ["Visa", "Mastercard", "AMEX", "Discover"];
 
@@ -37,13 +42,17 @@ const InvoiceCreation = () => {
     card_type: "Visa",
     date: `${date.toString()}}`,
   });
-  //Example for parts JSON
-  // [ {  quantity: 100, part_material, "Part /  Material", cost: 100.20 }, ..., { }  ]
 
+  /**
+   * A callback function that is called when the user pressed the "Submit" button
+   * @returns {Promise<void>}
+   */
   const handleSend = async () => {
     sendJSON["part_rows"] = partsJSON;
-    sendJSON["date"] = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-    sendJSON["signature"] = sendJSON["customer_name"]
+    sendJSON["date"] = `${date.getFullYear()}-${
+      date.getMonth() + 1
+    }-${date.getDate()}`;
+    sendJSON["signature"] = sendJSON["customer_name"];
     console.log(sendJSON);
 
     axios
@@ -68,8 +77,19 @@ const InvoiceCreation = () => {
       .catch((err) => console.log(err));
   };
 
+  /**
+   * Renders what should be displayed on the dropdown box for credit card network types
+   * @param item
+   * @param i
+   * @returns {JSX.Element}
+   */
   const renderOption = (item, i) => <SelectItem key={i} title={item} />;
 
+  /**
+   * A component rendering specifically the parts and materials of an invoice
+   * @returns {JSX.Element}
+   * @constructor
+   */
   const AllPartsAndMaterials = () => {
     return (
       <Layout>
@@ -233,7 +253,7 @@ const InvoiceCreation = () => {
               date={date}
               onSelect={(nextDate) => {
                 setDate(nextDate);
-                sendJSON["date"] = nextDate
+                sendJSON["date"] = nextDate;
               }}
             />
             <Input

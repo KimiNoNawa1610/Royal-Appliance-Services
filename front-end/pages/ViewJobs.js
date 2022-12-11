@@ -7,6 +7,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import ViewJobDetail from "./ViewJobDetail";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 
+/**
+ * A component representing the scrollable portion in the TechDashoard
+ * @param start
+ * @param end
+ * @param iscompleted
+ * @param refreshing
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ViewJobs = ({ start, end, iscompleted, refreshing }) => {
   const [jobData, setjobData] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -14,7 +23,14 @@ const ViewJobs = ({ start, end, iscompleted, refreshing }) => {
   const finish = { true: "Completed", false: "Incompleted" };
   let count = 0;
 
+  /**
+   * A React useEffect that is called whenever the modal is in view or when the page is refreshing.
+   */
   useEffect(() => {
+    /**
+     * An Axios function grabbing the details of a specific employee.
+     * @returns {Promise<void>}
+     */
     const getJobs = async () => {
       console.log(start);
       console.log(end);
@@ -57,12 +73,23 @@ const ViewJobs = ({ start, end, iscompleted, refreshing }) => {
     getJobs();
   }, [visible, refreshing]);
 
+  /**
+   * A child component of the List component that renders the details of one job.
+   * @param item
+   * @returns {JSX.Element}
+   * @constructor
+   */
   const JobRender = ({ item }) => {
     const handleEditPress = () => {
       setModalData(item);
       setVisible(true);
     };
 
+    /**
+     * The footer for the card portion -- It holds a button to see the details.
+     * @returns {JSX.Element}
+     * @constructor
+     */
     const Footer = () => {
       return <Button onPress={handleEditPress}>DETAILS</Button>;
     };

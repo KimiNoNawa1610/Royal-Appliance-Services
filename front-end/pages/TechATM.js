@@ -7,10 +7,13 @@ import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import IncomeDetail from "./IncomeDetail";
 import AddIncomeSheet from "./AddIncomeSheet";
-//import { getJobs} from "./apiCaller.js";
 
-export default TechATM = () => {
-  //const navigation = useNavigation();
+/**
+ * A React Native page for the Technician income render screen.
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export default function TechATM() {
   const [incomeData, setIncomeData] = useState([]);
   const [visible, setVisible] = useState(false);
   const [modalData, setModalData] = useState();
@@ -18,10 +21,17 @@ export default TechATM = () => {
   let total_net = 0;
   const [totalnet, setTotalNet] = useState(0);
 
+  /**
+   * A React useEffect that is called whenever either of the two modals are in view
+   */
   useEffect(() => {
     getIncomes();
   }, [visible, addvisible]);
 
+  /**
+   * An Axios function to grab the income of a specific Employee.
+   * @returns {Promise<void>}
+   */
   const getIncomes = async () => {
     const token1 = await AsyncStorage.getItem("AccessToken");
     const name = await AsyncStorage.getItem("name");
@@ -63,6 +73,12 @@ export default TechATM = () => {
       .catch((err) => console.log(err));
   };
 
+  /**
+   * A React component that will render the specific income of a technician.
+   * @param item
+   * @returns {JSX.Element}
+   * @constructor
+   */
   const IncomeRender = ({ item }) => {
     const handlePress = () => {
       setModalData(item);
@@ -123,7 +139,7 @@ export default TechATM = () => {
       </Modal>
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: "#fff" },

@@ -23,6 +23,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import EditTech from "./EditTech";
 import AddTech from "./AddTech";
 
+/**
+ * A page that is used to a list of all the employees in the database.
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ViewTechs = (props) => {
   const [techData, setTechData] = useState([]);
   const [addEmpVisible, setAddEmpVisible] = useState(false);
@@ -31,14 +37,26 @@ const ViewTechs = (props) => {
 
   const [refreshing, setRefreshing] = React.useState(false);
 
+  /**
+   * A wait function to wait two seconds.
+   * @param timeout
+   * @returns {Promise<unknown>}
+   */
   const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout));
   };
+  /**
+   * A callback function that resets the refreshing state
+   * @type {(function(): void)|*}
+   */
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
+  /**
+   * A React useEffect that is called whenever either add or edit modals are open or when the refreshing state is reset.
+   */
   useEffect(() => {
     const getTechs = async () => {
       const response = await axios.get(BASE_URL + "/get_all_employees/", {
@@ -50,12 +68,22 @@ const ViewTechs = (props) => {
     getTechs();
   }, [visible, addEmpVisible, refreshing]);
 
+  /**
+   * A child component of the List component of a specific technician.
+   * @param item
+   * @returns {JSX.Element}
+   * @constructor
+   */
   const TechRender = ({ item }) => {
     const handleEditPress = () => {
       setModalData(item);
       setVisible(true);
     };
-
+    /**
+     * The footer component of the Card component
+     * @returns {JSX.Element}
+     * @constructor
+     */
     const Footer = () => {
       return (
         <Button
@@ -77,6 +105,9 @@ const ViewTechs = (props) => {
     );
   };
 
+  /**
+   * Callback function for when the "Add Technician" Button
+   */
   const handleAddTech = () => {
     setAddEmpVisible(true);
   };

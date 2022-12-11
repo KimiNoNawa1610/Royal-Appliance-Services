@@ -15,6 +15,13 @@ import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 
+/**
+ * The View job detail modal that is called in Admin Dashboard or Tech Dashboard.
+ * @param item
+ * @param setVisible
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ViewJobDetail = ({ item, setVisible }) => {
   const job = item;
   const [isFinished, setIsFinished] = useState(job["isCompleted"]);
@@ -32,6 +39,11 @@ const ViewJobDetail = ({ item, setVisible }) => {
       console.log(error);
     }
   };
+
+  /**
+   * A callback function that saves the new Job Details.
+   * @returns {Promise<void>}
+   */
 
   const onSave = async () => {
     axios
@@ -64,6 +76,10 @@ const ViewJobDetail = ({ item, setVisible }) => {
       .catch((err) => console.log(err));
   };
 
+  /**
+   * Checks if there has been a change in details
+   * @param isChecked
+   */
   function onCheckedChange(isChecked) {
     setIsFinished(isChecked);
   }

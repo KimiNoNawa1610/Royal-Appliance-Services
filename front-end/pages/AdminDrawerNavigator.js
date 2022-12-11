@@ -14,7 +14,17 @@ import TechDashBoard from "./TechDashboard";
 import TechATM from "./TechATM";
 const { Navigator, Screen } = createDrawerNavigator();
 
+/**
+ * The Admin experience for this application is contained within this drawer. It allows for navigation between the different pages an admin would need.
+ * @param navigation
+ * @param state
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const DrawerContent = ({ navigation, state }) => {
+  /**
+   * Callback function for when the user would logout from their session.
+   */
   const handleLogOut = () => {
     AsyncStorage.removeItem("AccessToken").then(navigation.navigate("Login"));
   };
@@ -43,7 +53,7 @@ const DrawerContent = ({ navigation, state }) => {
           title="Calendar"
           accessoryRight={<Icon name={"home-outline"} />}
         />
-         <DrawerItem
+        <DrawerItem
           title="My Jobs"
           accessoryRight={<Icon name={"briefcase-outline"} />}
         />
@@ -67,7 +77,7 @@ const DrawerContent = ({ navigation, state }) => {
           title="Invoices"
           accessoryRight={<Icon name={"folder-outline"} />}
         />
-        
+
         <DrawerItem
           title="Net Income"
           accessoryRight={<Icon name={"file-outline"} />}
@@ -77,13 +87,16 @@ const DrawerContent = ({ navigation, state }) => {
           onPress={handleLogOut}
           accessoryRight={<Icon name={"log-out-outline"} />}
         />
-
-        
       </Drawer>
     </SafeAreaView>
   );
 };
 
+/**
+ * The actual navigation portion of the drawer. It takes in the DrawerContent and maps it to the navigations listed. It must be a 1:1 config or else navigation will be unoptimized.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const AdminDrawerNavigator = () => {
   return (
     <Navigator drawerContent={(props) => <DrawerContent {...props} />}>

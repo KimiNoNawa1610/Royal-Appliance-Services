@@ -14,6 +14,13 @@ import { BASE_URL } from "../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 
+/**
+ * The Edit Tech Modal that is called within the ViewTechs.js Component. It takes in
+ * @param item {Object} The technician to be edited
+ * @param setVisible {function} The React set function to set the visibility of the modal
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const EditTech = ({ item, setVisible }) => {
   const tech = item;
   let [techID, setTechID] = useState(tech["employeeID"]);
@@ -23,6 +30,10 @@ const EditTech = ({ item, setVisible }) => {
   const [isAdmin, setIsAdmin] = React.useState(tech["isAdmin"]);
   const prevCryptPass = tech["password"];
 
+  /**
+   * A callback function for when the "Delete" button is interacted with.
+   * @returns {Promise<void>}
+   */
   const onDelete = async () => {
     axios
       .post(
@@ -49,6 +60,10 @@ const EditTech = ({ item, setVisible }) => {
       .catch((err) => console.log(err));
   };
 
+  /**
+   * A callback function for when the "Delete" button is interacted with.
+   * @returns {Promise<void>}
+   */
   const onSave = async () => {
     let sendJSON;
     if (techNewPass) {
@@ -91,6 +106,11 @@ const EditTech = ({ item, setVisible }) => {
       })
       .catch((err) => console.log(err));
   };
+
+  /**
+   * A callback function for when the onCheckedChange is set.
+   * @param isChecked
+   */
 
   function onCheckedChange(isChecked) {
     setIsAdmin(isChecked);
