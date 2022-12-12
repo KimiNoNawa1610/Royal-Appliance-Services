@@ -23,5 +23,17 @@ To run:
 4. Launch the app with 'expo start'
 
 To run Backend API:
-1. Pip install all libraries under requirements.txt
-2. Launch with 'python3 app.py'
+1. Requriements that need to be installed:
+
+https://blog.alivate.com.au/poppler-windows/
+https://wkhtmltopdf.org/downloads.html
+https://www.python.org/downloads/
+2. After install popler-windows and wkhtmltopdf, make sure those bin folder path is in your environment path.
+
+3. Then download the source code
+
+4. Open a terminal in the code folder with vscode or pycharm:
+
+5. Type: pip install -r requirements.txt
+
+6. After that, if no error with the packages, you can run: python3 app.py to run the api
