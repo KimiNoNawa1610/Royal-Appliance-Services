@@ -24,13 +24,11 @@ To run:
 
 To run Backend API:
 1. Requriements that need to be installed:
+https://blog.alivate.com.au/poppler-windows/
 <br>
-*https://blog.alivate.com.au/poppler-windows/
+https://wkhtmltopdf.org/downloads.html
 <br>
-*https://wkhtmltopdf.org/downloads.html
-<br>
-*https://www.python.org/downloads/
-<br>
+https://www.python.org/downloads/
 2. After install popler-windows and wkhtmltopdf, make sure those bin folder path is in your environment path.
 
 3. Then download the source code
